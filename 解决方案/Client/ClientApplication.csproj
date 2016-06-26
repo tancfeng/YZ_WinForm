@@ -1,0 +1,596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{78AE604D-A302-45E3-98F2-A7BEE1D6B30F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SirdRoom.ManageSystem.ClientApplication</RootNamespace>
+    <AssemblyName>SRTEClient</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>PSvrAsst.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>SirdRoom.pfx</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SRSMSClient_Debug2</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IrisSkin2">
+      <HintPath>..\Resource\Dll\IrisSkin2.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\Resource\Dll\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Net20, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resource\Dll\Newtonsoft.Json.Net20.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Design">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ORM, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4a5c83801fcf7eea, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resource\Dll\System.ORM.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\ProcessHelper.cs" />
+    <Compile Include="Control\Browser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Browser.Designer.cs">
+      <DependentUpon>Browser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Browser1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Browser1.Designer.cs">
+      <DependentUpon>Browser1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\FormFile.cs" />
+    <Compile Include="Code\GU.cs" />
+    <Compile Include="Code\LogHelper.cs" />
+    <Compile Include="Code\MyItem.cs" />
+    <Compile Include="Code\SROperation.cs" />
+    <Compile Include="Code\SROperation2.cs" />
+    <Compile Include="Code\SRSMSFun.cs" />
+    <Compile Include="Control\Buttom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Buttom.Designer.cs">
+      <DependentUpon>Buttom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Center1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Center1.Designer.cs">
+      <DependentUpon>Center1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Center1ShowFilterByKeywordSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Center1ShowFilterByKeywordSetting.Designer.cs">
+      <DependentUpon>Center1ShowFilterByKeywordSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Center2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Center2.Designer.cs">
+      <DependentUpon>Center2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Keyword.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword.Designer.cs">
+      <DependentUpon>Keyword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\KeywordManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\KeywordManager.Designer.cs">
+      <DependentUpon>KeywordManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Left.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Left.Designer.cs">
+      <DependentUpon>Left.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ListViewDoubleBuffered.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\Tool.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Tool.Designer.cs">
+      <DependentUpon>Tool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\MyEventArgs.cs" />
+    <Compile Include="Control\MyProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\MyProgressBar.Designer.cs">
+      <DependentUpon>MyProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Right.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Right.Designer.cs">
+      <DependentUpon>Right.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\PagerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\PagerControl.designer.cs">
+      <DependentUpon>PagerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\RadioButtonList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\RadioButtonList.designer.cs">
+      <DependentUpon>RadioButtonList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Center2_1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Center2_1.Designer.cs">
+      <DependentUpon>Center2_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\WaitPic2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\WaitPic2.Designer.cs">
+      <DependentUpon>WaitPic2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\WaitPic.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\WaitPic.Designer.cs">
+      <DependentUpon>WaitPic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="D\Pages\Schedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="D\Pages\Schedule.designer.cs">
+      <DependentUpon>Schedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmFrame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFrame.Designer.cs">
+      <DependentUpon>FrmFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Else\Add.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Else\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Else\SetFolder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Else\SetFolder.Designer.cs">
+      <DependentUpon>SetFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Else\SetHide.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Else\SetHide.Designer.cs">
+      <DependentUpon>SetHide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Main.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\User\Add.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\User\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\User\List.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\User\List.Designer.cs">
+      <DependentUpon>List.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\User\PwdEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\User\PwdEdit.Designer.cs">
+      <DependentUpon>PwdEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Wordbook\Add.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\Wordbook\Add.Designer.cs">
+      <DependentUpon>Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Browser.resx">
+      <DependentUpon>Browser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Browser1.resx">
+      <DependentUpon>Browser1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Buttom.resx">
+      <DependentUpon>Buttom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Center1.resx">
+      <DependentUpon>Center1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Center1ShowFilterByKeywordSetting.resx">
+      <DependentUpon>Center1ShowFilterByKeywordSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Center2.resx">
+      <DependentUpon>Center2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword.resx">
+      <DependentUpon>Keyword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\KeywordManager.resx">
+      <DependentUpon>KeywordManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Left.resx">
+      <DependentUpon>Left.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Tool.resx">
+      <DependentUpon>Tool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\MyProgressBar.resx">
+      <DependentUpon>MyProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Right.resx">
+      <DependentUpon>Right.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\PagerControl.resx">
+      <DependentUpon>PagerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\RadioButtonList.resx">
+      <DependentUpon>RadioButtonList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Center2_1.resx">
+      <DependentUpon>Center2_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\WaitPic2.resx">
+      <DependentUpon>WaitPic2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\WaitPic.resx">
+      <DependentUpon>WaitPic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="D\Pages\Schedule.resx">
+      <DependentUpon>Schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmFrame.resx">
+      <DependentUpon>FrmFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Else\Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Else\SetFolder.resx">
+      <DependentUpon>SetFolder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Else\SetHide.resx">
+      <DependentUpon>SetHide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\User\Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\User\List.resx">
+      <DependentUpon>List.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\User\PwdEdit.resx">
+      <DependentUpon>PwdEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Wordbook\Add.resx">
+      <DependentUpon>Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SRFMessageBox.resx">
+      <DependentUpon>SRFMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Server\ArConvert.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Server\ClientEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Server\ClientThread.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Server\KKEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Server\Server2.cs" />
+    <Compile Include="Server\UnixTime.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SRFMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SRFMessageBox.Designer.cs">
+      <DependentUpon>SRFMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sort19.png" />
+    <None Include="Resources\default.png" />
+    <None Include="Resources\keywordFilter.png" />
+    <None Include="Resources\14_0.png" />
+    <None Include="Resources\14_1.png" />
+    <None Include="Resources\14_2.png" />
+    <None Include="Resources\1_1.png" />
+    <None Include="Resources\11.png" />
+    <None Include="Resources\11.ico" />
+    <None Include="Resources\114.png" />
+    <None Include="Resources\113.png" />
+    <None Include="Resources\13_2.png" />
+    <None Include="Resources\13_1.png" />
+    <None Include="Resources\13_0.png" />
+    <None Include="Resources\12_2.png" />
+    <None Include="Resources\12_1.png" />
+    <None Include="Resources\12_0.png" />
+    <None Include="Resources\11_2.png" />
+    <None Include="Resources\11_1.png" />
+    <None Include="Resources\11_0.png" />
+    <None Include="Resources\10_2.png" />
+    <None Include="Resources\10_1.png" />
+    <None Include="Resources\10_0.png" />
+    <None Include="Resources\9_2.png" />
+    <None Include="Resources\9_1.png" />
+    <None Include="Resources\9_0.png" />
+    <None Include="Resources\8_2.png" />
+    <None Include="Resources\8_1.png" />
+    <None Include="Resources\8_0.png" />
+    <None Include="Resources\7_2.png" />
+    <None Include="Resources\7_1.png" />
+    <None Include="Resources\7_0.png" />
+    <None Include="Resources\6_2.png" />
+    <None Include="Resources\6_1.png" />
+    <None Include="Resources\6_0.png" />
+    <None Include="Resources\5_2.png" />
+    <None Include="Resources\5_1.png" />
+    <None Include="Resources\5_0.png" />
+    <None Include="Resources\4_2.png" />
+    <None Include="Resources\4_1.png" />
+    <None Include="Resources\4_0.png" />
+    <None Include="Resources\3_2.png" />
+    <None Include="Resources\3_1.png" />
+    <None Include="Resources\3_0.png" />
+    <None Include="Resources\2_2.png" />
+    <None Include="Resources\2_1.png" />
+    <None Include="Resources\2_0.png" />
+    <None Include="Resources\1_2.png" />
+    <None Include="Resources\1_0.png" />
+    <None Include="Resources\0_2.png" />
+    <None Include="Resources\0_1.png" />
+    <None Include="Resources\0_0.png" />
+    <None Include="Resources\waitpic.gif" />
+    <None Include="Resources\sx.png" />
+    <None Include="Resources\fd.png" />
+    <None Include="Resources\query.png" />
+    <None Include="Resources\Tool_Address.png" />
+    <None Include="Resources\未命名-3.png" />
+    <None Include="Resources\17.png" />
+    <None Include="Resources\33.png" />
+    <None Include="Resources\23.png" />
+    <None Include="Resources\16.png" />
+    <None Include="Resources\TitleTool21.gif" />
+    <None Include="Resources\TitleTool1.gif" />
+    <None Include="Resources\TitleBg1.gif" />
+    <None Include="Resources\T2_12.gif" />
+    <None Include="Resources\close1.jpg" />
+    <None Include="Resources\aa12.gif" />
+    <None Include="Resources\aa3.gif" />
+    <None Include="Resources\91.png" />
+    <None Include="Resources\81.png" />
+    <None Include="Resources\71.png" />
+    <None Include="Resources\61.png" />
+    <None Include="Resources\51.png" />
+    <None Include="Resources\41.png" />
+    <None Include="Resources\32.png" />
+    <None Include="Resources\22.png" />
+    <None Include="Resources\141.png" />
+    <None Include="Resources\131.png" />
+    <None Include="Resources\121.png" />
+    <None Include="Resources\1112.gif" />
+    <None Include="Resources\112.png" />
+    <None Include="Resources\101.png" />
+    <None Include="Resources\15.png" />
+    <None Include="Resources\TitleTool2.gif" />
+    <None Include="Resources\TitleTool.gif" />
+    <None Include="Resources\TitleBg.gif" />
+    <None Include="Resources\T2_11.gif" />
+    <None Include="Resources\close.jpg" />
+    <None Include="Resources\aa11.gif" />
+    <None Include="Resources\aa2.gif" />
+    <None Include="Resources\31.png" />
+    <None Include="Resources\21.png" />
+    <None Include="Resources\1111.gif" />
+    <None Include="Resources\111.png" />
+    <None Include="Resources\T2_1.gif" />
+    <None Include="Resources\aa1.gif" />
+    <None Include="Resources\aa.gif" />
+    <None Include="bin\Debug\Images\TitleBg.gif" />
+    <None Include="bin\Debug\Images\TitleTool.gif" />
+    <None Include="bin\Debug\Images\TitleTool2.gif" />
+    <Content Include="bin\Debug\UpdateList.xml" />
+    <Content Include="PSvrAsst.ico" />
+    <Content Include="readme.txt" />
+    <None Include="Resources\111.gif" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SirdRoom.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Librarys\Library.csproj">
+      <Project>{9dba7597-1fc3-4451-9a2d-0b6341dea282}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
