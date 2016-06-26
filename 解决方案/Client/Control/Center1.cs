@@ -197,7 +197,7 @@ namespace ControlLibrary.Control
 #endif
 #region 设置排序
             OrderCollection<SRRC_ResourceEntity.FiledType> orderBy = new OrderCollection<SRRC_ResourceEntity.FiledType>();
-            orderBy.Add(new Order<SRRC_ResourceEntity.FiledType>(SRRC_ResourceEntity.FiledType.Extend3, OrderType.Desc));//视图优先排序
+            //orderBy.Add(new Order<SRRC_ResourceEntity.FiledType>(SRRC_ResourceEntity.FiledType.Extend3, OrderType.Desc));//视图优先排序
             switch (SROperation.Instance.Orderby)
             {
                 case 1:
@@ -258,7 +258,7 @@ namespace ControlLibrary.Control
                                                 select * from ta where (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
 
                                 }                                    
-                                    staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL(sql, orderBy);
+                                    staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriorityBySQL(sql, orderBy);
                             }
                             else
                             {
@@ -272,7 +272,7 @@ namespace ControlLibrary.Control
                                     {
                                         strWhere = " Pid in (select Id from SRRC_Resource where Pid=[$Pid$]) and Dtype<>0";
                                     }
-                                    staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(orderBy, strWhere, new DataParameter("Pid", id));
+                                    staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriority(orderBy, strWhere, new DataParameter("Pid", id));
                                     if (entList == null || entList.Count == 0) //没有文件
                                     {
                                         if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
@@ -283,7 +283,7 @@ namespace ControlLibrary.Control
                                         {
                                             strWhere = " Pid=[$Pid$]";
                                         }
-                                        staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(orderBy, strWhere, new DataParameter("Pid", id));
+                                        staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriority(orderBy, strWhere, new DataParameter("Pid", id));
                                     }
                                 }
                                 else
@@ -296,7 +296,7 @@ namespace ControlLibrary.Control
                                     {
                                         strWhere = " Pid=[$Pid$]";
                                     }
-                                    staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(orderBy, strWhere, new DataParameter("Pid", id));
+                                    staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriority(orderBy, strWhere, new DataParameter("Pid", id));
                                 }
                             }
                         }
@@ -315,7 +315,7 @@ namespace ControlLibrary.Control
                             {
                                 strWhere += " and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
                             }
-                            staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(orderBy, strWhere, new DataParameter("Pid", id));
+                            staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriority(orderBy, strWhere, new DataParameter("Pid", id));
 
                         }
                         break;
@@ -333,7 +333,7 @@ namespace ControlLibrary.Control
                             {
                                 strWhere += " and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
                             }
-                            staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(orderBy, strWhere, new DataParameter("Pid", id));
+                            staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriority(orderBy, strWhere, new DataParameter("Pid", id));
                         }
                         break;
                     default:
@@ -421,7 +421,7 @@ namespace ControlLibrary.Control
 
         private void listView1_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == System.Windows.Forms.MouseButtons.Right || SROperation.Instance.IsShowLZ == false)
             {
                 List<string> list = new List<string>();
                 foreach (ListViewItem lvi in this.listView1.SelectedItems)

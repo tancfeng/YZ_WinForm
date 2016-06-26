@@ -383,8 +383,8 @@ public class SROperation
             Int32 strValue = SRLibFun.StringConvertToInt32(SRConfig.Instance.GetAppString("Orderby"));
             if (strValue <= 0)
             {
-                strValue = 1;
-                SRConfig.Instance.SetAppString("Orderby", "1");
+                strValue = 2;
+                SRConfig.Instance.SetAppString("Orderby", strValue.ToString());
             }
             return strValue;
         }
@@ -397,10 +397,15 @@ public class SROperation
     {
         get
         {
-            int strValue = SRLibFun.StringConvertToInt32(SRConfig.Instance.GetAppString("OrderType"));      
-            if(strValue != 0 && strValue !=1)
+            int strValue = -1;
+            if (!string.IsNullOrEmpty(SRConfig.Instance.GetAppString("OrderType")))
             {
-                strValue = 0;
+                strValue = SRLibFun.StringConvertToInt32(SRConfig.Instance.GetAppString("OrderType"));
+
+            }
+            if (strValue != 0 && strValue !=1)
+            {
+                strValue = 1;
                 SRConfig.Instance.SetAppString("OrderType", strValue.ToString());
             }
             return strValue;

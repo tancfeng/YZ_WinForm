@@ -190,7 +190,7 @@
             this.p4.ForeColor = System.Drawing.Color.White;
             this.p4.Name = "p4";
             this.p4.Size = new System.Drawing.Size(189, 26);
-            this.p4.Text = "按标记时间排列";
+            this.p4.Text = "按更新时间排列";
             this.p4.Click += new System.EventHandler(this.PicTool_Click);
             // 
             // p5
