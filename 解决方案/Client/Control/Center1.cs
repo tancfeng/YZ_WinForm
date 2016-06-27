@@ -190,7 +190,7 @@ namespace ControlLibrary.Control
         }
 
 
-        public void BindData()
+        public void BindData_Bak()
         {
 #if debug
             SRLogHelper.Instance.AddLog("日志", DateTime.Now.ToString("mm:ss.ffff"));
@@ -237,7 +237,7 @@ namespace ControlLibrary.Control
 #region 左侧菜单操作、中间区域（center1,center2）
             if (SROperation2.Instance.FocusPanel != "Right")
             {
-                Int32 id = SROperation.Instance.LeftSelectedId;                
+                Int32 id = SROperation.Instance.LeftSelectedId;
                 switch (SROperation.Instance.LeftDtype)
                 {
                     case "Resources":
@@ -391,6 +391,263 @@ namespace ControlLibrary.Control
 #if debug
             SRLogHelper.Instance.AddLog("日志", DateTime.Now.ToString("mm:ss.ffff"));
 #endif
+        }
+        public void BindData()
+        {
+            List<SRRC_ResourceEntity> tempList = null;
+            #region 左侧菜单操作、中间区域（center1,center2）
+            if (SROperation2.Instance.FocusPanel != "Right")
+            {
+                Int32 id = SROperation.Instance.LeftSelectedId;                
+                switch (SROperation.Instance.LeftDtype)
+                {
+                    case "Resources":
+                        {
+                            if (!String.IsNullOrEmpty(SROperation.Instance.Keyword))
+                            {
+                                string sql;
+                                if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
+                                {
+                                    sql = "with ta as (select * from SRRC_Resource where id=" + id + @"
+                                                union all select SRRC_Resource.* from ta,SRRC_Resource where ta.Id=SRRC_Resource.Pid)
+                                                select * from ta,SRRC_Resourcebiaojirel as tb on ta.Id=tb.Resource_id where (tb.Biaoji_id in (" + Param.filterkeyword + ") or ta.Dtype=0) and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
+                                }
+                                else
+                                {
+                                    sql = "with ta as (select * from SRRC_Resource where id=" + id + @"
+                                                union all select SRRC_Resource.* from ta,SRRC_Resource where ta.Id=SRRC_Resource.Pid)
+                                                select * from ta where (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
+
+                                }
+                                tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL(sql, null);
+                            }
+                            else
+                            {
+                                if (SROperation.Instance.LeftShowType == "Cross")
+                                {
+                                    if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
+                                    {
+                                        strWhere = " Pid in (select Id from SRRC_Resource where Pid=[$Pid$]) and Dtype<>0 and Id in ( select Resource_id from SRRC_Resourcebiaojirel where  Biaoji_id in (" + Param.filterkeyword + "))";
+                                    }
+                                    else
+                                    {
+                                        strWhere = " Pid in (select Id from SRRC_Resource where Pid=[$Pid$]) and Dtype<>0";
+                                    }
+                                    tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
+                                    if (tempList == null || tempList.Count == 0) //没有文件
+                                    {
+                                        if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
+                                        {
+                                            strWhere = " Pid=[$Pid$] and (Id in (select Resource_id from SRRC_Resourcebiaojirel where  Biaoji_id in (" + Param.filterkeyword + ")) or Dtype=0)";
+                                        }
+                                        else
+                                        {
+                                            strWhere = " Pid=[$Pid$]";
+                                        }
+                                        tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
+                                    }
+                                }
+                                else
+                                {
+                                    if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
+                                    {
+                                        strWhere = " Pid=[$Pid$] and Id in ( select Resource_id from SRRC_Resourcebiaojirel where  Biaoji_id in (" + Param.filterkeyword + "))";
+                                    }
+                                    else
+                                    {
+                                        strWhere = " Pid=[$Pid$]";
+                                    }
+                                    tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
+                                }
+                            }
+                        }
+                        break;
+                    case "Study":
+                        {
+                            if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
+                            {
+                                strWhere = " Id in ( SELECT Resource_id FROM SRRC_Resourcebiaojirel where User_id=0 and Biaoji_id=[$Pid$] ) and Id in (select Resource_id FROM SRRC_Resourcebiaojirel where User_id=0  and  Biaoji_id in (" + Param.filterkeyword + ")) ";
+                            }
+                            else
+                            {
+                                strWhere = " Id in ( SELECT Resource_id FROM SRRC_Resourcebiaojirel where User_id=0 and Biaoji_id=[$Pid$] )";
+                            }
+                            if (String.IsNullOrEmpty(SROperation.Instance.Keyword) == false)
+                            {
+                                strWhere += " and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
+                            }
+                            tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
+
+                        }
+                        break;
+                    case "Favorites":
+                        {
+                            if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
+                            {
+                                strWhere = " Id in ( SELECT Resource_id FROM SRRC_Resourcebiaojirel where User_id=" + Param.UserId + " and Biaoji_id=[$Pid$]) and Id in (select Resource_id FROM SRRC_Resourcebiaojirel where User_id=0  and Biaoji_id in (" + Param.filterkeyword + ")) ";
+                            }
+                            else
+                            {
+                                strWhere = " Id in ( SELECT Resource_id FROM SRRC_Resourcebiaojirel where User_id=" + Param.UserId + " and Biaoji_id=[$Pid$])";
+                            }
+                            if (String.IsNullOrEmpty(SROperation.Instance.Keyword) == false)
+                            {
+                                strWhere += " and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
+                            }
+                            tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                staticEntList = tempList;
+            }
+            #endregion
+
+            #region Keyword面板操作
+            if (SROperation2.Instance.FocusPanel == "Right")
+            {
+                if (SROperation2.Instance.KeywordFilter == null || SROperation2.Instance.KeywordFilter.Length == 0)//无关键字
+                {
+                    tempList = staticEntList;
+                }
+                else //有关键字
+                {
+                    //and
+                    if (SROperation2.Instance.KeywordLogical == "and")
+                    {
+                        int count = SROperation2.Instance.KeywordFilter.Split(',').Length;
+                        tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL("select * from SRRC_Resource where id in (SELECT Resource_id  FROM SRRC_Resourcebiaojirel  WHERE Biaoji_id IN (" + SROperation2.Instance.KeywordFilter + ")  GROUP BY Resource_id  HAVING COUNT(*)=" + count + ")");
+                    }
+                    //or
+                    if (SROperation2.Instance.KeywordLogical == "or")
+                    {
+                        tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL("select * from SRRC_Resource where id in (SELECT Resource_id  FROM SRRC_Resourcebiaojirel  WHERE Biaoji_id IN (" + SROperation2.Instance.KeywordFilter + ")  GROUP BY Resource_id)");
+                    }
+                    if (tempList != null)
+                    {                    
+                        var temp = staticEntList.Intersect(tempList, new SRRC_ResourceEntity_EntityComparer());
+                        if (temp == null)
+                        {
+                           tempList = null;
+                        }
+                        else
+                        {
+                            tempList = temp.ToList();
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region 排序
+            if(tempList != null)
+            {
+                switch (SROperation.Instance.Orderby)
+                {
+                    case 1:
+                        {
+                            var viewPriority = tempList.Where(t => !String.IsNullOrEmpty(t.Extend3));
+                            var others = tempList.Where(t => String.IsNullOrEmpty(t.Extend3));
+                            var temp = new List<SRRC_ResourceEntity>();
+                            if (SROperation.Instance.OrderType == 0)//ASC
+                            {
+                                temp.AddRange(viewPriority.OrderBy(t => t.Bjtime));
+                                temp.AddRange(others.OrderBy(t => t.Bjtime));
+                            }
+                            else if (SROperation.Instance.OrderType == 1)//DESC
+                            {
+                                temp.AddRange(viewPriority.OrderByDescending(t => t.Bjtime));
+                                temp.AddRange(others.OrderByDescending(t => t.Bjtime));
+                            }
+                            tempList = temp;
+                        }
+                        break;
+                    case 2:
+                        {
+                            var viewPriority = tempList.Where(t => !String.IsNullOrEmpty(t.Extend3));
+                            var others = tempList.Where(t => String.IsNullOrEmpty(t.Extend3));
+                            var temp = new List<SRRC_ResourceEntity>();
+                            if (SROperation.Instance.OrderType == 0)//ASC
+                            {
+                                temp.AddRange(viewPriority.OrderBy(t => t.Usecount));
+                                temp.AddRange(others.OrderBy(t => t.Usecount));
+                            }
+                            else if (SROperation.Instance.OrderType == 1)//DESC
+                            {
+                                temp.AddRange(viewPriority.OrderByDescending(t => t.Usecount));
+                                temp.AddRange(others.OrderByDescending(t => t.Usecount));
+                            }
+                            tempList = temp;
+                        }
+                        break;
+                    case 3:
+                        {
+                            var viewPriority = tempList.Where(t => !String.IsNullOrEmpty(t.Extend3));
+                            var others = tempList.Where(t => String.IsNullOrEmpty(t.Extend3));
+                            var temp = new List<SRRC_ResourceEntity>();
+                            if (SROperation.Instance.OrderType == 0)//ASC
+                            {
+                                temp.AddRange(viewPriority.OrderBy(t => t.Addtime));
+                                temp.AddRange(others.OrderBy(t => t.Addtime));
+                            }
+                            else if (SROperation.Instance.OrderType == 1)//DESC
+                            {
+                                temp.AddRange(viewPriority.OrderByDescending(t => t.Addtime));
+                                temp.AddRange(others.OrderByDescending(t => t.Addtime));
+                            }
+                            tempList = temp;
+                        }
+                        break;
+                    case 4:
+                        {
+                            var viewPriority = tempList.Where(t => !String.IsNullOrEmpty(t.Extend3));
+                            var others = tempList.Where(t => String.IsNullOrEmpty(t.Extend3));
+                            var temp = new List<SRRC_ResourceEntity>();
+                            if (SROperation.Instance.OrderType == 0)//ASC
+                            {
+                                temp.AddRange(viewPriority.OrderBy(t => t.Filesize));
+                                temp.AddRange(others.OrderBy(t => t.Filesize));
+                            }
+                            else if (SROperation.Instance.OrderType == 1)//DESC
+                            {
+                                temp.AddRange(viewPriority.OrderByDescending(t => t.Filesize));
+                                temp.AddRange(others.OrderByDescending(t => t.Filesize));
+                            }
+                            tempList = temp;
+                        }
+                        break;
+                    case 5:
+                        {
+                            var viewPriority = tempList.Where(t => !String.IsNullOrEmpty(t.Extend3));
+                            var others = tempList.Where(t => String.IsNullOrEmpty(t.Extend3));
+                            var temp = new List<SRRC_ResourceEntity>();
+                            if (SROperation.Instance.OrderType == 0)//ASC
+                            {
+                                temp.AddRange(viewPriority.OrderBy(t => t.Name));
+                                temp.AddRange(others.OrderBy(t => t.Name));
+                            }
+                            else if (SROperation.Instance.OrderType == 1)//DESC
+                            {
+                                temp.AddRange(viewPriority.OrderByDescending(t => t.Name));
+                                temp.AddRange(others.OrderByDescending(t => t.Name));
+                            }
+                            tempList = temp;
+                        }
+                        break;
+                    case 6:
+                        {
+                            tempList = tempList.OrderBy(t => t.Id).ToList();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+            #endregion
+            SROperation2.Instance.Center1EntList = entList = tempList;
+            SROperation2.Instance.entListCount = entList == null ? 0 : entList.Count;
+            ImageLoadingTip = new bool[SROperation2.Instance.entListCount];
         }
         /// <summary>
         /// 更改视图时，刷新数据
