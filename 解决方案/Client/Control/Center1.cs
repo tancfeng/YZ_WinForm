@@ -704,14 +704,14 @@ namespace ControlLibrary.Control
                             return;
                         }
                         else
-                        {
-                            (this.TopLevelControl as FrmMain).WindowState = FormWindowState.Minimized;
+                        {                            
                             var maxEnt = maxEntList.First();
                             path = maxEnt.Serverip + maxEnt.Path;
                         }
-
-
-
+                    }
+                    else
+                    {
+                        path = ent.Serverip + ent.Path;
                     }
                     ent.Usecount++;
                     DataBase.Instance.tSRRC_Resource.Update(ent);
@@ -723,11 +723,13 @@ namespace ControlLibrary.Control
 
                 if (list.Count > 0)
                 {
+                    (this.TopLevelControl as FrmMain).WindowState = FormWindowState.Minimized;
                     //Thread t = new Thread(new ThreadStart(ProcessHelper.AddAndDelNetUse));
                     //t.Start();
                     IDataObject poj = new DataObject(DataFormats.FileDrop, list.ToArray());
                     poj.SetData(poj);
                     this.listView1.DoDragDrop(poj, DragDropEffects.Copy);
+                   
                 }
 
             }

@@ -893,7 +893,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                                 {
                                     var temp = DataBase.Instance.tSRRC_Resource.Get_Entity(item.Pid);
                                     if (temp == null) continue;
-                                    temp.Usecount++;
+                                    item.Usecount++;
                                     path = temp.Serverip + temp.Path;
                                 }
                                 else
