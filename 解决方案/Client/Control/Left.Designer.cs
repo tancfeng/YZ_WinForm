@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("节点1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("节点0", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("节点1");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("节点0", new System.Windows.Forms.TreeNode[] {
+            treeNode3});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Left));
             this.panel1 = new System.Windows.Forms.Panel();
             this.treeView1 = new System.Windows.Forms.TreeView();
@@ -55,12 +55,15 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.默认显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.跨越显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.关键字管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTitleTool2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTitleTool1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
+            this.contextMenuStrip3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -96,14 +99,14 @@
             this.treeView1.Location = new System.Drawing.Point(1, 38);
             this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
-            treeNode1.ImageKey = "4.jpg";
-            treeNode1.Name = "节点1";
-            treeNode1.Text = "节点1";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "节点0";
-            treeNode2.Text = "节点0";
+            treeNode3.ImageKey = "4.jpg";
+            treeNode3.Name = "节点1";
+            treeNode3.Text = "节点1";
+            treeNode4.ImageIndex = 2;
+            treeNode4.Name = "节点0";
+            treeNode4.Text = "节点0";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode4});
             this.treeView1.SelectedImageIndex = 3;
             this.treeView1.Size = new System.Drawing.Size(335, 580);
             this.treeView1.TabIndex = 5;
@@ -328,6 +331,21 @@
             this.跨越显示ToolStripMenuItem.Text = "跨越显示";
             this.跨越显示ToolStripMenuItem.Click += new System.EventHandler(this.跨越显示ToolStripMenuItem_Click);
             // 
+            // contextMenuStrip3
+            // 
+            this.contextMenuStrip3.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关键字管理ToolStripMenuItem});
+            this.contextMenuStrip3.Name = "contextMenuStrip3";
+            this.contextMenuStrip3.Size = new System.Drawing.Size(182, 58);
+            this.contextMenuStrip3.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip3_Opening);
+            // 
+            // 关键字管理ToolStripMenuItem
+            // 
+            this.关键字管理ToolStripMenuItem.Name = "关键字管理ToolStripMenuItem";
+            this.关键字管理ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.关键字管理ToolStripMenuItem.Text = "关键字管理";
+            // 
             // Left
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -346,6 +364,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picTitleTool1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
+            this.contextMenuStrip3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -374,5 +393,7 @@
         private System.Windows.Forms.ToolStripMenuItem 当前目录ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 子目录ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 复合文件取消ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
+        private System.Windows.Forms.ToolStripMenuItem 关键字管理ToolStripMenuItem;
     }
 }

@@ -64,6 +64,7 @@
     <Reference Include="IrisSkin2">
       <HintPath>..\Resource\Dll\IrisSkin2.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data">
       <HintPath>..\Resource\Dll\MySql.Data.dll</HintPath>
     </Reference>

@@ -28,6 +28,7 @@ public partial class Center2 : UserControl
         List<string> waitLoadImageId = new List<string>();
 
         MouseButtons _mouseDown;
+        System.Windows.Forms.Timer selectedIndexChangedTimer = new System.Windows.Forms.Timer();
         public Center2()
         {
             InitializeComponent();
@@ -40,7 +41,9 @@ public partial class Center2 : UserControl
 
             contextMenuStrip1.RenderMode = ToolStripRenderMode.Professional;
             contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new CustomToolStripColorTable());
-            
+
+            selectedIndexChangedTimer.Tick += listView1_SelectedIndexChangedHelper;
+            selectedIndexChangedTimer.Interval = 100;
         }
         private void SetWaitPic()
         {
@@ -438,9 +441,46 @@ public partial class Center2 : UserControl
                 }
             }
         }
+
+
         #endregion
 
-
-
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //每次selectedItems 选项 发生变化时 都会 触发 ，特别是多选时，会触发多次
+            if (!selectedIndexChangedTimer.Enabled)
+            {
+                selectedIndexChangedTimer.Start();
+            }
+            else
+            {
+                selectedIndexChangedTimer.Stop();
+                selectedIndexChangedTimer.Start();
+            }
+        }
+        private void listView1_SelectedIndexChangedHelper(object sender, EventArgs e)
+        {
+            if (this.listView1.Focused)//图像篮子焦点，通知 清空 Center1选项
+            {
+                OnPageClicked(sender, new MyEventArgs { Action = 7 });
+            }
+            SROperation2.Instance.Center2PicSelected = new List<SRRC_ResourceEntity>();
+            if (OnPageClicked != null)
+            {
+                if (this.listView1.SelectedItems != null && this.listView1.SelectedItems.Count > 0)
+                {
+                    foreach (ListViewItem item in this.listView1.SelectedItems)
+                    {
+                        SROperation2.Instance.Center2PicSelected.Add(item.Tag as SRRC_ResourceEntity);
+                    }
+                }
+                if (SROperation2.Instance.Center2PicSelected != null && SROperation2.Instance.Center2PicSelected.Count > 0)
+                    OnPageClicked(sender, new MyEventArgs() { Action = 3 });//把按钮自身作为参数传递
+            }
+        }
+        public void ClearListViewSelectedItems()
+        {
+            this.listView1.SelectedItems.Clear();
+        }
     }
 }

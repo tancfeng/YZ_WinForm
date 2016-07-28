@@ -33,6 +33,18 @@ namespace ControlLibrary.Control
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+
+            //设置contextMenuStrip style
+            ToolStripProfessionalRenderer pr = new ToolStripProfessionalRenderer(new CustomToolStripColorTable());
+            contextMenuStrip1.RenderMode = ToolStripRenderMode.Professional;
+            contextMenuStrip1.Renderer = pr;
+
+            contextMenuStrip2.RenderMode = ToolStripRenderMode.Professional;
+            contextMenuStrip2.Renderer = pr;
+
+            contextMenuStrip3.RenderMode = ToolStripRenderMode.Professional;
+            contextMenuStrip3.Renderer = pr;
+            contextMenuStrip3.ForeColor = Color.White;
         }
         //TreeNode pnode = null;
         /// <summary> 
@@ -627,13 +639,6 @@ namespace ControlLibrary.Control
                 contextMenuStripAddItemAssistant(entList, "公共标注");
             }
             #endregion
-
-            ToolStripProfessionalRenderer pr = new ToolStripProfessionalRenderer(new CustomToolStripColorTable());
-            contextMenuStrip1.RenderMode = ToolStripRenderMode.Professional;
-            contextMenuStrip1.Renderer = pr;
-
-            contextMenuStrip2.RenderMode = ToolStripRenderMode.Professional;
-            contextMenuStrip2.Renderer = pr;
         }
         private void contextMenuStripAddItemAssistant(List<SMDictionaryEntity> list,string type)
         {
@@ -926,6 +931,10 @@ namespace ControlLibrary.Control
             if (e.Button == MouseButtons.Right && e.Node.Tag != null)
             {
                 SROperation2.Instance.LeftMouseRightSelectedEnt = e.Node.Tag as SRRC_ResourceEntity;
+                if (SROperation.Instance.LeftDtype == "Study" || Param.GroupId < 3)
+                {
+                    e.Node.ContextMenuStrip = contextMenuStrip3;
+                }
             }
         }
 
@@ -1083,5 +1092,23 @@ namespace ControlLibrary.Control
             }
         }
 
+        private void contextMenuStrip3_Opening(object sender, CancelEventArgs e)
+        {
+            FrmFrame frm = new FrmFrame()
+            {
+                WindowState = FormWindowState.Normal,
+                Width = 480,               
+                Height = 400,
+                BackColor = Color.FromArgb(37, 37, 37),
+                Text = "艺卓资源管理系统",
+                Name = "关键字设置",
+                FormBorderStyle = FormBorderStyle.Sizable
+            };
+            var control = new KeywordManager();
+            frm.SetUserControl(control);
+
+            //  
+            frm.ShowDialog();
+        }
     }
 }

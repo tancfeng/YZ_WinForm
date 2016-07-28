@@ -58,7 +58,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(770, 25);
+            this.panel1.Size = new System.Drawing.Size(1027, 31);
             this.panel1.TabIndex = 0;
             // 
             // FilmStrip
@@ -66,10 +66,11 @@
             this.FilmStrip.AutoSize = true;
             this.FilmStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.FilmStrip.ForeColor = System.Drawing.Color.White;
-            this.FilmStrip.Location = new System.Drawing.Point(92, 3);
+            this.FilmStrip.Location = new System.Drawing.Point(123, 4);
+            this.FilmStrip.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FilmStrip.Name = "FilmStrip";
-            this.FilmStrip.Padding = new System.Windows.Forms.Padding(3);
-            this.FilmStrip.Size = new System.Drawing.Size(71, 18);
+            this.FilmStrip.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FilmStrip.Size = new System.Drawing.Size(95, 23);
             this.FilmStrip.TabIndex = 2;
             this.FilmStrip.Text = "Film Strip";
             this.FilmStrip.Click += new System.EventHandler(this.FilmStrip_Click);
@@ -78,9 +79,10 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.close;
-            this.pictureBox1.Location = new System.Drawing.Point(748, 5);
+            this.pictureBox1.Location = new System.Drawing.Point(997, 6);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(13, 13);
+            this.pictureBox1.Size = new System.Drawing.Size(17, 16);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -90,10 +92,11 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(143)))), ((int)(((byte)(178)))));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(3);
-            this.label1.Size = new System.Drawing.Size(83, 18);
+            this.label1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.label1.Size = new System.Drawing.Size(111, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Image Basket";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -106,15 +109,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.listView1.Location = new System.Drawing.Point(0, 25);
+            this.listView1.Location = new System.Drawing.Point(0, 31);
             this.listView1.Margin = new System.Windows.Forms.Padding(0);
             this.listView1.Name = "listView1";
             this.listView1.OwnerDraw = true;
-            this.listView1.Size = new System.Drawing.Size(769, 128);
+            this.listView1.Size = new System.Drawing.Size(1024, 159);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listView1_DrawItem);
             this.listView1.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.listView1_ItemDrag);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             this.listView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.listView1_DragDrop);
             this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView1_DragEnter);
             this.listView1.DragLeave += new System.EventHandler(this.listView1_DragLeave);
@@ -123,6 +127,7 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.选择全部ToolStripMenuItem,
             this.toolStripSeparator1,
@@ -132,28 +137,28 @@
             this.复制到指定目录ToolStripMenuItem,
             this.跳转到资源目录ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(201, 126);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(247, 146);
             // 
             // 选择全部ToolStripMenuItem
             // 
             this.选择全部ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.选择全部ToolStripMenuItem.Name = "选择全部ToolStripMenuItem";
             this.选择全部ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.选择全部ToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.选择全部ToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.选择全部ToolStripMenuItem.Text = "选择全部";
             this.选择全部ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(243, 6);
             // 
             // 清除选择ToolStripMenuItem
             // 
             this.清除选择ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.清除选择ToolStripMenuItem.Name = "清除选择ToolStripMenuItem";
             this.清除选择ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.清除选择ToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.清除选择ToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.清除选择ToolStripMenuItem.Text = "清除选择";
             this.清除选择ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
@@ -162,21 +167,21 @@
             this.清除所有ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.清除所有ToolStripMenuItem.Name = "清除所有ToolStripMenuItem";
             this.清除所有ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
-            this.清除所有ToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.清除所有ToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.清除所有ToolStripMenuItem.Text = "清除所有";
             this.清除所有ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(243, 6);
             // 
             // 复制到指定目录ToolStripMenuItem
             // 
             this.复制到指定目录ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.复制到指定目录ToolStripMenuItem.Name = "复制到指定目录ToolStripMenuItem";
             this.复制到指定目录ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.复制到指定目录ToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.复制到指定目录ToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.复制到指定目录ToolStripMenuItem.Text = "复制到指定目录";
             this.复制到指定目录ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
@@ -185,13 +190,13 @@
             this.跳转到资源目录ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.跳转到资源目录ToolStripMenuItem.Name = "跳转到资源目录ToolStripMenuItem";
             this.跳转到资源目录ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.跳转到资源目录ToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.跳转到资源目录ToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
             this.跳转到资源目录ToolStripMenuItem.Text = "跳转到资源目录";
             this.跳转到资源目录ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // Center2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -199,7 +204,7 @@
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Center2";
-            this.Size = new System.Drawing.Size(768, 152);
+            this.Size = new System.Drawing.Size(1024, 190);
             this.Enter += new System.EventHandler(this.Center2_Enter);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -355,6 +355,12 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         this.ToolStripMenuItem_Click(e.Parameter, null);
                     }
                     break;
+                case 7:
+                    {
+                        //清空 图像 篮子 选择项
+                        this.center21.ClearListViewSelectedItems();
+                    }
+                    break;
                 default:
                     break;
             }
@@ -401,9 +407,20 @@ namespace SirdRoom.ManageSystem.ClientApplication
 
                     }
                     break;
+                case 3: //更新关键字
+                    {
+                        this.right1.SetBiaoJiSatus(SROperation2.Instance.Center2PicSelected);
+                    }
+                    break;
                 case 6:
                     {
                         this.ToolStripMenuItem_Click(e.Parameter, null);
+                    }
+                    break;
+                case 7:
+                    {
+                        //清空center1 selecteditems
+                        this.center11.ClearListViewSelectedItems();
                     }
                     break;
                 default:
@@ -442,8 +459,16 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 int userId = (e.Node.Tag as SRRC_BiaojiEntity).User_id;
                 String strPicSelected = "";
                 if (SROperation2.Instance.PicSelected != null)
-                {
+                {//center1
                     foreach (var item in SROperation2.Instance.PicSelected)
+                    {
+                        strPicSelected += item.Id + ",";
+                    }
+                }
+                else if(SROperation2.Instance.Center2PicSelected != null)
+                {
+                    //center2
+                    foreach (var item in SROperation2.Instance.Center2PicSelected)
                     {
                         strPicSelected += item.Id + ",";
                     }

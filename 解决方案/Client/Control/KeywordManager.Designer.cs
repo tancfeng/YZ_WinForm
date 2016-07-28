@@ -60,15 +60,20 @@
             // 
             // listBox_Category
             // 
+            this.listBox_Category.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.listBox_Category.ForeColor = System.Drawing.Color.White;
             this.listBox_Category.FormattingEnabled = true;
             this.listBox_Category.ItemHeight = 15;
             this.listBox_Category.Location = new System.Drawing.Point(33, 48);
             this.listBox_Category.Name = "listBox_Category";
             this.listBox_Category.Size = new System.Drawing.Size(269, 319);
             this.listBox_Category.TabIndex = 2;
+            this.listBox_Category.SelectedIndexChanged += new System.EventHandler(this.listBox_Category_SelectedIndexChanged);
             // 
             // listBox_Keyword
             // 
+            this.listBox_Keyword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.listBox_Keyword.ForeColor = System.Drawing.Color.White;
             this.listBox_Keyword.FormattingEnabled = true;
             this.listBox_Keyword.ItemHeight = 15;
             this.listBox_Keyword.Location = new System.Drawing.Point(319, 48);
@@ -78,39 +83,47 @@
             // 
             // btn_CategoryAdd
             // 
+            this.btn_CategoryAdd.ForeColor = System.Drawing.Color.White;
             this.btn_CategoryAdd.Location = new System.Drawing.Point(33, 373);
             this.btn_CategoryAdd.Name = "btn_CategoryAdd";
-            this.btn_CategoryAdd.Size = new System.Drawing.Size(75, 23);
+            this.btn_CategoryAdd.Size = new System.Drawing.Size(100, 29);
             this.btn_CategoryAdd.TabIndex = 4;
             this.btn_CategoryAdd.Text = "新增";
-            this.btn_CategoryAdd.UseVisualStyleBackColor = true;
+            this.btn_CategoryAdd.UseVisualStyleBackColor = false;
+            this.btn_CategoryAdd.Click += new System.EventHandler(this.btn_CategoryAdd_Click);
             // 
             // btn_CategoryDel
             // 
-            this.btn_CategoryDel.Location = new System.Drawing.Point(115, 372);
+            this.btn_CategoryDel.ForeColor = System.Drawing.Color.White;
+            this.btn_CategoryDel.Location = new System.Drawing.Point(139, 373);
             this.btn_CategoryDel.Name = "btn_CategoryDel";
-            this.btn_CategoryDel.Size = new System.Drawing.Size(75, 23);
+            this.btn_CategoryDel.Size = new System.Drawing.Size(100, 29);
             this.btn_CategoryDel.TabIndex = 5;
             this.btn_CategoryDel.Text = "删除";
-            this.btn_CategoryDel.UseVisualStyleBackColor = true;
+            this.btn_CategoryDel.UseVisualStyleBackColor = false;
+            this.btn_CategoryDel.Click += new System.EventHandler(this.btn_CategoryDel_Click);
             // 
             // btn_KeywordAdd
             // 
+            this.btn_KeywordAdd.ForeColor = System.Drawing.Color.White;
             this.btn_KeywordAdd.Location = new System.Drawing.Point(319, 372);
             this.btn_KeywordAdd.Name = "btn_KeywordAdd";
-            this.btn_KeywordAdd.Size = new System.Drawing.Size(75, 23);
+            this.btn_KeywordAdd.Size = new System.Drawing.Size(100, 29);
             this.btn_KeywordAdd.TabIndex = 6;
             this.btn_KeywordAdd.Text = "新增";
-            this.btn_KeywordAdd.UseVisualStyleBackColor = true;
+            this.btn_KeywordAdd.UseVisualStyleBackColor = false;
+            this.btn_KeywordAdd.Click += new System.EventHandler(this.btn_KeywordAdd_Click);
             // 
             // btn_KeywordDel
             // 
-            this.btn_KeywordDel.Location = new System.Drawing.Point(401, 371);
+            this.btn_KeywordDel.ForeColor = System.Drawing.Color.White;
+            this.btn_KeywordDel.Location = new System.Drawing.Point(425, 372);
             this.btn_KeywordDel.Name = "btn_KeywordDel";
-            this.btn_KeywordDel.Size = new System.Drawing.Size(75, 23);
+            this.btn_KeywordDel.Size = new System.Drawing.Size(100, 29);
             this.btn_KeywordDel.TabIndex = 7;
             this.btn_KeywordDel.Text = "删除";
-            this.btn_KeywordDel.UseVisualStyleBackColor = true;
+            this.btn_KeywordDel.UseVisualStyleBackColor = false;
+            this.btn_KeywordDel.Click += new System.EventHandler(this.btn_KeywordDel_Click);
             // 
             // KeywordManager
             // 
@@ -126,7 +139,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "KeywordManager";
-            this.Size = new System.Drawing.Size(605, 449);
+            this.Size = new System.Drawing.Size(605, 432);
             this.ResumeLayout(false);
             this.PerformLayout();
 

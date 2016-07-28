@@ -47,6 +47,8 @@ namespace ControlLibrary.Control
         StringBuilder uploadFailFile;
 
         MouseButtons _mouseDown;
+
+        System.Windows.Forms.Timer selectedIndexChangedTimer = new System.Windows.Forms.Timer();
         public Center1()
         {
             InitializeComponent();
@@ -58,7 +60,12 @@ namespace ControlLibrary.Control
             contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new CustomToolStripColorTable());
 
             this.listView1.MouseWheel += ListView1_MouseWheel;
+
+            selectedIndexChangedTimer.Tick += listView1_SelectedIndexChangedHelper;
+            selectedIndexChangedTimer.Interval = 100;
         }
+
+
 
         private void ListView1_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -661,6 +668,24 @@ namespace ControlLibrary.Control
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //每次selectedItems 选项 发生变化时 都会 触发 ，特别是多选时，会触发多次
+            if(!selectedIndexChangedTimer.Enabled)
+            {
+                selectedIndexChangedTimer.Start();
+            }
+            else
+            {
+                selectedIndexChangedTimer.Stop();
+                selectedIndexChangedTimer.Start();
+            }
+        }
+        private void listView1_SelectedIndexChangedHelper(object sender, EventArgs e)
+        {
+            selectedIndexChangedTimer.Stop();
+            if (this.listView1.Focused)
+            {
+                OnPageClicked(sender, new MyEventArgs { Action = 7 });
+            }
             SROperation2.Instance.PicSelected = new List<SRRC_ResourceEntity>();
             if (OnPageClicked != null)
             {
@@ -673,9 +698,8 @@ namespace ControlLibrary.Control
                 }
                 if (SROperation2.Instance.PicSelected != null && SROperation2.Instance.PicSelected.Count > 0)
                     OnPageClicked(sender, new MyEventArgs() { Action = 3 });//把按钮自身作为参数传递
-            }           
+            }
         }
-
         private void listView1_ItemDrag(object sender, ItemDragEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right || SROperation.Instance.IsShowLZ == false)
@@ -1352,6 +1376,13 @@ namespace ControlLibrary.Control
         private void Center1_Enter(object sender, EventArgs e)
         {
             SROperation2.Instance.FocusPanel = "Center1";
+        }
+        /// <summary>
+        /// 清除ListView SelectedItems
+        /// </summary>
+        public void ClearListViewSelectedItems()
+        {
+            this.listView1.SelectedItems.Clear();
         }
     }
 }
