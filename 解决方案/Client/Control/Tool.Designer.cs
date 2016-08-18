@@ -33,12 +33,14 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.txtQuery = new System.Windows.Forms.ToolStripTextBox();
             this.p0 = new System.Windows.Forms.ToolStripButton();
             this.p1 = new System.Windows.Forms.ToolStripButton();
             this.p2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.p3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Sort = new System.Windows.Forms.ToolStripDropDownButton();
             this.p4 = new System.Windows.Forms.ToolStripMenuItem();
             this.p5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,13 +52,12 @@
             this.递减ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.p9 = new System.Windows.Forms.ToolStripButton();
             this.p10 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.p11 = new System.Windows.Forms.ToolStripButton();
             this.p12 = new System.Windows.Forms.ToolStripButton();
             this.p13 = new System.Windows.Forms.ToolStripButton();
             this.p14 = new System.Windows.Forms.ToolStripButton();
             this.btnQuery = new System.Windows.Forms.ToolStripButton();
-            this.txtQuery = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -107,12 +108,35 @@
             this.p13,
             this.p14,
             this.btnQuery,
-            this.txtQuery});
+            this.txtQuery,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1087, 27);
             this.toolStrip1.TabIndex = 27;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            // 
+            // txtQuery
+            // 
+            this.txtQuery.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.txtQuery.Name = "txtQuery";
+            this.txtQuery.Size = new System.Drawing.Size(200, 27);
+            this.txtQuery.TextChanged += new System.EventHandler(this.txtQuery_TextChanged);
             // 
             // p0
             // 
@@ -144,11 +168,6 @@
             this.p2.Text = "上移";
             this.p2.Click += new System.EventHandler(this.PicTool_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
-            // 
             // p3
             // 
             this.p3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -158,11 +177,6 @@
             this.p3.Size = new System.Drawing.Size(24, 24);
             this.p3.Text = "刷新";
             this.p3.Click += new System.EventHandler(this.PicTool_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // Sort
             // 
@@ -267,11 +281,6 @@
             this.p10.Text = "显示";
             this.p10.Click += new System.EventHandler(this.PicTool_Click);
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
-            // 
             // p11
             // 
             this.p11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -324,12 +333,15 @@
             this.btnQuery.Text = "toolStripButton11";
             this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
-            // txtQuery
+            // toolStripButton1
             // 
-            this.txtQuery.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.txtQuery.Name = "txtQuery";
-            this.txtQuery.Size = new System.Drawing.Size(200, 27);
-            this.txtQuery.TextChanged += new System.EventHandler(this.txtQuery_TextChanged);
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.IntelliSense_Keywords_6226;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton1.Text = "常驻关键字设置";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // pictureBox5
             // 
@@ -392,5 +404,6 @@
         private System.Windows.Forms.ToolStripButton p14;
         private System.Windows.Forms.ToolStripButton btnQuery;
         private System.Windows.Forms.ToolStripTextBox txtQuery;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

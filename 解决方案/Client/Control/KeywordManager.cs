@@ -12,9 +12,21 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
     public partial class KeywordManager : UserControl
     {
         private int CategoryId { get; set; }
+        private int BiaoQianId { get; set; }
         public KeywordManager()
         {
             InitializeComponent();
+            this.BiaoQianId = SROperation2.Instance.StudySelectedId;
+            BindData();
+        }
+        /// <summary>
+        /// 主要用于常驻关键字，设置biaoQianId==0,为常驻关键字
+        /// </summary>
+        /// <param name="biaoQianId"></param>
+        public KeywordManager(int biaoQianId)
+        {
+            InitializeComponent();
+            this.BiaoQianId = biaoQianId;
             BindData();
         }
 
@@ -31,7 +43,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>()
                 {
                     new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy,ORM.OrderType.Asc)
-                }, " Pid=0 and BiaoJiId=[$Id$]", new ORM.DataParameter("Id", SROperation2.Instance.StudySelectedId)
+                }, " Pid=0 and BiaoJiId=[$Id$]", new ORM.DataParameter("Id", this.BiaoQianId)
                 );
             if (list == null) return;
             foreach (var item in list)
@@ -64,12 +76,12 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
 
             var entity = new SRRC_BiaoJiKeywordEntity
             {
-                BiaoJiId = SROperation2.Instance.StudySelectedId,
+                BiaoJiId = this.BiaoQianId,
                 Name = str,
                 Pid = 0,
-                OrderBy = this.listBox_Category.Items.Count
+                //OrderBy = this.listBox_Category.Items.Count
             };
-            DataBase.Instance.tSRRC_BiaoJiKeyword.Add(entity);
+            entity.OrderBy = DataBase.Instance.tSRRC_BiaoJiKeyword.AddWithoutOrderBy(entity);
             RefreshCategory();
         }
 
@@ -79,12 +91,12 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             string str = Interaction.InputBox("请输入新关键字", "关键字管理");
             var entity = new SRRC_BiaoJiKeywordEntity
             {
-                BiaoJiId = SROperation2.Instance.StudySelectedId,
+                BiaoJiId = this.BiaoQianId,
                 Name = str,
                 Pid = (this.listBox_Category.SelectedItem as SRRC_BiaoJiKeywordEntity).Id,
-                OrderBy = this.listBox_Keyword.Items.Count
+                //OrderBy = this.listBox_Keyword.Items.Count
             };
-            DataBase.Instance.tSRRC_BiaoJiKeyword.Add(entity);
+            entity.OrderBy =   DataBase.Instance.tSRRC_BiaoJiKeyword.AddWithoutOrderBy(entity);
             RefreshKeyword();
         }
 
@@ -97,7 +109,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         {
             if (this.listBox_Category.SelectedItem == null) return;
             var item = this.listBox_Category.SelectedItem as SRRC_BiaoJiKeywordEntity;
-            DataBase.Instance.tSRRC_BiaoJiKeyword.Delete(item.Id);
+            DataBase.Instance.tSRRC_BiaoJiKeyword.DeleteCascade(item.Id);
             this.listBox_Category.Items.Remove(item);
         }
 
@@ -107,6 +119,118 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             var item = this.listBox_Keyword.SelectedItem as SRRC_BiaoJiKeywordEntity;
             DataBase.Instance.tSRRC_BiaoJiKeyword.Delete(item.Id);
             this.listBox_Keyword.Items.Remove(item);
+        }
+
+        private void btn_CategoryEdit_Click(object sender, EventArgs e)
+        {
+            if (this.listBox_Category.SelectedItem == null) return;
+            var item = this.listBox_Category.SelectedItem as SRRC_BiaoJiKeywordEntity;
+            string text = Interaction.InputBox("请输入新分类名", "关键字管理", item.Name);
+            if (string.IsNullOrEmpty(text))
+            {
+                MessageBox.Show("不能为空");
+                return;
+            }
+            item.Name = text;
+            DataBase.Instance.tSRRC_BiaoJiKeyword.Update(item);
+            var index = this.listBox_Category.Items.IndexOf(item);
+            this.listBox_Category.Items[index] = item;
+        }
+
+        private void btn_KeywordEdit_Click(object sender, EventArgs e)
+        {
+            if (this.listBox_Keyword.SelectedItem == null) return;
+            var item = this.listBox_Keyword.SelectedItem as SRRC_BiaoJiKeywordEntity;
+            string text = Interaction.InputBox("请输入新关键字名", "关键字管理", item.Name);
+            if (string.IsNullOrEmpty(text))
+            {
+                MessageBox.Show("不能为空");
+                return;
+            }
+            item.Name = text;
+            DataBase.Instance.tSRRC_BiaoJiKeyword.Update(item);
+            var index = this.listBox_Keyword.Items.IndexOf(item);
+            this.listBox_Keyword.Items[index] = item;
+        }
+
+        private void btn_CategoryUp_Click(object sender, EventArgs e)
+        {
+            if (this.listBox_Category.SelectedItem == null) return;
+            var item = this.listBox_Category.SelectedItem as SRRC_BiaoJiKeywordEntity;
+            var index = this.listBox_Category.Items.IndexOf(item);
+            if(index != 0)
+            {
+                var v = this.listBox_Category.Items[index - 1];
+                var itemOrder = item.OrderBy;
+                var newV = (v as SRRC_BiaoJiKeywordEntity);
+                item.OrderBy = newV.OrderBy;
+                newV.OrderBy = itemOrder;
+                this.listBox_Category.Items[index] = item;
+                this.listBox_Category.Items.Remove(v);
+                this.listBox_Category.Items.Insert(index, newV);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(item);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(newV);
+            }
+        }
+
+        private void btn_CategoryDown_Click(object sender, EventArgs e)
+        {
+            if (this.listBox_Category.SelectedItem == null) return;
+            var item = this.listBox_Category.SelectedItem as SRRC_BiaoJiKeywordEntity;
+            var index = this.listBox_Category.Items.IndexOf(item);
+            if (index != this.listBox_Category.Items.Count - 1)
+            {
+                var v = this.listBox_Category.Items[index + 1];
+                var itemOrder = item.OrderBy;
+                var newV = (v as SRRC_BiaoJiKeywordEntity);
+                item.OrderBy = newV.OrderBy;
+                newV.OrderBy = itemOrder;
+                this.listBox_Category.Items[index] = item;
+                this.listBox_Category.Items.Remove(v);
+                this.listBox_Category.Items.Insert(index, newV);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(item);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(newV);
+            }
+        }
+
+        private void btn_KeywordUp_Click(object sender, EventArgs e)
+        {
+            if (this.listBox_Keyword.SelectedItem == null) return;
+            var item = this.listBox_Keyword.SelectedItem as SRRC_BiaoJiKeywordEntity;
+            var index = this.listBox_Keyword.Items.IndexOf(item);
+            if(index != 0)
+            {
+                var v = this.listBox_Keyword.Items[index - 1];
+                var itemOrder = item.OrderBy;
+                var newV = (v as SRRC_BiaoJiKeywordEntity);
+                item.OrderBy = newV.OrderBy;
+                newV.OrderBy = itemOrder;
+                this.listBox_Keyword.Items[index] = item;
+                this.listBox_Keyword.Items.Remove(v);
+                this.listBox_Keyword.Items.Insert(index, newV);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(item);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(newV);
+            }
+        }
+
+        private void btn_KeywordDown_Click(object sender, EventArgs e)
+        {
+            if (this.listBox_Keyword.SelectedItem == null) return;
+            var item = this.listBox_Keyword.SelectedItem as SRRC_BiaoJiKeywordEntity;
+            var index = this.listBox_Keyword.Items.IndexOf(item);
+            if (index != this.listBox_Keyword.Items.Count - 1)
+            {
+                var v = this.listBox_Keyword.Items[index + 1];
+                var itemOrder = item.OrderBy;
+                var newV = (v as SRRC_BiaoJiKeywordEntity);
+                item.OrderBy = newV.OrderBy;
+                newV.OrderBy = itemOrder;
+                this.listBox_Keyword.Items[index] = item;
+                this.listBox_Keyword.Items.Remove(v);
+                this.listBox_Keyword.Items.Insert(index, newV);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(item);
+                DataBase.Instance.tSRRC_BiaoJiKeyword.Update(newV);
+            }
         }
     }
 }

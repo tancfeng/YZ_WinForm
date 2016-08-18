@@ -783,9 +783,29 @@ namespace SirdRoom.ManageSystem.ClientApplication.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        public static System.Drawing.Bitmap _checked {
+            get {
+                object obj = ResourceManager.GetObject("checked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         public static System.Drawing.Bitmap _default {
             get {
                 object obj = ResourceManager.GetObject("_default", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap _unchecked {
+            get {
+                object obj = ResourceManager.GetObject("unchecked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -876,6 +896,16 @@ namespace SirdRoom.ManageSystem.ClientApplication.Properties {
         public static System.Drawing.Bitmap fd {
             get {
                 object obj = ResourceManager.GetObject("fd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap IntelliSense_Keywords_6226 {
+            get {
+                object obj = ResourceManager.GetObject("IntelliSense-Keywords_6226", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

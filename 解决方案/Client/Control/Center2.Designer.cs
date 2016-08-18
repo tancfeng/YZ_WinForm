@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.FilmStrip = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.FilmStrip = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -49,17 +49,28 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
             this.panel1.Controls.Add(this.FilmStrip);
-            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1027, 31);
+            this.panel1.Size = new System.Drawing.Size(580, 31);
             this.panel1.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.close;
+            this.pictureBox1.Location = new System.Drawing.Point(553, 8);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(17, 16);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // FilmStrip
             // 
@@ -69,23 +80,11 @@
             this.FilmStrip.Location = new System.Drawing.Point(123, 4);
             this.FilmStrip.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FilmStrip.Name = "FilmStrip";
-            this.FilmStrip.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FilmStrip.Padding = new System.Windows.Forms.Padding(4);
             this.FilmStrip.Size = new System.Drawing.Size(95, 23);
             this.FilmStrip.TabIndex = 2;
             this.FilmStrip.Text = "Film Strip";
             this.FilmStrip.Click += new System.EventHandler(this.FilmStrip_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.close;
-            this.pictureBox1.Location = new System.Drawing.Point(997, 6);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(17, 16);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
             // 
@@ -95,7 +94,7 @@
             this.label1.Location = new System.Drawing.Point(4, 4);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.label1.Padding = new System.Windows.Forms.Padding(4);
             this.label1.Size = new System.Drawing.Size(111, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Image Basket";
@@ -104,16 +103,15 @@
             // listView1
             // 
             this.listView1.AllowDrop = true;
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 31);
             this.listView1.Margin = new System.Windows.Forms.Padding(0);
             this.listView1.Name = "listView1";
             this.listView1.OwnerDraw = true;
-            this.listView1.Size = new System.Drawing.Size(1024, 159);
+            this.listView1.Size = new System.Drawing.Size(580, 159);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listView1_DrawItem);
@@ -204,7 +202,7 @@
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Center2";
-            this.Size = new System.Drawing.Size(1024, 190);
+            this.Size = new System.Drawing.Size(580, 190);
             this.Enter += new System.EventHandler(this.Center2_Enter);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

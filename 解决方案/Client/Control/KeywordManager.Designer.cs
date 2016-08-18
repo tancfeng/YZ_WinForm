@@ -36,6 +36,12 @@
             this.btn_CategoryDel = new System.Windows.Forms.Button();
             this.btn_KeywordAdd = new System.Windows.Forms.Button();
             this.btn_KeywordDel = new System.Windows.Forms.Button();
+            this.btn_CategoryEdit = new System.Windows.Forms.Button();
+            this.btn_KeywordEdit = new System.Windows.Forms.Button();
+            this.btn_CategoryUp = new System.Windows.Forms.Button();
+            this.btn_CategoryDown = new System.Windows.Forms.Button();
+            this.btn_KeywordUp = new System.Windows.Forms.Button();
+            this.btn_KeywordDown = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -86,7 +92,7 @@
             this.btn_CategoryAdd.ForeColor = System.Drawing.Color.White;
             this.btn_CategoryAdd.Location = new System.Drawing.Point(33, 373);
             this.btn_CategoryAdd.Name = "btn_CategoryAdd";
-            this.btn_CategoryAdd.Size = new System.Drawing.Size(100, 29);
+            this.btn_CategoryAdd.Size = new System.Drawing.Size(80, 29);
             this.btn_CategoryAdd.TabIndex = 4;
             this.btn_CategoryAdd.Text = "新增";
             this.btn_CategoryAdd.UseVisualStyleBackColor = false;
@@ -95,9 +101,9 @@
             // btn_CategoryDel
             // 
             this.btn_CategoryDel.ForeColor = System.Drawing.Color.White;
-            this.btn_CategoryDel.Location = new System.Drawing.Point(139, 373);
+            this.btn_CategoryDel.Location = new System.Drawing.Point(121, 373);
             this.btn_CategoryDel.Name = "btn_CategoryDel";
-            this.btn_CategoryDel.Size = new System.Drawing.Size(100, 29);
+            this.btn_CategoryDel.Size = new System.Drawing.Size(80, 29);
             this.btn_CategoryDel.TabIndex = 5;
             this.btn_CategoryDel.Text = "删除";
             this.btn_CategoryDel.UseVisualStyleBackColor = false;
@@ -108,7 +114,7 @@
             this.btn_KeywordAdd.ForeColor = System.Drawing.Color.White;
             this.btn_KeywordAdd.Location = new System.Drawing.Point(319, 372);
             this.btn_KeywordAdd.Name = "btn_KeywordAdd";
-            this.btn_KeywordAdd.Size = new System.Drawing.Size(100, 29);
+            this.btn_KeywordAdd.Size = new System.Drawing.Size(80, 29);
             this.btn_KeywordAdd.TabIndex = 6;
             this.btn_KeywordAdd.Text = "新增";
             this.btn_KeywordAdd.UseVisualStyleBackColor = false;
@@ -117,19 +123,91 @@
             // btn_KeywordDel
             // 
             this.btn_KeywordDel.ForeColor = System.Drawing.Color.White;
-            this.btn_KeywordDel.Location = new System.Drawing.Point(425, 372);
+            this.btn_KeywordDel.Location = new System.Drawing.Point(406, 372);
             this.btn_KeywordDel.Name = "btn_KeywordDel";
-            this.btn_KeywordDel.Size = new System.Drawing.Size(100, 29);
+            this.btn_KeywordDel.Size = new System.Drawing.Size(80, 29);
             this.btn_KeywordDel.TabIndex = 7;
             this.btn_KeywordDel.Text = "删除";
             this.btn_KeywordDel.UseVisualStyleBackColor = false;
             this.btn_KeywordDel.Click += new System.EventHandler(this.btn_KeywordDel_Click);
+            // 
+            // btn_CategoryEdit
+            // 
+            this.btn_CategoryEdit.ForeColor = System.Drawing.Color.White;
+            this.btn_CategoryEdit.Location = new System.Drawing.Point(207, 373);
+            this.btn_CategoryEdit.Name = "btn_CategoryEdit";
+            this.btn_CategoryEdit.Size = new System.Drawing.Size(80, 29);
+            this.btn_CategoryEdit.TabIndex = 8;
+            this.btn_CategoryEdit.Text = "编辑";
+            this.btn_CategoryEdit.UseVisualStyleBackColor = false;
+            this.btn_CategoryEdit.Click += new System.EventHandler(this.btn_CategoryEdit_Click);
+            // 
+            // btn_KeywordEdit
+            // 
+            this.btn_KeywordEdit.ForeColor = System.Drawing.Color.White;
+            this.btn_KeywordEdit.Location = new System.Drawing.Point(490, 372);
+            this.btn_KeywordEdit.Name = "btn_KeywordEdit";
+            this.btn_KeywordEdit.Size = new System.Drawing.Size(80, 29);
+            this.btn_KeywordEdit.TabIndex = 9;
+            this.btn_KeywordEdit.Text = "编辑";
+            this.btn_KeywordEdit.UseVisualStyleBackColor = false;
+            this.btn_KeywordEdit.Click += new System.EventHandler(this.btn_KeywordEdit_Click);
+            // 
+            // btn_CategoryUp
+            // 
+            this.btn_CategoryUp.ForeColor = System.Drawing.Color.White;
+            this.btn_CategoryUp.Location = new System.Drawing.Point(81, 403);
+            this.btn_CategoryUp.Name = "btn_CategoryUp";
+            this.btn_CategoryUp.Size = new System.Drawing.Size(80, 29);
+            this.btn_CategoryUp.TabIndex = 10;
+            this.btn_CategoryUp.Text = "上移";
+            this.btn_CategoryUp.UseVisualStyleBackColor = false;
+            this.btn_CategoryUp.Click += new System.EventHandler(this.btn_CategoryUp_Click);
+            // 
+            // btn_CategoryDown
+            // 
+            this.btn_CategoryDown.ForeColor = System.Drawing.Color.White;
+            this.btn_CategoryDown.Location = new System.Drawing.Point(167, 403);
+            this.btn_CategoryDown.Name = "btn_CategoryDown";
+            this.btn_CategoryDown.Size = new System.Drawing.Size(80, 29);
+            this.btn_CategoryDown.TabIndex = 11;
+            this.btn_CategoryDown.Text = "下移";
+            this.btn_CategoryDown.UseVisualStyleBackColor = false;
+            this.btn_CategoryDown.Click += new System.EventHandler(this.btn_CategoryDown_Click);
+            // 
+            // btn_KeywordUp
+            // 
+            this.btn_KeywordUp.ForeColor = System.Drawing.Color.White;
+            this.btn_KeywordUp.Location = new System.Drawing.Point(356, 405);
+            this.btn_KeywordUp.Name = "btn_KeywordUp";
+            this.btn_KeywordUp.Size = new System.Drawing.Size(80, 29);
+            this.btn_KeywordUp.TabIndex = 12;
+            this.btn_KeywordUp.Text = "上移";
+            this.btn_KeywordUp.UseVisualStyleBackColor = false;
+            this.btn_KeywordUp.Click += new System.EventHandler(this.btn_KeywordUp_Click);
+            // 
+            // btn_KeywordDown
+            // 
+            this.btn_KeywordDown.ForeColor = System.Drawing.Color.White;
+            this.btn_KeywordDown.Location = new System.Drawing.Point(452, 404);
+            this.btn_KeywordDown.Name = "btn_KeywordDown";
+            this.btn_KeywordDown.Size = new System.Drawing.Size(80, 29);
+            this.btn_KeywordDown.TabIndex = 13;
+            this.btn_KeywordDown.Text = "下移";
+            this.btn_KeywordDown.UseVisualStyleBackColor = false;
+            this.btn_KeywordDown.Click += new System.EventHandler(this.btn_KeywordDown_Click);
             // 
             // KeywordManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.Controls.Add(this.btn_KeywordDown);
+            this.Controls.Add(this.btn_KeywordUp);
+            this.Controls.Add(this.btn_CategoryDown);
+            this.Controls.Add(this.btn_CategoryUp);
+            this.Controls.Add(this.btn_KeywordEdit);
+            this.Controls.Add(this.btn_CategoryEdit);
             this.Controls.Add(this.btn_KeywordDel);
             this.Controls.Add(this.btn_KeywordAdd);
             this.Controls.Add(this.btn_CategoryDel);
@@ -155,5 +233,11 @@
         private System.Windows.Forms.Button btn_CategoryDel;
         private System.Windows.Forms.Button btn_KeywordAdd;
         private System.Windows.Forms.Button btn_KeywordDel;
+        private System.Windows.Forms.Button btn_CategoryEdit;
+        private System.Windows.Forms.Button btn_KeywordEdit;
+        private System.Windows.Forms.Button btn_CategoryUp;
+        private System.Windows.Forms.Button btn_CategoryDown;
+        private System.Windows.Forms.Button btn_KeywordUp;
+        private System.Windows.Forms.Button btn_KeywordDown;
     }
 }

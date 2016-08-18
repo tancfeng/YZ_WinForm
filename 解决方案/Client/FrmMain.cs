@@ -57,6 +57,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             SROperation2.Instance.FocusPanel = "Left";
             SROperation.Instance.LeftSelectedId = SRLibFun.StringConvertToInt32(e.Node.Name);
             SROperation2.Instance.PicSelected = null;
+            this.keyword_UC31.Visible = false;
             switch(SROperation.Instance.LeftDtype)
             {
                 case "Resources":
@@ -66,7 +67,11 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 case "Study":
                     {
                         SROperation2.Instance.StudySelectedId = SROperation.Instance.LeftSelectedId;
-                    }break;
+                        this.keyword_UC31.Visible = true;
+                        this.keyword_UC31.BindData();
+                        this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
+                    }
+                    break;
                 case "Favorites":
                     {
                         SROperation2.Instance.FavoritesSelectedId = SROperation.Instance.LeftSelectedId;
@@ -276,6 +281,10 @@ namespace SirdRoom.ManageSystem.ClientApplication
                     {
                         this.buttom1.BindData();
                         this.right1.SetBiaoJiSatus(SROperation2.Instance.PicSelected);
+                        if(this.keyword_UC31.Visible)
+                        {
+                            this.keyword_UC31.SetBiaoJiKeywordStatus(SROperation2.Instance.PicSelected);
+                        }
                     }
                     break;
                 case 1: //打开图片预览
@@ -1791,5 +1800,10 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 }
             }
         }
+
+        private void splitContainer3_Panel1_Resize(object sender, EventArgs e)
+        {
+            this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
+        }        
     }
 }

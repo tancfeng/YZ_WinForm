@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SirdRoom.ManageSystem.ClientApplication;
+using SirdRoom.ManageSystem.ClientApplication.Control;
 
 namespace ControlLibrary.Control
 {
@@ -335,6 +336,25 @@ namespace ControlLibrary.Control
                 SROperation.Instance.OrderType = 1;
                 OnPageToolClicked(sender, new ToolEventArgs() { PicIndex = SROperation.Instance.Orderby + 3 });
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            FrmFrame frm = new FrmFrame()
+            {
+                WindowState = FormWindowState.Normal,
+                Width = 480,
+                Height = 400,
+                BackColor = Color.FromArgb(37, 37, 37),
+                Text = "艺卓资源管理系统",
+                Name = "常驻关键字设置",
+                FormBorderStyle = FormBorderStyle.Sizable
+            };
+            var control = new KeywordManager(0);
+            frm.SetUserControl(control);
+
+            //  
+            frm.ShowDialog();
         }
     }
 

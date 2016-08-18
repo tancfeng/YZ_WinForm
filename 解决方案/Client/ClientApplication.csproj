@@ -110,7 +110,20 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Code\CSharp_Win32Api.cs" />
     <Compile Include="Code\ProcessHelper.cs" />
+    <Compile Include="Control\BiaoQianControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\BiaoQianControl.Designer.cs">
+      <DependentUpon>BiaoQianControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\BiaoQianPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\BiaoQianPanelControl.Designer.cs">
+      <DependentUpon>BiaoQianPanelControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\Browser.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -165,6 +178,24 @@
     </Compile>
     <Compile Include="Control\KeywordManager.Designer.cs">
       <DependentUpon>KeywordManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Keyword_UC1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword_UC1.Designer.cs">
+      <DependentUpon>Keyword_UC1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Keyword_UC2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword_UC2.Designer.cs">
+      <DependentUpon>Keyword_UC2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Keyword_UC3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword_UC3.Designer.cs">
+      <DependentUpon>Keyword_UC3.cs</DependentUpon>
     </Compile>
     <Compile Include="Control\Left.cs">
       <SubType>UserControl</SubType>
@@ -302,6 +333,12 @@
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Control\BiaoQianControl.resx">
+      <DependentUpon>BiaoQianControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\BiaoQianPanelControl.resx">
+      <DependentUpon>BiaoQianPanelControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Control\Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -328,6 +365,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control\KeywordManager.resx">
       <DependentUpon>KeywordManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword_UC1.resx">
+      <DependentUpon>Keyword_UC1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword_UC2.resx">
+      <DependentUpon>Keyword_UC2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword_UC3.resx">
+      <DependentUpon>Keyword_UC3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Control\Left.resx">
       <DependentUpon>Left.cs</DependentUpon>
@@ -446,6 +492,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\IntelliSense-Keywords_6226.png" />
+    <None Include="Resources\unchecked.png" />
+    <None Include="Resources\checked.png" />
     <None Include="Resources\sort19.png" />
     <None Include="Resources\default.png" />
     <None Include="Resources\keywordFilter.png" />

@@ -33,7 +33,6 @@
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("节点0", new System.Windows.Forms.TreeNode[] {
             treeNode1});
             this.panel1 = new System.Windows.Forms.Panel();
-            this.keyword1 = new WindowsFormsApplication1.Keyword();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.展开下列所有节目ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,56 +58,38 @@
             this.label1 = new System.Windows.Forms.Label();
             this.picTitleTool1 = new System.Windows.Forms.PictureBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.keyword1 = new WindowsFormsApplication1.Keyword();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTitleTool1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.keyword1);
             this.panel1.Controls.Add(this.treeView1);
-            this.panel1.Controls.Add(this.Favorites);
-            this.panel1.Controls.Add(this.Study);
-            this.panel1.Controls.Add(this.Keyword);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(341, 661);
             this.panel1.TabIndex = 0;
             // 
-            // keyword1
-            // 
-            this.keyword1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.keyword1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.keyword1.Location = new System.Drawing.Point(1, 35);
-            this.keyword1.Margin = new System.Windows.Forms.Padding(5);
-            this.keyword1.Name = "keyword1";
-            this.keyword1.Size = new System.Drawing.Size(335, 585);
-            this.keyword1.TabIndex = 6;
-            this.keyword1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keyword1_KeyDown);
-            // 
             // treeView1
             // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView1.CheckBoxes = true;
             this.treeView1.ContextMenuStrip = this.contextMenuStrip1;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.ForeColor = System.Drawing.Color.White;
             this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(1, 38);
+            this.treeView1.Location = new System.Drawing.Point(0, 32);
             this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
             treeNode1.ImageKey = "4.jpg";
@@ -119,7 +100,7 @@
             treeNode2.Text = "节点0";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2});
-            this.treeView1.Size = new System.Drawing.Size(335, 580);
+            this.treeView1.Size = new System.Drawing.Size(339, 589);
             this.treeView1.TabIndex = 5;
             this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             this.treeView1.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView1_DrawNode);
@@ -257,7 +238,7 @@
             this.Favorites.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Favorites.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.Favorites.ForeColor = System.Drawing.Color.White;
-            this.Favorites.Location = new System.Drawing.Point(111, 630);
+            this.Favorites.Location = new System.Drawing.Point(188, 6);
             this.Favorites.Margin = new System.Windows.Forms.Padding(0);
             this.Favorites.Name = "Favorites";
             this.Favorites.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
@@ -272,7 +253,7 @@
             this.Study.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Study.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(143)))), ((int)(((byte)(178)))));
             this.Study.ForeColor = System.Drawing.Color.White;
-            this.Study.Location = new System.Drawing.Point(207, 630);
+            this.Study.Location = new System.Drawing.Point(123, 6);
             this.Study.Margin = new System.Windows.Forms.Padding(0);
             this.Study.Name = "Study";
             this.Study.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
@@ -287,7 +268,7 @@
             this.Keyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Keyword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.Keyword.ForeColor = System.Drawing.Color.White;
-            this.Keyword.Location = new System.Drawing.Point(12, 630);
+            this.Keyword.Location = new System.Drawing.Point(12, 6);
             this.Keyword.Margin = new System.Windows.Forms.Padding(0);
             this.Keyword.Name = "Keyword";
             this.Keyword.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
@@ -299,27 +280,28 @@
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Location = new System.Drawing.Point(-1, 622);
+            this.panel3.Controls.Add(this.Keyword);
+            this.panel3.Controls.Add(this.Study);
+            this.panel3.Controls.Add(this.Favorites);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 621);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(339, 1);
+            this.panel3.Size = new System.Drawing.Size(339, 38);
             this.panel3.TabIndex = 1;
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackgroundImage = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.TitleBg;
             this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.picTitleTool1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(340, 32);
+            this.panel2.Size = new System.Drawing.Size(339, 32);
             this.panel2.TabIndex = 0;
             this.panel2.Click += new System.EventHandler(this.panel2_Click);
             // 
@@ -333,7 +315,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "and",
             "or"});
-            this.comboBox1.Location = new System.Drawing.Point(224, 4);
+            this.comboBox1.Location = new System.Drawing.Point(223, 4);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(79, 23);
@@ -353,7 +335,7 @@
             // 
             this.picTitleTool1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picTitleTool1.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.close;
-            this.picTitleTool1.Location = new System.Drawing.Point(312, 8);
+            this.picTitleTool1.Location = new System.Drawing.Point(311, 8);
             this.picTitleTool1.Margin = new System.Windows.Forms.Padding(4);
             this.picTitleTool1.Name = "picTitleTool1";
             this.picTitleTool1.Size = new System.Drawing.Size(19, 20);
@@ -366,6 +348,17 @@
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // keyword1
+            // 
+            this.keyword1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.keyword1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.keyword1.Location = new System.Drawing.Point(0, 32);
+            this.keyword1.Margin = new System.Windows.Forms.Padding(5);
+            this.keyword1.Name = "keyword1";
+            this.keyword1.Size = new System.Drawing.Size(339, 589);
+            this.keyword1.TabIndex = 6;
+            this.keyword1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keyword1_KeyDown);
             // 
             // Right
             // 
@@ -382,6 +375,7 @@
             this.Enter += new System.EventHandler(this.Right_Enter);
             this.panel1.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTitleTool1)).EndInit();

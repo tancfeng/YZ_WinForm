@@ -922,7 +922,7 @@ namespace ControlLibrary.Control
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if(e.Node.Nodes.Count == 0)
+            if (e.Node.Nodes.Count == 0)
             {
                 AddNodeData(e.Node, entList, Convert.ToInt32(e.Node.Name));
                 //e.Node.Expand();
@@ -930,8 +930,7 @@ namespace ControlLibrary.Control
             //鼠标右键点击
             if (e.Button == MouseButtons.Right && e.Node.Tag != null)
             {
-                SROperation2.Instance.LeftMouseRightSelectedEnt = e.Node.Tag as SRRC_ResourceEntity;
-                if (SROperation.Instance.LeftDtype == "Study" || Param.GroupId < 3)
+                if (SROperation.Instance.LeftSelectedId == (e.Node.Tag as SRRC_BiaojiEntity).Id && SROperation.Instance.LeftDtype == "Study" && Param.GroupId < 3)
                 {
                     e.Node.ContextMenuStrip = contextMenuStrip3;
                 }
@@ -1092,12 +1091,12 @@ namespace ControlLibrary.Control
             }
         }
 
-        private void contextMenuStrip3_Opening(object sender, CancelEventArgs e)
+        private void 关键字管理ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmFrame frm = new FrmFrame()
             {
                 WindowState = FormWindowState.Normal,
-                Width = 480,               
+                Width = 480,
                 Height = 400,
                 BackColor = Color.FromArgb(37, 37, 37),
                 Text = "艺卓资源管理系统",

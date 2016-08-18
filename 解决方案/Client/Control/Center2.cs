@@ -413,7 +413,7 @@ public partial class Center2 : UserControl
                 e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                 e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                if ((e.State & ListViewItemStates.Selected) != 0 && e.Item.Selected)
+                if ((e.State & ListViewItemStates.Selected) != 0 && e.Item.Selected)                
                 {
                     e.Graphics.FillRectangle(new SolidBrush(Color.Gray), e.Bounds);
 
@@ -460,6 +460,7 @@ public partial class Center2 : UserControl
         }
         private void listView1_SelectedIndexChangedHelper(object sender, EventArgs e)
         {
+            selectedIndexChangedTimer.Stop();
             if (this.listView1.Focused)//图像篮子焦点，通知 清空 Center1选项
             {
                 OnPageClicked(sender, new MyEventArgs { Action = 7 });
