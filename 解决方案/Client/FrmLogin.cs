@@ -24,7 +24,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
         private AutoResetEvent _event = new AutoResetEvent(false);
 
         private String pristrServer;
-        private String pristrPort;
+        //private String pristrPort;
         private String pristrUsername;
         private String pristrPwd;
         private SRLogin.SRLoginResultType priSRLoginResultType = SRLogin.SRLoginResultType.NoInstall;

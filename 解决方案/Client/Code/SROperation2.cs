@@ -24,7 +24,7 @@ public class SROperation2
         get { return _PicSelected; }
         set { _PicSelected = value; }
     }
-
+    
     /// <summary>
     /// 待复制TreeId
     /// </summary>
@@ -215,4 +215,8 @@ public class SROperation2
     public bool isContinue { get; set; }
 
     public bool isFilterKeywordChanged { get; set; }
+
+    #region 新关键字相关 
+    public List<SRRC_BiaoJiKeywordEntity> BiaoJiKeywordFilterList = new List<SRRC_BiaoJiKeywordEntity>();
+    #endregion
 }

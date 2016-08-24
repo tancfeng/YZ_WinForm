@@ -24,8 +24,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Pages.User
                         break;
                     case Keys.Enter:
 
-                        return true;
-                        break;
+                        return true;                        
                 }
             }
             return false;

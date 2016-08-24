@@ -33,8 +33,15 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.left1 = new ControlLibrary.Control.Left();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.center11 = new ControlLibrary.Control.Center1();
+            this.keyword_UC31 = new SirdRoom.ManageSystem.ClientApplication.Control.Keyword_UC3();
+            this.keyword_UC61 = new SirdRoom.ManageSystem.ClientApplication.Control.Keyword_UC6();
+            this.tool1 = new ControlLibrary.Control.Tool();
+            this.center21 = new ControlLibrary.Control.Center2();
+            this.right1 = new ControlLibrary.Control.Right();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,13 +88,7 @@
             this.小平铺6464ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.缩略图128128ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.缩略图3240180ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.left1 = new ControlLibrary.Control.Left();
-            this.center11 = new ControlLibrary.Control.Center1();
-            this.tool1 = new ControlLibrary.Control.Tool();
-            this.center21 = new ControlLibrary.Control.Center2();
-            this.right1 = new ControlLibrary.Control.Right();
             this.buttom1 = new SirdRoom.ManageSystem.ClientApplication.Control.Buttom();
-            this.keyword_UC31 = new SirdRoom.ManageSystem.ClientApplication.Control.Keyword_UC3();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -128,6 +129,17 @@
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 15;
             // 
+            // left1
+            // 
+            this.left1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.left1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.left1.Location = new System.Drawing.Point(0, 0);
+            this.left1.Margin = new System.Windows.Forms.Padding(0);
+            this.left1.Name = "left1";
+            this.left1.Size = new System.Drawing.Size(341, 746);
+            this.left1.TabIndex = 0;
+            this.left1.Click += new System.EventHandler(this.left1_Click);
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -161,6 +173,7 @@
             // 
             this.splitContainer3.Panel1.Controls.Add(this.center11);
             this.splitContainer3.Panel1.Controls.Add(this.keyword_UC31);
+            this.splitContainer3.Panel1.Controls.Add(this.keyword_UC61);
             this.splitContainer3.Panel1.Controls.Add(this.tool1);
             this.splitContainer3.Panel1.Resize += new System.EventHandler(this.splitContainer3_Panel1_Resize);
             // 
@@ -171,6 +184,72 @@
             this.splitContainer3.SplitterDistance = 504;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // center11
+            // 
+            this.center11.AllowDrop = true;
+            this.center11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.center11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.center11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.center11.Location = new System.Drawing.Point(0, 261);
+            this.center11.Margin = new System.Windows.Forms.Padding(0);
+            this.center11.Name = "center11";
+            this.center11.Size = new System.Drawing.Size(841, 243);
+            this.center11.TabIndex = 1;
+            // 
+            // keyword_UC31
+            // 
+            this.keyword_UC31.AutoSize = true;
+            this.keyword_UC31.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.keyword_UC31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.keyword_UC31.Dock = System.Windows.Forms.DockStyle.Top;
+            this.keyword_UC31.Location = new System.Drawing.Point(0, 261);
+            this.keyword_UC31.Name = "keyword_UC31";
+            this.keyword_UC31.Size = new System.Drawing.Size(841, 0);
+            this.keyword_UC31.TabIndex = 2;
+            // 
+            // keyword_UC61
+            // 
+            this.keyword_UC61.AutoSize = true;
+            this.keyword_UC61.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.keyword_UC61.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.keyword_UC61.Dock = System.Windows.Forms.DockStyle.Top;
+            this.keyword_UC61.Location = new System.Drawing.Point(0, 71);
+            this.keyword_UC61.Name = "keyword_UC61";
+            this.keyword_UC61.Size = new System.Drawing.Size(841, 190);
+            this.keyword_UC61.TabIndex = 3;
+            // 
+            // tool1
+            // 
+            this.tool1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            this.tool1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tool1.Location = new System.Drawing.Point(0, 0);
+            this.tool1.Margin = new System.Windows.Forms.Padding(0);
+            this.tool1.Name = "tool1";
+            this.tool1.Size = new System.Drawing.Size(841, 71);
+            this.tool1.TabIndex = 0;
+            // 
+            // center21
+            // 
+            this.center21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
+            this.center21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.center21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.center21.Location = new System.Drawing.Point(0, 0);
+            this.center21.Margin = new System.Windows.Forms.Padding(0);
+            this.center21.Name = "center21";
+            this.center21.Size = new System.Drawing.Size(841, 241);
+            this.center21.TabIndex = 0;
+            // 
+            // right1
+            // 
+            this.right1.BackColor = System.Drawing.Color.Transparent;
+            this.right1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.right1.Location = new System.Drawing.Point(0, 0);
+            this.right1.Margin = new System.Windows.Forms.Padding(0);
+            this.right1.Name = "right1";
+            this.right1.Size = new System.Drawing.Size(341, 746);
+            this.right1.TabIndex = 0;
+            this.right1.Click += new System.EventHandler(this.right1_Click);
             // 
             // menuStrip1
             // 
@@ -592,61 +671,6 @@
             this.缩略图3240180ToolStripMenuItem.Text = "缩略图 #3(256*256)";
             this.缩略图3240180ToolStripMenuItem.Click += new System.EventHandler(this.Context1ToolStripMenuItem_Click);
             // 
-            // left1
-            // 
-            this.left1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.left1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.left1.Location = new System.Drawing.Point(0, 0);
-            this.left1.Margin = new System.Windows.Forms.Padding(0);
-            this.left1.Name = "left1";
-            this.left1.Size = new System.Drawing.Size(341, 746);
-            this.left1.TabIndex = 0;
-            this.left1.Click += new System.EventHandler(this.left1_Click);
-            // 
-            // center11
-            // 
-            this.center11.AllowDrop = true;
-            this.center11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.center11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.center11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.center11.Location = new System.Drawing.Point(0, 71);
-            this.center11.Margin = new System.Windows.Forms.Padding(0);
-            this.center11.Name = "center11";
-            this.center11.Size = new System.Drawing.Size(841, 433);
-            this.center11.TabIndex = 1;
-            // 
-            // tool1
-            // 
-            this.tool1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
-            this.tool1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tool1.Location = new System.Drawing.Point(0, 0);
-            this.tool1.Margin = new System.Windows.Forms.Padding(0);
-            this.tool1.Name = "tool1";
-            this.tool1.Size = new System.Drawing.Size(841, 71);
-            this.tool1.TabIndex = 0;
-            // 
-            // center21
-            // 
-            this.center21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
-            this.center21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.center21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.center21.Location = new System.Drawing.Point(0, 0);
-            this.center21.Margin = new System.Windows.Forms.Padding(0);
-            this.center21.Name = "center21";
-            this.center21.Size = new System.Drawing.Size(841, 241);
-            this.center21.TabIndex = 0;
-            // 
-            // right1
-            // 
-            this.right1.BackColor = System.Drawing.Color.Transparent;
-            this.right1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.right1.Location = new System.Drawing.Point(0, 0);
-            this.right1.Margin = new System.Windows.Forms.Padding(0);
-            this.right1.Name = "right1";
-            this.right1.Size = new System.Drawing.Size(341, 746);
-            this.right1.TabIndex = 0;
-            this.right1.Click += new System.EventHandler(this.right1_Click);
-            // 
             // buttom1
             // 
             this.buttom1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -655,16 +679,6 @@
             this.buttom1.Name = "buttom1";
             this.buttom1.Size = new System.Drawing.Size(1525, 28);
             this.buttom1.TabIndex = 2;
-            // 
-            // keyword_UC31
-            // 
-            this.keyword_UC31.AutoSize = true;
-            this.keyword_UC31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.keyword_UC31.Dock = System.Windows.Forms.DockStyle.Top;
-            this.keyword_UC31.Location = new System.Drawing.Point(0, 71);
-            this.keyword_UC31.Name = "keyword_UC31";
-            this.keyword_UC31.Size = new System.Drawing.Size(841, 0);
-            this.keyword_UC31.TabIndex = 2;
             // 
             // FrmMain
             // 
@@ -689,6 +703,7 @@
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrmMain_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyUp);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseUp);
+            this.Resize += new System.EventHandler(this.FrmMain_Resize);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -771,5 +786,6 @@
         private ControlLibrary.Control.Center2 center21;
         private ControlLibrary.Control.Center1 center11;
         private Control.Keyword_UC3 keyword_UC31;
+        private Control.Keyword_UC6 keyword_UC61;
     }
 }

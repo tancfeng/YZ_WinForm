@@ -58,6 +58,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             SROperation.Instance.LeftSelectedId = SRLibFun.StringConvertToInt32(e.Node.Name);
             SROperation2.Instance.PicSelected = null;
             this.keyword_UC31.Visible = false;
+            this.keyword_UC61.Visible = false;
             switch(SROperation.Instance.LeftDtype)
             {
                 case "Resources":
@@ -67,9 +68,20 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 case "Study":
                     {
                         SROperation2.Instance.StudySelectedId = SROperation.Instance.LeftSelectedId;
-                        this.keyword_UC31.Visible = true;
-                        this.keyword_UC31.BindData();
-                        this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
+                        if(Param.GroupId  == 1)
+                        {
+                            this.keyword_UC31.Visible = true;
+                            this.keyword_UC31.BindData();
+                            this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
+                        }
+                        else
+                        {
+                            SROperation2.Instance.BiaoJiKeywordFilterList.Clear();
+                            this.keyword_UC61.Visible = true;
+                            this.keyword_UC61.BindData();
+                            this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
+                        }
+                        
                     }
                     break;
                 case "Favorites":
@@ -284,6 +296,10 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         if(this.keyword_UC31.Visible)
                         {
                             this.keyword_UC31.SetBiaoJiKeywordStatus(SROperation2.Instance.PicSelected);
+                        }
+                        if(this.keyword_UC61.Visible)
+                        {
+                            //this.keyword_UC61.SetBiaoJiKeywordStatus(SROperation2.Instance.PicSelected);
                         }
                     }
                     break;
@@ -1062,7 +1078,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                                 Param.ServerIP.Title))
                             {
                                 SRRC_ResourceEntity resEnt = DataBase.Instance.tSRRC_Resource.Get_Entity(SROperation.Instance.LeftSelectedId);
-                                String strFolrder = "";
+                                //String strFolrder = "";
                                 if (resEnt != null)
                                 {
                                     Directory.CreateDirectory(resEnt.Serverip + resEnt.Path.TrimEnd('\\') + "\\" + Param.DPageParameter);
@@ -1146,70 +1162,70 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         this.center11.CopyClipboardToCenter1();
                         return;
 
-                        if (SROperation2.Instance.PicCopyTreeId == SROperation.Instance.LeftSelectedId ||
-                            SROperation2.Instance.OperationType != 1 || SROperation2.Instance.OperationType != 2 ||
-                            SROperation2.Instance.PicSelected == null || SROperation2.Instance.PicSelected.Count <= 0
-                            )
-                        { return; }
-                        if (SROperation2.Instance.OperationType == 1) //Cut
-                        {
-                            List<String> pathList = new List<string>();
-                            foreach (var item in SROperation2.Instance.PicSelected)
-                            {
-                                pathList.Add(item.Path);
-                            }
-                            List<SRRC_ResourceEntity> resEntList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, " Serverip=[$Serverip$] ", new DataParameter("Serverip", Param.ServerIP.Title));
-                            this.left1.KKCopyList(pathList, Param.ServerIP, resEntList.Any(m => m.Id == SROperation.Instance.LeftSelectedId) == false ? "" : resEntList.FirstOrDefault(m => m.Id == SROperation.Instance.LeftSelectedId).Path);
-                            String strPids = "";
-                            //删除
-                            using (new IdentityScope(Param.ServerIP.Description,
-                                    Param.ServerIP.Remark,
-                                    Param.ServerIP.Title))
-                            {
-                                foreach (var item in SROperation2.Instance.PicSelected)
-                                {
-                                    try
-                                    {
-                                        if (item.Dtype == 1)
-                                            new FileInfo(item.Serverip + item.Path).Delete();
-                                        else
-                                            new DirectoryInfo(item.Serverip + item.Path).Delete();
+                        //if (SROperation2.Instance.PicCopyTreeId == SROperation.Instance.LeftSelectedId ||
+                        //    SROperation2.Instance.OperationType != 1 || SROperation2.Instance.OperationType != 2 ||
+                        //    SROperation2.Instance.PicSelected == null || SROperation2.Instance.PicSelected.Count <= 0
+                        //    )
+                        //{ return; }
+                        //if (SROperation2.Instance.OperationType == 1) //Cut
+                        //{
+                        //    List<String> pathList = new List<string>();
+                        //    foreach (var item in SROperation2.Instance.PicSelected)
+                        //    {
+                        //        pathList.Add(item.Path);
+                        //    }
+                        //    List<SRRC_ResourceEntity> resEntList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, " Serverip=[$Serverip$] ", new DataParameter("Serverip", Param.ServerIP.Title));
+                        //    this.left1.KKCopyList(pathList, Param.ServerIP, resEntList.Any(m => m.Id == SROperation.Instance.LeftSelectedId) == false ? "" : resEntList.FirstOrDefault(m => m.Id == SROperation.Instance.LeftSelectedId).Path);
+                        //    String strPids = "";
+                        //    //删除
+                        //    using (new IdentityScope(Param.ServerIP.Description,
+                        //            Param.ServerIP.Remark,
+                        //            Param.ServerIP.Title))
+                        //    {
+                        //        foreach (var item in SROperation2.Instance.PicSelected)
+                        //        {
+                        //            try
+                        //            {
+                        //                if (item.Dtype == 1)
+                        //                    new FileInfo(item.Serverip + item.Path).Delete();
+                        //                else
+                        //                    new DirectoryInfo(item.Serverip + item.Path).Delete();
 
-                                        strPids += item.Id + ",";
-                                        GetIds(resEntList, item.Id, ref strPids);
-                                    }
-                                    catch (Exception)
-                                    {
-                                        ;
-                                    }
-                                }
-                            }
-                            if (string.IsNullOrEmpty(strPids) == false)
-                            {
-                                DataBase.Instance.tSRRC_Resource.Delete(" Id in(" + strPids.TrimEnd(',') + ") ");
-                            }
+                        //                strPids += item.Id + ",";
+                        //                GetIds(resEntList, item.Id, ref strPids);
+                        //            }
+                        //            catch (Exception)
+                        //            {
+                        //                ;
+                        //            }
+                        //        }
+                        //    }
+                        //    if (string.IsNullOrEmpty(strPids) == false)
+                        //    {
+                        //        DataBase.Instance.tSRRC_Resource.Delete(" Id in(" + strPids.TrimEnd(',') + ") ");
+                        //    }
 
-                            this.left1.BindData();
-                            this.center11.BindData();
-                            this.Refresh();
-                            this.center11.SetData();
-                        }
-                        else
-                        {
-                            List<String> pathList = new List<string>();
-                            foreach (var item in SROperation2.Instance.PicSelected)
-                            {
-                                pathList.Add(item.Path);
-                            }
-                            this.left1.KKCopyList(pathList, Param.ServerIP, SROperation.Instance.LeftSelectedId <= 0 ? "" : DataBase.Instance.tSRRC_Resource.Get_Entity(SROperation.Instance.LeftSelectedId).Path);
+                        //    this.left1.BindData();
+                        //    this.center11.BindData();
+                        //    this.Refresh();
+                        //    this.center11.SetData();
+                        //}
+                        //else
+                        //{
+                        //    List<String> pathList = new List<string>();
+                        //    foreach (var item in SROperation2.Instance.PicSelected)
+                        //    {
+                        //        pathList.Add(item.Path);
+                        //    }
+                        //    this.left1.KKCopyList(pathList, Param.ServerIP, SROperation.Instance.LeftSelectedId <= 0 ? "" : DataBase.Instance.tSRRC_Resource.Get_Entity(SROperation.Instance.LeftSelectedId).Path);
 
-                            this.left1.BindData();
-                            this.center11.BindData();
-                            this.Refresh();
-                            this.center11.SetData();
-                        }
+                        //    this.left1.BindData();
+                        //    this.center11.BindData();
+                        //    this.Refresh();
+                        //    this.center11.SetData();
+                        //}
                     }
-                    break;
+                   // break;
                 case "重命名":
                     {
                         if (Param.GroupId > 2)
@@ -1646,6 +1662,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
         private void splitContainer2_SplitterMoved(object sender, SplitterEventArgs e)
         {
             SROperation.Instance.SplitContainer2SplitterDistance = this.splitContainer2.SplitterDistance;
+            this.reCalcKeywordPanelHeight();
         }
 
         private void splitContainer3_SplitterMoved(object sender, SplitterEventArgs e)
@@ -1803,7 +1820,43 @@ namespace SirdRoom.ManageSystem.ClientApplication
 
         private void splitContainer3_Panel1_Resize(object sender, EventArgs e)
         {
-            this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
-        }        
+            reCalcKeywordPanelHeight();
+        }    
+        /// <summary>
+        /// 常驻关键字修改不需要刷新UC6面板
+        /// </summary>
+        /// <param name="isRefreshAll"></param>
+        public void Keyword_UC6Refresh(bool isRefreshAll=true)
+        {
+            if(isRefreshAll)
+            {
+                //UC61刷新
+                this.keyword_UC61.UC_6_Refresh();                
+                //recalc height
+                this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
+            }
+            //Center1刷新
+            this.center11.BindData();
+            this.tool1.BindData();
+            this.Refresh();
+            this.center11.SetData();
+            this.right1.RefreshKeyword();
+        }
+        public void reCalcKeywordPanelHeight()
+        {
+            if (this.keyword_UC31.Visible)
+            {
+                this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
+            }
+            if (this.keyword_UC61.Visible)
+            {
+                this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
+            }
+        }
+
+        private void FrmMain_Resize(object sender, EventArgs e)
+        {
+            reCalcKeywordPanelHeight();
+        }
     }
 }

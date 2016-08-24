@@ -18,12 +18,12 @@ namespace SirdRoom.ManageSystem.ClientApplication
         Encoding encoding = Encoding.GetEncoding("GB2312"); //
         //解码器（可以用于汉字）
         private Socket socketWatch;
-        private string data = null;
+        //private string data = null;
         private byte[] receiveBytes = new byte[1024];//
         // 定义端口
         private int listenPort = 7000;
         //服务器端设置缓冲区
-        private int recCount;
+        //private int recCount;
         //HtmlExecute htmlExe = null;
         //传递连接socket  
         List<ClientEntity> priClientList = new List<ClientEntity>();
@@ -281,7 +281,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                            {
                                //receiveString
                                String strDe = "";
-                               Int32 ipid = -1;
+                               //Int32 ipid = -1;
                                string strejz = ArConvert.Convert16To2(receiveString.Substring(10, 2), 8);
                                Int32 ixw1 = ArConvert.Convert16ToInt(receiveString.Substring(12, 2));
                                Int32 ixw2 = ArConvert.Convert16ToInt(receiveString.Substring(14, 2));

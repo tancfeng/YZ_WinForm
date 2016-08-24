@@ -197,6 +197,30 @@
     <Compile Include="Control\Keyword_UC3.Designer.cs">
       <DependentUpon>Keyword_UC3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Control\Keyword_UC4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword_UC4.Designer.cs">
+      <DependentUpon>Keyword_UC4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Keyword_UC5.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword_UC5.Designer.cs">
+      <DependentUpon>Keyword_UC5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Keyword_UC6.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword_UC6.Designer.cs">
+      <DependentUpon>Keyword_UC6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Keyword_UC7.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Control\Keyword_UC7.Designer.cs">
+      <DependentUpon>Keyword_UC7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Control\Left.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -375,6 +399,18 @@
     <EmbeddedResource Include="Control\Keyword_UC3.resx">
       <DependentUpon>Keyword_UC3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword_UC4.resx">
+      <DependentUpon>Keyword_UC4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword_UC5.resx">
+      <DependentUpon>Keyword_UC5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword_UC6.resx">
+      <DependentUpon>Keyword_UC6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\Keyword_UC7.resx">
+      <DependentUpon>Keyword_UC7.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Control\Left.resx">
       <DependentUpon>Left.cs</DependentUpon>
     </EmbeddedResource>
@@ -492,6 +528,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\action_add_16xLG1.png" />
+    <None Include="Resources\action_add_16xLG.png" />
+    <None Include="Resources\delete_16x.ico" />
     <None Include="Resources\IntelliSense-Keywords_6226.png" />
     <None Include="Resources\unchecked.png" />
     <None Include="Resources\checked.png" />

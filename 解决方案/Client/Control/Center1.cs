@@ -483,6 +483,13 @@ namespace ControlLibrary.Control
                             {
                                 strWhere += " and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
                             }
+
+                            #region 标记关键字过滤
+                            if (Param.GroupId > 1 && SROperation2.Instance.BiaoJiKeywordFilterList.Count > 0)
+                            {
+                                strWhere += String.Format(" and Id in( select Resource_id from dbo.SRRC_Resourcebiaojirel where id in (  select ResourceBiaoJiRelId from dbo.SRRC_ResourceBiaoJiRel_BiaoJiKeyword where BiaoJiKeywordId in ({0})))", String.Join(",", SROperation2.Instance.BiaoJiKeywordFilterList.Select(l => l.Id)));
+                            }
+                            #endregion
                             tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
 
                         }
@@ -546,8 +553,10 @@ namespace ControlLibrary.Control
                 }
             }
             #endregion
+
+
             #region 排序
-            if(tempList != null)
+            if (tempList != null)
             {
                 switch (SROperation.Instance.Orderby)
                 {
@@ -1043,7 +1052,7 @@ namespace ControlLibrary.Control
                     {
                         CopyFile(parentEnt, file, ref count);
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         uploadFailFile.AppendFormat(file + @"\r\n");
                         SRLogHelper.Instance.AddLog("异常", "上传文件", "文件", file);

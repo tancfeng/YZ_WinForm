@@ -873,6 +873,16 @@ namespace SirdRoom.ManageSystem.ClientApplication.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        public static System.Drawing.Bitmap action_add_16xLG {
+            get {
+                object obj = ResourceManager.GetObject("action_add_16xLG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         public static System.Drawing.Bitmap close {
             get {
                 object obj = ResourceManager.GetObject("close", resourceCulture);
@@ -886,6 +896,16 @@ namespace SirdRoom.ManageSystem.ClientApplication.Properties {
         public static System.Drawing.Bitmap close1 {
             get {
                 object obj = ResourceManager.GetObject("close1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap delete_16x {
+            get {
+                object obj = ResourceManager.GetObject("delete_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
