@@ -528,6 +528,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\12.png" />
+    <None Include="Resources\1.png" />
+    <None Include="Resources\多选的图标.png" />
     <None Include="Resources\action_add_16xLG1.png" />
     <None Include="Resources\action_add_16xLG.png" />
     <None Include="Resources\delete_16x.ico" />

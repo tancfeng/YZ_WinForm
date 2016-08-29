@@ -933,6 +933,16 @@ namespace SirdRoom.ManageSystem.ClientApplication.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        public static System.Drawing.Bitmap isChecked {
+            get {
+                object obj = ResourceManager.GetObject("isChecked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         public static System.Drawing.Bitmap keywordFilter {
             get {
                 object obj = ResourceManager.GetObject("keywordFilter", resourceCulture);
@@ -1086,6 +1096,16 @@ namespace SirdRoom.ManageSystem.ClientApplication.Properties {
         public static System.Drawing.Bitmap waitpic {
             get {
                 object obj = ResourceManager.GetObject("waitpic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap 多选的图标 {
+            get {
+                object obj = ResourceManager.GetObject("多选的图标", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -338,7 +338,7 @@
             // pictureBox4
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox4.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources._11;
+            this.pictureBox4.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.isChecked;
             this.pictureBox4.Location = new System.Drawing.Point(505, 1);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(26, 26);

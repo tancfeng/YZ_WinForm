@@ -99,7 +99,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             }
             else
             {
-                if (SROperation2.Instance.PicSelected.Count > 0)
+                if (SROperation2.Instance.PicSelected != null && SROperation2.Instance.PicSelected.Count > 0)
                 {
                     var id = Convert.ToInt32(this.Name);
                     //SROperation2.Instance.PicSelected

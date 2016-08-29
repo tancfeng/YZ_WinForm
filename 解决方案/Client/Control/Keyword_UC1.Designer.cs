@@ -28,12 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.UC_Text = new System.Windows.Forms.Label();
             this.IsUnchecked = new System.Windows.Forms.PictureBox();
             this.IsChecked = new System.Windows.Forms.PictureBox();
-            this.UC_Text = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.IsUnchecked)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IsChecked)).BeginInit();
             this.SuspendLayout();
+            // 
+            // UC_Text
+            // 
+            this.UC_Text.AutoSize = true;
+            this.UC_Text.ForeColor = System.Drawing.Color.Silver;
+            this.UC_Text.Location = new System.Drawing.Point(22, 3);
+            this.UC_Text.Name = "UC_Text";
+            this.UC_Text.Size = new System.Drawing.Size(55, 15);
+            this.UC_Text.TabIndex = 2;
+            this.UC_Text.Text = "label1";
             // 
             // IsUnchecked
             // 
@@ -47,7 +57,7 @@
             // 
             // IsChecked
             // 
-            this.IsChecked.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources._checked;
+            this.IsChecked.Image = global::SirdRoom.ManageSystem.ClientApplication.Properties.Resources.isChecked;
             this.IsChecked.Location = new System.Drawing.Point(3, 3);
             this.IsChecked.Name = "IsChecked";
             this.IsChecked.Size = new System.Drawing.Size(16, 16);
@@ -55,16 +65,6 @@
             this.IsChecked.TabStop = false;
             this.IsChecked.Visible = false;
             this.IsChecked.Click += new System.EventHandler(this.IsChecked_Click);
-            // 
-            // UC_Text
-            // 
-            this.UC_Text.AutoSize = true;
-            this.UC_Text.ForeColor = System.Drawing.Color.Silver;
-            this.UC_Text.Location = new System.Drawing.Point(22, 3);
-            this.UC_Text.Name = "UC_Text";
-            this.UC_Text.Size = new System.Drawing.Size(55, 15);
-            this.UC_Text.TabIndex = 2;
-            this.UC_Text.Text = "label1";
             // 
             // Keyword_UC1
             // 

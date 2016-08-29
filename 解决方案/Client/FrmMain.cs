@@ -1557,7 +1557,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             {
                 switch (e.KeyChar.ToString().ToUpper())
                 {
-                    case "M":
+                    case "F":
                         {
                             ToolStripMenuItem_Click(图像蓝子ToolStripMenuItem, e);
                         }
@@ -1577,12 +1577,9 @@ namespace SirdRoom.ManageSystem.ClientApplication
                             ToolStripMenuItem_Click(个人收藏ToolStripMenuItem, e);
                         }
                         break;
-                    case "Y":
+                    case "G":
                         {
-                            if (ModifierKeys == Keys.Shift)
-                            {
-                                ToolStripMenuItem_Click(操作过滤面板ToolStripMenuItem, e);
-                            }
+                            ToolStripMenuItem_Click(操作过滤面板ToolStripMenuItem, e);
                         }
                         break;
                     default:
