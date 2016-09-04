@@ -1580,6 +1580,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                     case "G":
                         {
                             ToolStripMenuItem_Click(操作过滤面板ToolStripMenuItem, e);
+                            this.Keyword_UC6Refresh();
                         }
                         break;
                     default:

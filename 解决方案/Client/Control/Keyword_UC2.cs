@@ -38,7 +38,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                     this.flp_keyword.Controls.Add(v);
                 }
                 //多选
-                var add = new Keyword_UC7();
+                var add = new Keyword_UC7();               
                 add.ParentKeyword_UC2 = this;
                 this.flp_keyword.Controls.Add(add);
             }
