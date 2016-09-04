@@ -720,6 +720,24 @@ namespace SirdRoom.ManageSystem.ClientApplication
             this.center21.BindData();
             this.Refresh();
             this.center11.SetData();
+            if(SROperation.Instance.LeftDtype== "Study")
+            {
+                SROperation2.Instance.StudySelectedId = SROperation.Instance.LeftSelectedId;
+                if (Param.GroupId == 1)
+                {
+                    this.keyword_UC31.Visible = true;
+                    this.keyword_UC31.BindData();
+                    this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
+                }
+                else
+                {
+                    SROperation2.Instance.BiaoJiKeywordFilterList.Clear();
+                    this.keyword_UC61.Visible = true;
+                    this.keyword_UC61.BindData();
+                    this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
+                }
+            }
+           
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
