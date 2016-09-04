@@ -27,7 +27,7 @@ namespace ControlLibrary.Control
             toolStrip1.ForeColor = Color.White;
             toolStrip1.BackColor = Color.FromArgb(37, 37, 37);
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
-            toolStrip1.Renderer = new ToolStripProfessionalRenderer(new CustomToolStripColorTable());
+            toolStrip1.Renderer = new ToolStripProfessionalRenderer(new CustomToolStripColorTable());            
         }
         void SetAddress(String strAddress, SRRC_ResourceEntity resEnt)
         {
@@ -132,6 +132,10 @@ namespace ControlLibrary.Control
 
         internal void BindData()
         {
+            if (Param.GroupId > 1)
+            {
+                this.toolStripButton1.Visible = false;
+            }
             //排序按钮
             //重置排序
             {
