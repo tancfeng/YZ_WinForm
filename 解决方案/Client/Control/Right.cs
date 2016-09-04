@@ -624,5 +624,22 @@ namespace ControlLibrary.Control
                 e.DrawDefault = true;
             }
         }
+
+       private void treeView1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            if(e.Action == TreeViewAction.Unknown)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void treeView1_MouseUp(object sender, MouseEventArgs e)
+        {
+            var node = this.treeView1.GetNodeAt(e.Location);
+            if(node == null)
+            {
+                this.treeView1.SelectedNode = null;
+            }
+        }
     }
 }

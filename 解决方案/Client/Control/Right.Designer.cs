@@ -49,10 +49,10 @@
             this.用户面板不显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.面板不显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.智能关键字不显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Favorites = new System.Windows.Forms.Label();
-            this.Study = new System.Windows.Forms.Label();
-            this.Keyword = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.Keyword = new System.Windows.Forms.Label();
+            this.Study = new System.Windows.Forms.Label();
+            this.Favorites = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -104,6 +104,8 @@
             this.treeView1.TabIndex = 5;
             this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             this.treeView1.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView1_DrawNode);
+            this.treeView1.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView1_BeforeSelect);
+            this.treeView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseUp);
             // 
             // contextMenuStrip1
             // 
@@ -233,35 +235,18 @@
             this.智能关键字不显示ToolStripMenuItem.Text = "智能关键字不显示";
             this.智能关键字不显示ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
-            // Favorites
+            // panel3
             // 
-            this.Favorites.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Favorites.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
-            this.Favorites.ForeColor = System.Drawing.Color.White;
-            this.Favorites.Location = new System.Drawing.Point(188, 6);
-            this.Favorites.Margin = new System.Windows.Forms.Padding(0);
-            this.Favorites.Name = "Favorites";
-            this.Favorites.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
-            this.Favorites.Size = new System.Drawing.Size(84, 22);
-            this.Favorites.TabIndex = 4;
-            this.Favorites.Text = "我的添加";
-            this.Favorites.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Favorites.Click += new System.EventHandler(this.lblButtom1_Click);
-            // 
-            // Study
-            // 
-            this.Study.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Study.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(143)))), ((int)(((byte)(178)))));
-            this.Study.ForeColor = System.Drawing.Color.White;
-            this.Study.Location = new System.Drawing.Point(123, 6);
-            this.Study.Margin = new System.Windows.Forms.Padding(0);
-            this.Study.Name = "Study";
-            this.Study.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
-            this.Study.Size = new System.Drawing.Size(52, 22);
-            this.Study.TabIndex = 3;
-            this.Study.Text = "后台";
-            this.Study.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Study.Click += new System.EventHandler(this.lblButtom1_Click);
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.Keyword);
+            this.panel3.Controls.Add(this.Study);
+            this.panel3.Controls.Add(this.Favorites);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 621);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(339, 38);
+            this.panel3.TabIndex = 1;
             // 
             // Keyword
             // 
@@ -278,18 +263,35 @@
             this.Keyword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Keyword.Click += new System.EventHandler(this.lblButtom1_Click);
             // 
-            // panel3
+            // Study
             // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.Keyword);
-            this.panel3.Controls.Add(this.Study);
-            this.panel3.Controls.Add(this.Favorites);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 621);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(339, 38);
-            this.panel3.TabIndex = 1;
+            this.Study.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Study.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(143)))), ((int)(((byte)(178)))));
+            this.Study.ForeColor = System.Drawing.Color.White;
+            this.Study.Location = new System.Drawing.Point(123, 6);
+            this.Study.Margin = new System.Windows.Forms.Padding(0);
+            this.Study.Name = "Study";
+            this.Study.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
+            this.Study.Size = new System.Drawing.Size(52, 22);
+            this.Study.TabIndex = 3;
+            this.Study.Text = "后台";
+            this.Study.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Study.Click += new System.EventHandler(this.lblButtom1_Click);
+            // 
+            // Favorites
+            // 
+            this.Favorites.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Favorites.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.Favorites.ForeColor = System.Drawing.Color.White;
+            this.Favorites.Location = new System.Drawing.Point(188, 6);
+            this.Favorites.Margin = new System.Windows.Forms.Padding(0);
+            this.Favorites.Name = "Favorites";
+            this.Favorites.Padding = new System.Windows.Forms.Padding(4, 2, 0, 0);
+            this.Favorites.Size = new System.Drawing.Size(84, 22);
+            this.Favorites.TabIndex = 4;
+            this.Favorites.Text = "我的添加";
+            this.Favorites.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Favorites.Click += new System.EventHandler(this.lblButtom1_Click);
             // 
             // panel2
             // 
