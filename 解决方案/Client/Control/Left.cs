@@ -942,6 +942,18 @@ namespace ControlLibrary.Control
                 }             
                 
             }
+            //左键点击
+            if(e.Button == MouseButtons.Left && e.Node.Tag != null)
+            {
+                if (e.Node.Tag is SRRC_BiaojiEntity)
+                {
+                    if (SROperation2.Instance.StudySelectedId == (e.Node.Tag as SRRC_BiaojiEntity).Id)
+                    {
+                        var frm = this.ParentForm as FrmMain;
+                        frm.Keyword_UC3Refresh(SROperation2.Instance.StudySelectedId);
+                    }
+                }
+            }
         }
 
         private void 展开下列所有目录ToolStripMenuItem_Click(object sender, EventArgs e)

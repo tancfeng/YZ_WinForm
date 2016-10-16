@@ -519,7 +519,9 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         }
                         DataBase.Instance.tSRRC_Resourcebiaojirel.Add(resourcebiaojirelEntList.ToArray());
                         DataBaseHelper.Instance.Helper.ExecuteNonQuery(System.Data.CommandType.Text, " update SRRC_Resource set bjtime=Getdate() where id in(" + strPicSelected + ")  ");
+                        this.Keyword_UC3Refresh(ibiaojiId);
                     }
+                    
                 }
             }
         }
@@ -1857,6 +1859,15 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 this.keyword_UC61.UC_6_Refresh();
                 //recalc height
                 this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
+            }
+        }
+        public void Keyword_UC3Refresh(int biaojiId)
+        {
+            if (SROperation.Instance.LeftDtype == "Study")
+            {
+                this.keyword_UC31.BindData(biaojiId);
+                this.keyword_UC31.SetBiaoJiKeywordStatus(SROperation2.Instance.PicSelected);
+                this.keyword_UC31.Height = this.keyword_UC31.AdjustHeight();
             }
         }
         public void reCalcKeywordPanelHeight()

@@ -20,6 +20,11 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         public Keyword_UC1()
         {
             InitializeComponent();
+            if(Param.GroupId == 1)
+            {
+                this.UC_Text.Cursor = Cursors.Hand;
+                this.UC_Text.Click += UC_Text_Click;
+            }
         }
         public Keyword_UC1(string text, bool isResident = false) : this()
         {
@@ -120,6 +125,21 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
 
                 }
             }
+        }
+
+        private void UC_Text_Click(object sender, EventArgs e)
+        {
+            if(this.UC_Text.ForeColor == Color.Silver)
+            {
+                this.UC_Text.ForeColor = Color.Red;
+                SROperation2.Instance.BiaoJiKeywordFilterList.Add(this.Tag as SRRC_BiaoJiKeywordEntity);
+            }
+            else
+            {
+                this.UC_Text.ForeColor = Color.Silver;
+                SROperation2.Instance.BiaoJiKeywordFilterList.Remove(this.Tag as SRRC_BiaoJiKeywordEntity);
+            }
+            (this.ParentForm as FrmMain).Keyword_UC6Refresh(false);
         }
     }
 }

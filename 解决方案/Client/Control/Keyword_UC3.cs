@@ -23,6 +23,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         public void BindData(bool isFilter=false)
         {
             this.Controls.Clear();
+            if (SROperation2.Instance.StudySelectedId == 0) return;
             if(isFilter)
             {
                 //私有关键字
@@ -84,6 +85,43 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                     }
                 }
             }            
+        }
+        /// <summary>
+        /// 关键字跟随
+        /// </summary>
+        /// <param name="StudyId"></param>
+        public void BindData(int StudyId)
+        {
+            this.Controls.Clear();
+            
+                //常驻关键字
+                var list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
+                    new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
+                    " biaojiid=0");
+                if (list != null && list.Count > 0)
+                {
+                    var category = list.Find(l => l.Pid == 0);
+                    var control = new Keyword_UC2(category, list.Where(l => l.Pid == category.Id));
+                    control.Margin = new Padding(1);
+                    control.Dock = DockStyle.Top;
+                    this.Controls.Add(control);
+                }
+                //私有关键字
+                list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
+                    new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
+                    " biaojiid=[$biaojiid$]", new ORM.DataParameter("biaojiid", StudyId));
+                rbList = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, " biaoji_id=[$biaojiid$]", new ORM.DataParameter("biaojiid", StudyId));
+                if (list != null && list.Count > 0)
+                {
+                    var categories = list.Where(l => l.Pid == 0).OrderByDescending(l => l.OrderBy);
+                    foreach (var item in categories)
+                    {
+                        var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id));
+                        control.Margin = new Padding(1);
+                        control.Dock = DockStyle.Top;
+                        this.Controls.Add(control);
+                    }
+                }            
         }
         public void SetBiaoJiKeywordStatus(List<SRRC_ResourceEntity> list)
         {

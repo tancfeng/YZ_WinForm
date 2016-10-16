@@ -38,6 +38,7 @@
             // UC_Text
             // 
             this.UC_Text.AutoSize = true;
+            this.UC_Text.Cursor = System.Windows.Forms.Cursors.Default;
             this.UC_Text.ForeColor = System.Drawing.Color.Silver;
             this.UC_Text.Location = new System.Drawing.Point(22, 3);
             this.UC_Text.Name = "UC_Text";

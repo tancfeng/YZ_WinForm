@@ -34,7 +34,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                     item.CategoryName = category.Name;
                     var v = new Keyword_UC4(item);
                     v.Name = item.Id.ToString();
-                    // v.Tag = item;
+                    //v.Tag = item;
                     this.flp_keyword.Controls.Add(v);
                 }
                 //多选
@@ -50,7 +50,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 {
                     var v = new Keyword_UC1(item.Name);
                     v.Name = item.Id.ToString();
-                    // v.Tag = item;
+                    v.Tag = item;
                     this.flp_keyword.Controls.Add(v);
                 }
             }
@@ -142,7 +142,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 item.CategoryName = Category.Name;
                 var v = new Keyword_UC4(item);
                 v.Name = item.Id.ToString();
-                // v.Tag = item;
+                //v.Tag = item;
                 this.flp_keyword.Controls.Add(v);
                 if (!controlsName.Contains(item.Id.ToString()))
                 {

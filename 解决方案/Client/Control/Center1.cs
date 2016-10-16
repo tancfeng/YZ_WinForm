@@ -485,7 +485,7 @@ namespace ControlLibrary.Control
                             }
 
                             #region 标记关键字过滤
-                            if (Param.GroupId > 1 && SROperation2.Instance.BiaoJiKeywordFilterList.Count > 0)
+                            if (SROperation2.Instance.BiaoJiKeywordFilterList.Count > 0)
                             {
                                 var group = SROperation2.Instance.BiaoJiKeywordFilterList.GroupBy(l => l.Pid);
                                 List<string> intersectSqls = new List<string>();

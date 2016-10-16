@@ -20,27 +20,30 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         {
             //常驻关键字
             this.flb_resident.Controls.Clear();
-            var sql = @"  select tb.*
+            if(SROperation2.Instance.StudySelectedId > 0)
+            {
+                var sql = @"  select tb.*
                           from (
                           select distinct BiaoJiKeywordId from [dbo].[SRRC_ResourceBiaoJiRel_BiaoJiKeyword]
                           where [ResourceBiaoJiRelId] in 
                           (select Id FROM [dbo].[SRRC_Resourcebiaojirel] WHERE Biaoji_id=[$biaoJiId$])) as ta
                           inner join [dbo].[SRRC_BiaoJiKeyword] as tb on ta.BiaoJiKeywordId=tb.Id and tb.BiaoJiId=0";
-            var v = DataBaseHelper.Instance.Helper.ExecuteQuery(CommandType.Text, sql, new ORM.DataParameter("biaoJiId", SROperation2.Instance.StudySelectedId));
-            if (v.Rows.Count > 0)
-            {
-                var list = new List<SRRC_BiaoJiKeywordEntity>();
-                foreach (DataRow dr in v.Rows)
+                var v = DataBaseHelper.Instance.Helper.ExecuteQuery(CommandType.Text, sql, new ORM.DataParameter("biaoJiId", SROperation2.Instance.StudySelectedId));
+                if (v.Rows.Count > 0)
                 {
-                    list.Add(DataBase.Instance.tSRRC_BiaoJiKeyword.Populate_Entity_FromDr(dr));
-                }                
-                foreach (var item in list)
-                {
-                    var control = new Keyword_UC1(item.Name, true);
-                    control.Tag = item;
-                    this.flb_resident.Controls.Add(control);
+                    var list = new List<SRRC_BiaoJiKeywordEntity>();
+                    foreach (DataRow dr in v.Rows)
+                    {
+                        list.Add(DataBase.Instance.tSRRC_BiaoJiKeyword.Populate_Entity_FromDr(dr));
+                    }
+                    foreach (var item in list)
+                    {
+                        var control = new Keyword_UC1(item.Name, true);
+                        control.Tag = item;
+                        this.flb_resident.Controls.Add(control);
+                    }
                 }
-            }            
+            }                       
             //私有关键字
             this.keyword_UC31.BindData(true);
             //筛选结果
