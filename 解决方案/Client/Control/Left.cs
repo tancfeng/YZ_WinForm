@@ -930,10 +930,17 @@ namespace ControlLibrary.Control
             //鼠标右键点击
             if (e.Button == MouseButtons.Right && e.Node.Tag != null)
             {
-                if (SROperation.Instance.LeftSelectedId == (e.Node.Tag as SRRC_BiaojiEntity).Id && SROperation.Instance.LeftDtype == "Study" && Param.GroupId < 3)
+                if(e.Node.Tag is SRRC_ResourceEntity)
                 {
-                    e.Node.ContextMenuStrip = contextMenuStrip3;
-                }
+                    SROperation2.Instance.LeftMouseRightSelectedEnt = e.Node.Tag as SRRC_ResourceEntity;                    
+                }else if(e.Node.Tag is SRRC_BiaojiEntity)
+                {
+                    if (SROperation.Instance.LeftSelectedId == (e.Node.Tag as SRRC_BiaojiEntity).Id && SROperation.Instance.LeftDtype == "Study" && Param.GroupId < 3)
+                    {
+                        e.Node.ContextMenuStrip = contextMenuStrip3;
+                    }
+                }             
+                
             }
         }
 
