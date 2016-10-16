@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SirdRoom.ManageSystem.Library.Data;
 
 namespace SirdRoom.ManageSystem.ClientApplication.Control
 {
@@ -25,21 +26,32 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             if(isFilter)
             {
                 //私有关键字
-               var list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
-                    new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
-                    " biaojiid=[$biaojiid$]", new ORM.DataParameter("biaojiid", SROperation2.Instance.StudySelectedId));
-                rbList = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, " biaoji_id=[$biaojiid$]", new ORM.DataParameter("biaojiid", SROperation2.Instance.StudySelectedId));
-                if (list != null && list.Count > 0)
+                var sql = @"  select tb.*
+                          from (
+                          select distinct BiaoJiKeywordId from [dbo].[SRRC_ResourceBiaoJiRel_BiaoJiKeyword]
+                          where [ResourceBiaoJiRelId] in 
+                          (select Id FROM [dbo].[SRRC_Resourcebiaojirel] WHERE Biaoji_id=[$biaoJiId$])) as ta
+                          inner join [dbo].[SRRC_BiaoJiKeyword] as tb on ta.BiaoJiKeywordId=tb.Id and tb.BiaoJiId<>0";
+                var v = DataBaseHelper.Instance.Helper.ExecuteQuery(CommandType.Text, sql, new ORM.DataParameter("biaoJiId", SROperation2.Instance.StudySelectedId));
+                if (v.Rows.Count > 0)
                 {
-                    var categories = list.Where(l => l.Pid == 0).OrderByDescending(l => l.OrderBy);
+                    var list = new List<SRRC_BiaoJiKeywordEntity>();
+                    foreach (DataRow dr in v.Rows)
+                    {
+                        list.Add(DataBase.Instance.tSRRC_BiaoJiKeyword.Populate_Entity_FromDr(dr));
+                    }
+                    var categories = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
+                    new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Desc) },
+                    " biaojiid=[$biaojiid$] and Pid=0", new ORM.DataParameter("biaojiid", SROperation2.Instance.StudySelectedId));
                     foreach (var item in categories)
                     {
                         var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id), true);
                         control.Margin = new Padding(1);
                         control.Dock = DockStyle.Top;
                         this.Controls.Add(control);
-                    }                 
+                    }
                 }
+                    rbList = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, " biaoji_id=[$biaojiid$]", new ORM.DataParameter("biaojiid", SROperation2.Instance.StudySelectedId));
             }
             else
             {
@@ -119,13 +131,36 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         }
         public void Keyword_UC3_Refresh()
         {
-          var v =  SROperation2.Instance.BiaoJiKeywordFilterList.Select(l => l.Pid);
+            var v =  SROperation2.Instance.BiaoJiKeywordFilterList.Select(l => l.Pid);
+            this.Visible = true;
             foreach (UserControl item in this.Controls)
             {
                 item.Visible = true;
                 if(v.Contains(Convert.ToInt32(item.Name)))
                 {
                     item.Visible = false;
+                }
+            }
+        }
+        public void Keyword_UC3_Refresh(List<SRRC_ResourceBiaoJiRel_BiaoJiKeywordEntity> list)
+        {
+            this.Keyword_UC3_Refresh();
+            foreach (Keyword_UC2 item in this.Controls)
+            {
+                if(item.Visible)
+                {
+                    var v = item as Keyword_UC2;
+                    var q = from i in list
+                            join j in v.list on i.BiaoJiKeywordId equals j.Id
+                            select j;
+                    if (q.Count() == 0)
+                    {
+                        this.Visible = false;
+                    }
+                    else
+                    {
+                        v.Keyword_UC2_Refresh(q);
+                    }
                 }
             }
         }

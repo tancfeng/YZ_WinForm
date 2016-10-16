@@ -1844,19 +1844,20 @@ namespace SirdRoom.ManageSystem.ClientApplication
         /// <param name="isRefreshAll"></param>
         public void Keyword_UC6Refresh(bool isRefreshAll=true)
         {
-            if(isRefreshAll)
-            {
-                //UC61刷新
-                this.keyword_UC61.UC_6_Refresh();                
-                //recalc height
-                this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
-            }
+           
             //Center1刷新
             this.center11.BindData();
             this.tool1.BindData();
             this.Refresh();
             this.center11.SetData();
             this.right1.RefreshKeyword();
+            if (isRefreshAll)
+            {
+                //UC61刷新
+                this.keyword_UC61.UC_6_Refresh();
+                //recalc height
+                this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
+            }
         }
         public void reCalcKeywordPanelHeight()
         {

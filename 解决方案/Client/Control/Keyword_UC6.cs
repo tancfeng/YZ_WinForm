@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SirdRoom.ManageSystem.Library.Data;
 
 namespace SirdRoom.ManageSystem.ClientApplication.Control
 {
@@ -18,20 +19,28 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         public void BindData()
         {
             //常驻关键字
-            var list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
-                new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
-                " biaojiid=0");
             this.flb_resident.Controls.Clear();
-            if (list != null && list.Count > 0)
+            var sql = @"  select tb.*
+                          from (
+                          select distinct BiaoJiKeywordId from [dbo].[SRRC_ResourceBiaoJiRel_BiaoJiKeyword]
+                          where [ResourceBiaoJiRelId] in 
+                          (select Id FROM [dbo].[SRRC_Resourcebiaojirel] WHERE Biaoji_id=[$biaoJiId$])) as ta
+                          inner join [dbo].[SRRC_BiaoJiKeyword] as tb on ta.BiaoJiKeywordId=tb.Id and tb.BiaoJiId=0";
+            var v = DataBaseHelper.Instance.Helper.ExecuteQuery(CommandType.Text, sql, new ORM.DataParameter("biaoJiId", SROperation2.Instance.StudySelectedId));
+            if (v.Rows.Count > 0)
             {
-                var category = list.Find(l => l.Pid == 0);
-                foreach (var item in list.Where(l=>l.Pid == category.Id))
+                var list = new List<SRRC_BiaoJiKeywordEntity>();
+                foreach (DataRow dr in v.Rows)
+                {
+                    list.Add(DataBase.Instance.tSRRC_BiaoJiKeyword.Populate_Entity_FromDr(dr));
+                }                
+                foreach (var item in list)
                 {
                     var control = new Keyword_UC1(item.Name, true);
-                    control.Tag = item;                    
+                    control.Tag = item;
                     this.flb_resident.Controls.Add(control);
-                }                
-            }
+                }
+            }            
             //私有关键字
             this.keyword_UC31.BindData(true);
             //筛选结果
@@ -54,8 +63,11 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             {
                 var w = 0;
                 var h = 0;
+                var controls = this.flb_resident.Controls[0];
                 foreach (UserControl item in this.flb_resident.Controls)
                 {
+                    if (!item.Visible) continue;
+                    controls = item;
                     var ww = item.Width + item.Margin.Left + item.Margin.Right;
                     w += ww;
                     if (w > this.flb_resident.Width)
@@ -64,7 +76,13 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                         h++;
                     }
                 }
-                var controls = this.flb_resident.Controls[0];
+                if(w == 0)//不可见 
+                {
+                    this.flb_resident.Height = 0;
+                    this.flb_resident.Margin = new Padding(1);
+                    return 0;
+                }
+                
                 this.flb_resident.Height = (h + 1) * (controls.Height + controls.Margin.Top + controls.Margin.Bottom);
                 return this.flb_resident.Height + this.flb_resident.Margin.Top + this.flb_resident.Margin.Bottom;
             }
@@ -120,9 +138,43 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 var v = new Keyword_UC5(item.Key, item.ToList());
                 this.flp_filter.Controls.Add(v);
             }
-
+            //
+            var list = new List<SRRC_ResourceBiaoJiRel_BiaoJiKeywordEntity>();
+            if (SROperation2.Instance.Center1EntList.Count > 0)
+            {
+                var sql = string.Format(@"SELECT [Id],[BiaoJiKeywordId],[ResourceBiaoJiRelId]
+                            FROM [dbo].[SRRC_ResourceBiaoJiRel_BiaoJiKeyword]
+                            where ResourceBiaoJiRelId in (select Id from [dbo].[SRRC_Resourcebiaojirel]  where Biaoji_id={0} and Resource_id in ({1}))",
+                            SROperation2.Instance.StudySelectedId, string.Join(",", SROperation2.Instance.Center1EntList.Select(l => l.Id)));
+                var v = DataBaseHelper.Instance.Helper.ExecuteQuery(CommandType.Text, sql);
+               
+                if (v.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in v.Rows)
+                    {
+                        list.Add(DataBase.Instance.tSRRC_ResourceBiaoJiRel_BiaoJiKeyword.Populate_Entity_FromDr(dr));
+                    }
+                }
+            }
             //刷新私有关键字
-            this.keyword_UC31.Keyword_UC3_Refresh();
+            this.keyword_UC31.Keyword_UC3_Refresh(list);
+            //刷新常驻关键字
+
+            foreach (UserControl item in this.flb_resident.Controls)
+            {
+                item.Visible = false;
+            }            
+            if(list.Count > 0)
+            {
+                foreach(UserControl item in this.flb_resident.Controls)
+                {
+                    var v = item.Tag as SRRC_BiaoJiKeywordEntity;
+                    if(list.Exists(l=>l.BiaoJiKeywordId == v.Id))
+                    {
+                        item.Visible = true;
+                    }
+                }
+            }
         }
     }
 }

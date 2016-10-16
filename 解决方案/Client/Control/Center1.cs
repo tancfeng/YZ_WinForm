@@ -487,7 +487,13 @@ namespace ControlLibrary.Control
                             #region 标记关键字过滤
                             if (Param.GroupId > 1 && SROperation2.Instance.BiaoJiKeywordFilterList.Count > 0)
                             {
-                                strWhere += String.Format(" and Id in( select Resource_id from dbo.SRRC_Resourcebiaojirel where id in (  select ResourceBiaoJiRelId from dbo.SRRC_ResourceBiaoJiRel_BiaoJiKeyword where BiaoJiKeywordId in ({0})))", String.Join(",", SROperation2.Instance.BiaoJiKeywordFilterList.Select(l => l.Id)));
+                                var group = SROperation2.Instance.BiaoJiKeywordFilterList.GroupBy(l => l.Pid);
+                                List<string> intersectSqls = new List<string>();
+                                foreach (var item in group)
+                                {
+                                    intersectSqls.Add(string.Format(@" select ResourceBiaoJiRelId from [dbo].[SRRC_ResourceBiaoJiRel_BiaoJiKeyword]  where BiaoJiKeywordId in ({0}) ",string.Join(",", item.Select(l => l.Id))));
+                                }
+                                strWhere += String.Format(" and Id in( select Resource_id from dbo.SRRC_Resourcebiaojirel where id in ({0}))", string.Join("intersect", intersectSqls));
                             }
                             #endregion
                             tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));

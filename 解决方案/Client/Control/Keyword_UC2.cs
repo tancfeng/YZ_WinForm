@@ -76,8 +76,11 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             if (this.flp_keyword.Controls.Count == 0) return 0;
             var w = 0;
             var h = 0;
+            var controls = this.flp_keyword.Controls[0];
             foreach (UserControl item in this.flp_keyword.Controls)
             {
+                if (!item.Visible) continue;
+                controls = item;
                 var ww = item.Width + item.Margin.Left + item.Margin.Right;
                 w += ww;
                 if (w > this.flp_keyword.Width)
@@ -86,13 +89,22 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                     h++;
                 }
             }
-            var controls = this.flp_keyword.Controls[0];
+            if(w == 0)
+            {
+                return 0;
+            }
             var height = (h + 1) * (controls.Height + controls.Margin.Top + controls.Margin.Bottom);
             return height + this.flp_keyword.Margin.Top + this.flp_keyword.Margin.Bottom;
         }        
 
         public void Convert_UC4_To_UC1()
         {
+            var controlsName = new List<string>();
+            foreach (UserControl item in this.flp_keyword.Controls)
+            {
+                if (!item.Visible) continue;
+                controlsName.Add(item.Name);
+            }
             this.flp_keyword.Controls.Clear();
             foreach (var item in list)
             {
@@ -101,6 +113,10 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 v.Name = item.Id.ToString();
                 // v.Tag = item;
                 this.flp_keyword.Controls.Add(v);
+                if (!controlsName.Contains(item.Id.ToString()))
+                {
+                    v.Visible = false;
+                }                
             }
             var v1 = new Keyword_UC4("确定",true);
             v1.Tag = this;
@@ -113,14 +129,25 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         }
         public void Convert_UC1_To_UC4()
         {
+            var controlsName = new List<string>();
+            foreach (UserControl item in this.flp_keyword.Controls)
+            {
+                if (!item.Visible) continue;
+                controlsName.Add(item.Name);
+            }
             this.flp_keyword.Controls.Clear();
             foreach (var item in list)
             {
+
                 item.CategoryName = Category.Name;
                 var v = new Keyword_UC4(item);
                 v.Name = item.Id.ToString();
                 // v.Tag = item;
                 this.flp_keyword.Controls.Add(v);
+                if (!controlsName.Contains(item.Id.ToString()))
+                {
+                    v.Visible = false;
+                }
             }
             //多选
             var add = new Keyword_UC7();
@@ -145,6 +172,23 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 }
             }
             (this.ParentForm as FrmMain).Keyword_UC6Refresh();
+        }
+        public void Keyword_UC2_Refresh(IEnumerable<SRRC_BiaoJiKeywordEntity> list)
+        {
+            foreach (UserControl item in this.flp_keyword.Controls)
+            {
+                if(!(item is Keyword_UC7))
+                {
+                    if(list.Any(l=>l.Id.ToString() == item.Name))
+                    {
+                        item.Visible = true;
+                    }
+                    else
+                    {
+                        item.Visible = false;
+                    }
+                }
+            }
         }
     }
 }

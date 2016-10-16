@@ -59,9 +59,10 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             {
                 if(this.Tag is SRRC_BiaoJiKeywordEntity)
                 {
-                    SROperation2.Instance.BiaoJiKeywordFilterList.Add(this.Tag as SRRC_BiaoJiKeywordEntity);
+                    SROperation2.Instance.BiaoJiKeywordFilterList.RemoveAll(s => s.Name == this.UC_Text.Text);
                     this.CheckStatusChange(false);
-                    (this.ParentForm as FrmMain).Keyword_UC6Refresh(false);
+                    //(this.ParentForm as FrmMain).Keyword_UC6Refresh(false);
+                    (this.ParentForm as FrmMain).Keyword_UC6Refresh();
                 }                
             }
             else
@@ -93,9 +94,10 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             }
             else if (isResident)
             {
-                SROperation2.Instance.BiaoJiKeywordFilterList.RemoveAll(s => s.Name == this.UC_Text.Text);
+                SROperation2.Instance.BiaoJiKeywordFilterList.Add(this.Tag as SRRC_BiaoJiKeywordEntity);
                 this.CheckStatusChange(true);
-                (this.ParentForm as FrmMain).Keyword_UC6Refresh(false);
+                //(this.ParentForm as FrmMain).Keyword_UC6Refresh(false);
+                (this.ParentForm as FrmMain).Keyword_UC6Refresh();
             }
             else
             {
