@@ -66,7 +66,6 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 {
                     SROperation2.Instance.BiaoJiKeywordFilterList.RemoveAll(s => s.Name == this.UC_Text.Text);
                     this.CheckStatusChange(false);
-                    //(this.ParentForm as FrmMain).Keyword_UC6Refresh(false);
                     (this.ParentForm as FrmMain).Keyword_UC6Refresh();
                 }                
             }
@@ -74,12 +73,12 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             {
                 if (SROperation2.Instance.PicSelected.Count > 0)
                 {
+                    var biaoJiId = this.Tag is SRRC_BiaoJiKeywordEntity ? (this.Tag as SRRC_BiaoJiKeywordEntity).BiaoJiId : SROperation2.Instance.StudySelectedId;
                     var id = Convert.ToInt32(this.Name);
-                    //SROperation2.Instance.PicSelected
                     var delSql = string.Format(@" delete from dbo.SRRC_ResourceBiaoJiRel_BiaoJiKeyword  
   where BiaoJiKeywordId = {0} and ResourceBiaoJiRelId in 
   (select Id from dbo.SRRC_Resourcebiaojirel
-  where Resource_id in ({2}) and Biaoji_id = {1});", id, SROperation2.Instance.StudySelectedId, string.Join(",", SROperation2.Instance.PicSelected.Select(i => i.Id)));
+  where Resource_id in ({2}) and Biaoji_id = {1});", id, biaoJiId, string.Join(",", SROperation2.Instance.PicSelected.Select(i => i.Id)));
                     var helper = SirdRoom.ManageSystem.Library.Data.DataBaseHelper.Instance.Helper;
                     if (helper.ExecuteNonQuery(CommandType.Text, delSql) > 0)
                     {
@@ -101,22 +100,21 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             {
                 SROperation2.Instance.BiaoJiKeywordFilterList.Add(this.Tag as SRRC_BiaoJiKeywordEntity);
                 this.CheckStatusChange(true);
-                //(this.ParentForm as FrmMain).Keyword_UC6Refresh(false);
                 (this.ParentForm as FrmMain).Keyword_UC6Refresh();
             }
             else
             {
                 if (SROperation2.Instance.PicSelected != null && SROperation2.Instance.PicSelected.Count > 0)
                 {
+                    var biaoJiId = this.Tag is SRRC_BiaoJiKeywordEntity ? (this.Tag as SRRC_BiaoJiKeywordEntity).BiaoJiId : SROperation2.Instance.StudySelectedId;
                     var id = Convert.ToInt32(this.Name);
-                    //SROperation2.Instance.PicSelected
                     var delSql = string.Format(@" delete from dbo.SRRC_ResourceBiaoJiRel_BiaoJiKeyword  
   where BiaoJiKeywordId = {0} and ResourceBiaoJiRelId in 
   (select Id from dbo.SRRC_Resourcebiaojirel
-  where Resource_id in ({2}) and Biaoji_id = {1});", id, SROperation2.Instance.StudySelectedId, string.Join(",", SROperation2.Instance.PicSelected.Select(i => i.Id)));
+  where Resource_id in ({2}) and Biaoji_id = {1});", id, biaoJiId, string.Join(",", SROperation2.Instance.PicSelected.Select(i => i.Id)));
                     var insertSql = string.Format(@"insert into dbo.SRRC_ResourceBiaoJiRel_BiaoJiKeyword
                 select {0},Id from dbo.SRRC_Resourcebiaojirel
-                where Resource_id in ({2}) and Biaoji_id = {1}; ", id, SROperation2.Instance.StudySelectedId, string.Join(",", SROperation2.Instance.PicSelected.Select(i => i.Id)));
+                where Resource_id in ({2}) and Biaoji_id = {1}; ", id, biaoJiId, string.Join(",", SROperation2.Instance.PicSelected.Select(i => i.Id)));
                     var helper = SirdRoom.ManageSystem.Library.Data.DataBaseHelper.Instance.Helper;
                     if (helper.ExecuteNonQuery(CommandType.Text, delSql + insertSql) > 0)
                     {
