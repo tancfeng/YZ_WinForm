@@ -402,6 +402,7 @@ namespace ControlLibrary.Control
         public void BindData()
         {
             List<SRRC_ResourceEntity> tempList = null;
+            SROperation2.Instance.SetBiaoJiStatusSql = string.Empty;
             #region 左侧菜单操作、中间区域（center1,center2）
             if (SROperation2.Instance.FocusPanel != "Right")
             {
@@ -415,16 +416,97 @@ namespace ControlLibrary.Control
                                 string sql;
                                 if (SROperation.Instance.OnlyShow && Param.filterkeyword != "")
                                 {
-                                    sql = "with ta as (select * from SRRC_Resource where id=" + id + @"
-                                                union all select SRRC_Resource.* from ta,SRRC_Resource where ta.Id=SRRC_Resource.Pid)
-                                                select * from ta,SRRC_Resourcebiaojirel as tb on ta.Id=tb.Resource_id where (tb.Biaoji_id in (" + Param.filterkeyword + ") or ta.Dtype=0) and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
+                                    sql = string.Format(@"
+                                                WITH ta
+                                                 AS (
+                                                 SELECT *
+                                                 FROM SRRC_Resource
+                                                 WHERE id = {0}
+                                                 UNION ALL
+                                                 SELECT SRRC_Resource.*
+                                                 FROM ta
+                                                      INNER JOIN SRRC_Resource ON ta.Id = SRRC_Resource.Pid)
+                                                 SELECT *
+                                                 FROM ta
+                                                      INNER JOIN SRRC_Resourcebiaojirel AS tb ON ta.Id = tb.Resource_id
+                                                 WHERE(tb.Biaoji_id IN({1})
+                                                 OR ta.Dtype = 0)
+                                                      AND (Name+'.'+Extend1) LIKE '%{2}%';",
+                                                      id, Param.filterkeyword, SROperation.Instance.Keyword);
+                                    SROperation2.Instance.SetBiaoJiStatusSql = string.Format(@"
+                                                WITH ta
+                                                     AS (
+                                                     SELECT *
+                                                     FROM SRRC_Resource
+                                                     WHERE id = {0}
+                                                     UNION ALL
+                                                     SELECT SRRC_Resource.*
+                                                     FROM ta
+                                                          INNER JOIN SRRC_Resource ON ta.Id = SRRC_Resource.Pid)
+                                                     SELECT ta.Id,
+                                                            tb.count
+                                                     FROM SRRC_Biaoji AS ta
+                                                          INNER JOIN
+                                                     (
+                                                         SELECT Biaoji_id,
+                                                                COUNT(*) AS count
+                                                         FROM [SRRC_Resourcebiaojirel]
+                                                         WHERE Resource_id IN
+                                                         (
+                                                             SELECT ta.Id
+                                                             FROM ta
+                                                                  INNER JOIN SRRC_Resourcebiaojirel AS tb ON ta.Id = tb.Resource_id
+                                                             WHERE(tb.Biaoji_id IN({1})
+                                                             OR ta.Dtype = 0)
+                                                                  AND (Name+'.'+Extend1) LIKE '%{2}%'
+                                                         )
+                                                         GROUP BY Biaoji_id
+                                                     ) AS tb ON ta.id = tb.Biaoji_id;",
+                                                    id, Param.filterkeyword, SROperation.Instance.Keyword);
                                 }
                                 else
                                 {
-                                    sql = "with ta as (select * from SRRC_Resource where id=" + id + @"
-                                                union all select SRRC_Resource.* from ta,SRRC_Resource where ta.Id=SRRC_Resource.Pid)
-                                                select * from ta where (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
-
+                                    sql = string.Format(@"
+                                                    WITH ta
+                                                         AS (
+                                                         SELECT *
+                                                         FROM SRRC_Resource
+                                                         WHERE id = {0}
+                                                         UNION ALL
+                                                         SELECT SRRC_Resource.*
+                                                         FROM ta
+                                                              INNER JOIN SRRC_Resource ON ta.Id = SRRC_Resource.Pid)
+                                                         SELECT *
+                                                         FROM ta
+                                                         WHERE(Name+'.'+Extend1) LIKE '%{1}%';",
+                                                         id, SROperation.Instance.Keyword);
+                                    SROperation2.Instance.SetBiaoJiStatusSql = string.Format(@"
+                                                                                WITH ta
+                                                                                     AS (
+                                                                                     SELECT *
+                                                                                     FROM SRRC_Resource
+                                                                                     WHERE id = {0}
+                                                                                     UNION ALL
+                                                                                     SELECT SRRC_Resource.*
+                                                                                     FROM ta
+                                                                                          INNER JOIN SRRC_Resource ON ta.Id = SRRC_Resource.Pid)
+                                                                                     SELECT ta.Id,
+                                                                                            tb.count
+                                                                                     FROM SRRC_Biaoji AS ta
+                                                                                          INNER JOIN
+                                                                                     (
+                                                                                         SELECT Biaoji_id,
+                                                                                                COUNT(*) AS count
+                                                                                         FROM [SRRC_Resourcebiaojirel]
+                                                                                         WHERE Resource_id IN
+                                                                                         (
+                                                                                             SELECT ta.Id
+                                                                                             FROM ta
+                                                                                             WHERE(Name+'.'+Extend1) LIKE '%{1}%'
+                                                                                         )
+                                                                                         GROUP BY Biaoji_id
+                                                                                     ) AS tb ON ta.id = tb.Biaoji_id;",
+                                                                                    id, SROperation.Instance.Keyword);
                                 }
                                 tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL(sql, null);
                             }
@@ -466,6 +548,19 @@ namespace ControlLibrary.Control
                                     }
                                     tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
                                 }
+                                var idSql = "SELECT Id FROM SRRC_Resource WHERE " + strWhere.Replace("[$Pid$]", id.ToString());
+                                SROperation2.Instance.SetBiaoJiStatusSql = string.Format(@"
+                                                                                    SELECT ta.Id,
+                                                                                           tb.count
+                                                                                    FROM SRRC_Biaoji AS ta
+                                                                                         INNER JOIN
+                                                                                    (
+                                                                                        SELECT Biaoji_id,
+                                                                                               COUNT(*) AS count
+                                                                                        FROM [SRRC_Resourcebiaojirel]
+                                                                                        WHERE Resource_id IN({0})
+                                                                                        GROUP BY Biaoji_id
+                                                                                    ) AS tb ON ta.id = tb.Biaoji_id;", idSql);
                             }
                         }
                         break;
@@ -497,7 +592,19 @@ namespace ControlLibrary.Control
                             }
                             #endregion
                             tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
-
+                            var idSql = "SELECT Id FROM SRRC_Resource WHERE " + strWhere.Replace("[$Pid$]", id.ToString());
+                            SROperation2.Instance.SetBiaoJiStatusSql = string.Format(@"
+                                                                                    SELECT ta.Id,
+                                                                                           tb.count
+                                                                                    FROM SRRC_Biaoji AS ta
+                                                                                         INNER JOIN
+                                                                                    (
+                                                                                        SELECT Biaoji_id,
+                                                                                               COUNT(*) AS count
+                                                                                        FROM [SRRC_Resourcebiaojirel]
+                                                                                        WHERE Resource_id IN({0})
+                                                                                        GROUP BY Biaoji_id
+                                                                                    ) AS tb ON ta.id = tb.Biaoji_id;", idSql);
                         }
                         break;
                     case "Favorites":
@@ -515,6 +622,19 @@ namespace ControlLibrary.Control
                                 strWhere += " and (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
                             }
                             tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, strWhere, new DataParameter("Pid", id));
+                            var idSql = "SELECT Id FROM SRRC_Resource WHERE " + strWhere.Replace("[$Pid$]", id.ToString());
+                            SROperation2.Instance.SetBiaoJiStatusSql = string.Format(@"
+                                                                                    SELECT ta.Id,
+                                                                                           tb.count
+                                                                                    FROM SRRC_Biaoji AS ta
+                                                                                         INNER JOIN
+                                                                                    (
+                                                                                        SELECT Biaoji_id,
+                                                                                               COUNT(*) AS count
+                                                                                        FROM [SRRC_Resourcebiaojirel]
+                                                                                        WHERE Resource_id IN({0})
+                                                                                        GROUP BY Biaoji_id
+                                                                                    ) AS tb ON ta.id = tb.Biaoji_id;", idSql);
                         }
                         break;
                     default:

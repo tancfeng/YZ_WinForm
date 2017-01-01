@@ -219,4 +219,8 @@ public class SROperation2
     #region 新关键字相关 
     public List<SRRC_BiaoJiKeywordEntity> BiaoJiKeywordFilterList = new List<SRRC_BiaoJiKeywordEntity>();
     #endregion
+
+    #region SetBiaoJiStatus sql,对于大量通过查询得到的实体，如果使用Right.SetBiaoJiSatus方法效率不高
+    public string SetBiaoJiStatusSql { get; set; }
+    #endregion
 }

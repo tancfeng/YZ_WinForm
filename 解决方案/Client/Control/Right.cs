@@ -79,7 +79,8 @@ namespace ControlLibrary.Control
                 }
                 else
                 {//无选择项，使用查询结果
-                    SetBiaoJiSatus(SROperation2.Instance.Center1EntList);
+                 //SetBiaoJiSatus(SROperation2.Instance.Center1EntList);
+                    SetBiaoJiStatusBySql(SROperation2.Instance.SetBiaoJiStatusSql);
                 }
             }
         }
@@ -150,7 +151,7 @@ namespace ControlLibrary.Control
             //this.treeView1.ExpandAll();
         }
         /// <summary>
-        /// 根据ID，设置treeview
+        /// 根据ID，设置treeview,少量数据
         /// </summary>
         /// <param name="idS">id字符串</param>
         public void SetBiaoJiStatusByString(string idS)
@@ -184,6 +185,30 @@ namespace ControlLibrary.Control
                     //    tns[0].StateImageIndex = 2;//非共有属性
                     //}
                     tns[0].Checked = true;
+                }
+            }
+        }
+        /// <summary>
+        /// use for large data.
+        /// </summary>
+        /// <param name="sql"></param>
+        public void SetBiaoJiStatusBySql(string sql)
+        {
+            if (!string.IsNullOrEmpty(sql))
+            {
+                DataTable dt = DataBaseHelper.Instance.Helper.ExecuteQuery(CommandType.Text, sql);
+                // SetTreeview();
+                //清除已设置标记状态
+                SetTreeNodeCheckStatus(this.treeView1.Nodes, false);
+                if (dt == null || dt.Rows.Count == 0) return;
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TreeNode[] tns = this.treeView1.Nodes.Find(dr["Id"].ToString(), true);
+                    if (tns != null && tns.Length > 0)
+                    {                       
+                        tns[0].Checked = true;
+                    }
                 }
             }
         }
