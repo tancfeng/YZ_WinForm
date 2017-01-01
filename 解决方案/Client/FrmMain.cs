@@ -1886,5 +1886,10 @@ namespace SirdRoom.ManageSystem.ClientApplication
         {
             reCalcKeywordPanelHeight();
         }
+
+       public void SetLoadStatus()
+        {
+            this.tool1.SetAddress();
+        }
     }
 }

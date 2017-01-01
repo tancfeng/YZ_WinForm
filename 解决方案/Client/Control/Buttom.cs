@@ -40,8 +40,8 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 }
                 else
                 {
-                    int count = Convert.ToInt32(DataBase.Instance.tSRRC_Resource.Math(ORM.FunType.Count, SRRC_ResourceEntity.FiledType.Id, "Pid=[$pid$]", new ORM.DataParameter("pid", SROperation.Instance.LeftSelectedId)));
-                    strText = "Total " + count + " items";
+                    //int count = Convert.ToInt32(DataBase.Instance.tSRRC_Resource.Math(ORM.FunType.Count, SRRC_ResourceEntity.FiledType.Id, "Pid=[$pid$]", new ORM.DataParameter("pid", SROperation.Instance.LeftSelectedId)));
+                    //strText = "Total " + count + " items";
                 }
             }            
             this.label1.Text = strText;

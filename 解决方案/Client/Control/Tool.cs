@@ -17,6 +17,7 @@ namespace ControlLibrary.Control
         public delegate void PageToolClickHandle(object sender, ToolEventArgs e);
         //定义事件
         public event PageToolClickHandle OnPageToolClicked;
+        string strAddress;
         public class ToolEventArgs
         {
             public int PicIndex { get; set; }
@@ -29,13 +30,13 @@ namespace ControlLibrary.Control
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
             toolStrip1.Renderer = new ToolStripProfessionalRenderer(new CustomToolStripColorTable());            
         }
-        void SetAddress(String strAddress, SRRC_ResourceEntity resEnt)
+        public void SetAddress()
         {
             this.panel2.Controls.Clear();
-            if(SROperation2.Instance.FocusPanel == "Left")
+            Int32 index = 0;
+            if (SROperation2.Instance.FocusPanel == "Left")
             {
                 String[] arrls = strAddress.TrimStart('\\').TrimStart('\\').Split(new char[] { '\\' });
-                Int32 index = 0;
                 foreach (var item in arrls)
                 {
                     if (String.IsNullOrEmpty(item) == false)
@@ -64,7 +65,7 @@ namespace ControlLibrary.Control
             lbl1.Text = "共" + SROperation2.Instance.entListCount + "项";
             lbl1.AutoSize = false;
             lbl1.Size = new Size(lbl1.Text.Length * 16, 15);
-            lbl1.Location = new Point(panel2.Width - lbl1.Width, 3);
+            lbl1.Location = new Point(index + 15 + 3, 3);
             lbl1.ForeColor = Color.White;
             this.panel2.Controls.Add(lbl1);
 
@@ -202,6 +203,7 @@ namespace ControlLibrary.Control
             this.txtQuery.Text = SROperation.Instance.Keyword;
             String strPath = "";
             SRRC_ResourceEntity resEnt = DataBase.Instance.tSRRC_Resource.Get_Entity(SROperation.Instance.LeftSelectedId);
+            List<SRRC_BiaojiEntity> entList = null;
             switch (SROperation.Instance.LeftDtype)
             {
                 case "Resources":
@@ -217,7 +219,7 @@ namespace ControlLibrary.Control
                     break;
                 case "Study":
                     {
-                        List<SRRC_BiaojiEntity> entList = DataBase.Instance.tSRRC_Biaoji.Get_EntityCollection(null, " User_id=0 ");
+                        entList = DataBase.Instance.tSRRC_Biaoji.Get_EntityCollection(null, " User_id=0 ");
                         if (entList != null)
                         {
                             this.AddData(entList, SROperation.Instance.LeftSelectedId, ref strPath);
@@ -226,7 +228,7 @@ namespace ControlLibrary.Control
                     break;
                 case "Favorites":
                     {
-                        List<SRRC_BiaojiEntity> entList = DataBase.Instance.tSRRC_Biaoji.Get_EntityCollection(null, " User_id="+ Param.UserId +" ");
+                        entList = DataBase.Instance.tSRRC_Biaoji.Get_EntityCollection(null, " User_id="+ Param.UserId +" ");
                         if (entList != null)
                         {
                             this.AddData(entList, SROperation.Instance.LeftSelectedId, ref strPath);
@@ -236,8 +238,22 @@ namespace ControlLibrary.Control
                 default:
                     break;
             }
-
-            this.SetAddress(strPath, resEnt);
+            this.strAddress = strPath;
+            if(resEnt != null)
+            {
+                this.panel2.Controls.Clear();
+                Label lbl = new Label();
+                lbl.Text = "正在加载请稍等...";
+                lbl.AutoSize = false;
+                lbl.Size = new Size(lbl.Text.Length * 16, 15);
+                lbl.Location = new Point(0, 3);
+                lbl.ForeColor = Color.White;
+                this.panel2.Controls.Add(lbl);
+            }
+            else
+            {
+                this.SetAddress();
+            }
         }
 
         void AddData(List<SRRC_BiaojiEntity> entList, int p, ref string strPath)

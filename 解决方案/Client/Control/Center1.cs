@@ -49,6 +49,9 @@ namespace ControlLibrary.Control
         MouseButtons _mouseDown;
 
         System.Windows.Forms.Timer selectedIndexChangedTimer = new System.Windows.Forms.Timer();
+
+        //
+        int _listViewLoadDataOnceCount = 1000;
         public Center1()
         {
             InitializeComponent();
@@ -112,76 +115,54 @@ namespace ControlLibrary.Control
                 GC.Collect();
                 if (!isMouseWheelDoing)
                 {
-                    SROperation2.Instance.isLoading = true;                    
+                    SROperation2.Instance.isLoading = true;
+                    listViewLoadData.CancelAsync();                 
                     SROperation2.Instance.Center1ImageDict.Clear();
                     listView1.Items.Clear();
                     if (entList == null)
                     {
                         SROperation2.Instance.isLoading = false;
+                        (this.ParentForm as FrmMain).SetLoadStatus();
                         return;
-                    }                    
-                    if (entList.Count > 200)
-                    {
-                        Thread t = new Thread(new ThreadStart(SetWaitPic));
-                        t.Start();
                     }
-                    SROperation2.Instance.entListReadyCount = 0;
-                    foreach (var item in entList)
-                    {
-                        ++SROperation2.Instance.entListReadyCount;
-                        ListViewItem litem = new ListViewItem();
-                        if (item.Dtype == 0)//文件夹
-                        {
-                            litem.ImageKey = "folder";
-                        }
-                        else if (item.Dtype == 1)//图片
-                        {
-                            litem.ImageKey = "image";
-                        }
-                        else
-                        {
-                            litem.ImageKey = item.Extend1.ToLower();
-                        }
-                        if(!SROperation2.Instance.defaultImageNameList.Contains(litem.ImageKey))
-                        {
-                            litem.ImageKey = "default";
-                        }
-                        litem.Name = item.Id.ToString();
-                        litem.Text = item.Name;
-                        litem.Tag = item;
-                        this.listView1.Items.Add(litem);
-                    }
+                    //if (entList.Count > 200)
+                    //{
+                    //    Thread t = new Thread(new ThreadStart(SetWaitPic));
+                    //    t.Start();
+                    //}
+                    //SROperation2.Instance.entListReadyCount = 0;
+                    //foreach (var item in entList)
+                    //{
+                    //    ++SROperation2.Instance.entListReadyCount;
+                    //    ListViewItem litem = new ListViewItem();
+                    //    if (item.Dtype == 0)//文件夹
+                    //    {
+                    //        litem.ImageKey = "folder";
+                    //    }
+                    //    else if (item.Dtype == 1)//图片
+                    //    {
+                    //        litem.ImageKey = "image";
+                    //    }
+                    //    else
+                    //    {
+                    //        litem.ImageKey = item.Extend1.ToLower();
+                    //    }
+                    //    if (!SROperation2.Instance.defaultImageNameList.Contains(litem.ImageKey))
+                    //    {
+                    //        litem.ImageKey = "default";
+                    //    }
+                    //    litem.Name = item.Id.ToString();
+                    //    litem.Text = item.Name;
+                    //    litem.Tag = item;
+                    //    this.listView1.Items.Add(litem);
+                    //}
+                    listViewLoadData.RunWorkerAsync();
                 }
                 else
                 {
                     
                 }
-                #region 从资源目录跳转时，需要重新定义SROperation2.Instance.PicSelected文件，默认将其设置为第一项的，所以如果SROperation2.Instance.PicSelected相同则聚焦
-                if (this.listView1 != null && this.listView1.Items.Count > 0)
-                {
-                    List<SRRC_ResourceEntity> SelectedEntList;
-                    if (SROperation2.Instance.FocusPanel == "Center2")
-                    {
-                        SelectedEntList = SROperation2.Instance.Center2PicSelected;
-                    }
-                    else
-                    {
-                        SelectedEntList = SROperation2.Instance.PicSelected;
-                    }
-                    if (SelectedEntList != null && SelectedEntList.Count > 0 )
-                    {
-                        ListViewItem[] lvis = listView1.Items.Find(SelectedEntList[0].Id.ToString(), true);
-                        if(lvis != null && lvis.Length>0)
-                        {
-                            lvis[0].EnsureVisible();
-                            lvis[0].Selected = true;
-                            SROperation2.Instance.PicSelected.Clear();
-                            SROperation2.Instance.PicSelected.Add(lvis[0].Tag as SRRC_ResourceEntity);                            
-                        }
-                    }
-                }
-                #endregion
-
+                
             }
             catch(Exception ex)
             {
@@ -1518,6 +1499,87 @@ namespace ControlLibrary.Control
         public void ClearListViewSelectedItems()
         {
             this.listView1.SelectedItems.Clear();
+        }
+
+        private void listViewLoadData_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker bw = sender as BackgroundWorker;
+            List<ListViewItem>[] arr = new List<ListViewItem>[entList.Count / _listViewLoadDataOnceCount + 1];
+            int i = 0;
+            arr[i] = new List<ListViewItem>();
+            foreach (SRRC_ResourceEntity item in entList)
+            {
+                if (!bw.CancellationPending)
+                {
+                    ListViewItem litem = new ListViewItem();
+                    if (item.Dtype == 0)//文件夹
+                    {
+                        litem.ImageKey = "folder";
+                    }
+                    else if (item.Dtype == 1)//图片
+                    {
+                        litem.ImageKey = "image";
+                    }
+                    else
+                    {
+                        litem.ImageKey = item.Extend1.ToLower();
+                    }
+                    if (!SROperation2.Instance.defaultImageNameList.Contains(litem.ImageKey))
+                    {
+                        litem.ImageKey = "default";
+                    }
+                    litem.Name = item.Id.ToString();
+                    litem.Text = item.Name;
+                    litem.Tag = item;
+                    arr[i].Add(litem);
+                    if(arr[i].Count == _listViewLoadDataOnceCount)
+                    {
+                        bw.ReportProgress(i, arr[i]);
+                        i++;
+                        arr[i] = new List<ListViewItem>();
+                    }
+                }
+            }
+            if(arr[i].Count > 0)
+            {
+                bw.ReportProgress(i, arr[i]);
+            }
+        }
+
+        private void listViewLoadData_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            var list = e.UserState as List<ListViewItem>;
+            this.listView1.Items.AddRange(list.ToArray<ListViewItem>());
+        }
+
+        private void listViewLoadData_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            #region 从资源目录跳转时，需要重新定义SROperation2.Instance.PicSelected文件，默认将其设置为第一项的，所以如果SROperation2.Instance.PicSelected相同则聚焦
+            if (this.listView1 != null && this.listView1.Items.Count > 0)
+            {
+                List<SRRC_ResourceEntity> SelectedEntList;
+                if (SROperation2.Instance.FocusPanel == "Center2")
+                {
+                    SelectedEntList = SROperation2.Instance.Center2PicSelected;
+                }
+                else
+                {
+                    SelectedEntList = SROperation2.Instance.PicSelected;
+                }
+                if (SelectedEntList != null && SelectedEntList.Count > 0)
+                {
+                    ListViewItem[] lvis = listView1.Items.Find(SelectedEntList[0].Id.ToString(), true);
+                    if (lvis != null && lvis.Length > 0)
+                    {
+                        lvis[0].EnsureVisible();
+                        lvis[0].Selected = true;
+                        SROperation2.Instance.PicSelected.Clear();
+                        SROperation2.Instance.PicSelected.Add(lvis[0].Tag as SRRC_ResourceEntity);
+                    }
+                }
+            }
+            #endregion
+            (this.ParentForm as FrmMain).SetLoadStatus();
         }
     }
 }
