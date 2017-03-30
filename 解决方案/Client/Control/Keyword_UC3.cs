@@ -15,16 +15,16 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
     /// </summary>
     public partial class Keyword_UC3 : UserControl
     {
-        private List<SRRC_ResourcebiaojirelEntity> rbList { get; set; }
+        private List<SRRC_ResourcebiaojirelEntity> rbList = new List<SRRC_ResourcebiaojirelEntity>();
         public Keyword_UC3()
         {
             InitializeComponent();
         }
-        public void BindData(bool isFilter=false)
+        public void BindData(bool isFilter = false)
         {
             this.Controls.Clear();
             if (SROperation2.Instance.StudySelectedId == 0) return;
-            if(isFilter)
+            if (isFilter)
             {
                 //私有关键字
                 var sql = @"  select tb.*
@@ -46,13 +46,13 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                     " biaojiid=[$biaojiid$] and Pid=0", new ORM.DataParameter("biaojiid", SROperation2.Instance.StudySelectedId));
                     foreach (var item in categories)
                     {
-                        var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id), true);
+                        var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id).OrderBy(l => l.OrderBy), true);
                         control.Margin = new Padding(1);
                         control.Dock = DockStyle.Top;
                         this.Controls.Add(control);
                     }
                 }
-                    rbList = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, " biaoji_id=[$biaojiid$]", new ORM.DataParameter("biaojiid", SROperation2.Instance.StudySelectedId));
+                rbList = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, " biaoji_id=[$biaojiid$]", new ORM.DataParameter("biaojiid", SROperation2.Instance.StudySelectedId));
             }
             else
             {
@@ -63,7 +63,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                 if (list != null && list.Count > 0)
                 {
                     var category = list.Find(l => l.Pid == 0);
-                    var control = new Keyword_UC2(category, list.Where(l => l.Pid == category.Id));
+                    var control = new Keyword_UC2(category, list.Where(l => l.Pid == category.Id).OrderBy(l => l.OrderBy));
                     control.Margin = new Padding(1);
                     control.Dock = DockStyle.Top;
                     this.Controls.Add(control);
@@ -78,13 +78,13 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
                     var categories = list.Where(l => l.Pid == 0).OrderByDescending(l => l.OrderBy);
                     foreach (var item in categories)
                     {
-                        var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id));
+                        var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id).OrderBy(l => l.OrderBy));
                         control.Margin = new Padding(1);
                         control.Dock = DockStyle.Top;
                         this.Controls.Add(control);
                     }
                 }
-            }            
+            }
         }
         /// <summary>
         /// 关键字跟随
@@ -93,54 +93,57 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
         public void BindData(int StudyId)
         {
             this.Controls.Clear();
-            
-                //常驻关键字
-                var list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
-                    new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
-                    " biaojiid=0");
-                if (list != null && list.Count > 0)
+
+            //常驻关键字
+            var list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
+                new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
+                " biaojiid=0");
+            if (list != null && list.Count > 0)
+            {
+                var category = list.Find(l => l.Pid == 0);
+                var control = new Keyword_UC2(category, list.Where(l => l.Pid == category.Id).OrderBy(l => l.OrderBy));
+                control.Margin = new Padding(1);
+                control.Dock = DockStyle.Top;
+                this.Controls.Add(control);
+            }
+            //私有关键字
+            list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
+                new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
+                " biaojiid=[$biaojiid$]", new ORM.DataParameter("biaojiid", StudyId));
+            rbList = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, " biaoji_id=[$biaojiid$]", new ORM.DataParameter("biaojiid", StudyId));
+            if (list != null && list.Count > 0)
+            {
+                var categories = list.Where(l => l.Pid == 0).OrderByDescending(l => l.OrderBy);
+                foreach (var item in categories)
                 {
-                    var category = list.Find(l => l.Pid == 0);
-                    var control = new Keyword_UC2(category, list.Where(l => l.Pid == category.Id));
+                    var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id).OrderBy(l => l.OrderBy));
                     control.Margin = new Padding(1);
                     control.Dock = DockStyle.Top;
                     this.Controls.Add(control);
                 }
-                //私有关键字
-                list = DataBase.Instance.tSRRC_BiaoJiKeyword.Get_EntityCollection(
-                    new ORM.OrderCollection<SRRC_BiaoJiKeywordEntity.FiledType>() { new ORM.Order<SRRC_BiaoJiKeywordEntity.FiledType>(SRRC_BiaoJiKeywordEntity.FiledType.OrderBy, ORM.OrderType.Asc) },
-                    " biaojiid=[$biaojiid$]", new ORM.DataParameter("biaojiid", StudyId));
-                rbList = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, " biaoji_id=[$biaojiid$]", new ORM.DataParameter("biaojiid", StudyId));
-                if (list != null && list.Count > 0)
-                {
-                    var categories = list.Where(l => l.Pid == 0).OrderByDescending(l => l.OrderBy);
-                    foreach (var item in categories)
-                    {
-                        var control = new Keyword_UC2(item, list.Where(l => l.Pid == item.Id));
-                        control.Margin = new Padding(1);
-                        control.Dock = DockStyle.Top;
-                        this.Controls.Add(control);
-                    }
-                }            
+            }
         }
         public void SetBiaoJiKeywordStatus(List<SRRC_ResourceEntity> list)
         {
             var v = from i in list
                     join r in rbList on i.Id equals r.Resource_id
                     select r;
-
-            var v1 = DataBase.Instance.tSRRC_ResourceBiaoJiRel_BiaoJiKeyword.Get_EntityCollection(null, string.Format("ResourceBiaoJiRelId in ({0})", string.Join(",", v.Select(i => i.Id))));
             List<long> BiaoJiKeywordIdList = new List<long>();
-            if (v1 != null && v1.Count > 0)
+            if (v.Count() > 0)
             {
-                foreach (var item in v1.GroupBy(i => i.BiaoJiKeywordId))
+                var v1 = DataBase.Instance.tSRRC_ResourceBiaoJiRel_BiaoJiKeyword.Get_EntityCollection(null, string.Format("ResourceBiaoJiRelId in ({0})", string.Join(",", v.Select(i => i.Id))));
+                if (v1 != null && v1.Count > 0)
                 {
-                    if (item.Count() == list.Count)
+                    foreach (var item in v1.GroupBy(i => i.BiaoJiKeywordId))
                     {
-                        BiaoJiKeywordIdList.Add(item.Key);
+                        if (item.Count() == list.Count)
+                        {
+                            BiaoJiKeywordIdList.Add(item.Key);
+                        }
                     }
                 }
             }
+
 
             foreach (var item in this.Controls)
             {
@@ -157,24 +160,24 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             var h = 0;
             foreach (Keyword_UC2 item in this.Controls)
             {
-                if(!item.Visible)
+                if (!item.Visible)
                 {
                     item.Height = 0;
                     continue;
                 }
-                    item.Height = item.AdjustHeight();
-                    h += item.Height + item.Margin.Top + item.Margin.Bottom;
+                item.Height = item.AdjustHeight();
+                h += item.Height + item.Margin.Top + item.Margin.Bottom;
             }
             return h;
         }
         public void Keyword_UC3_Refresh()
         {
-            var v =  SROperation2.Instance.BiaoJiKeywordFilterList.Select(l => l.Pid);
+            var v = SROperation2.Instance.BiaoJiKeywordFilterList.Select(l => l.Pid);
             this.Visible = true;
             foreach (UserControl item in this.Controls)
             {
                 item.Visible = true;
-                if(v.Contains(Convert.ToInt32(item.Name)))
+                if (v.Contains(Convert.ToInt32(item.Name)))
                 {
                     item.Visible = false;
                 }
@@ -185,7 +188,7 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             this.Keyword_UC3_Refresh();
             foreach (Keyword_UC2 item in this.Controls)
             {
-                if(item.Visible)
+                if (item.Visible)
                 {
                     var v = item as Keyword_UC2;
                     var q = from i in list

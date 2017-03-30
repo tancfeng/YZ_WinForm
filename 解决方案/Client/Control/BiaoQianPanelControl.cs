@@ -40,19 +40,23 @@ namespace SirdRoom.ManageSystem.ClientApplication.Control
             var v = from i in list
                     join r in rbList on i.Id equals r.Resource_id
                     select r;
-
-            var v1 = DataBase.Instance.tSRRC_ResourceBiaoJiRel_BiaoJiKeyword.Get_EntityCollection(null, string.Format("ResourceBiaoJiRelId in ({0})", string.Join(",", v.Select(i => i.Id))));
             List<long> BiaoJiKeywordIdList = new List<long>();
-            if(v1 != null && v1.Count > 0)
+
+            if (v.Count() > 0)
             {
-                foreach (var item in v1.GroupBy(i => i.BiaoJiKeywordId))
+                var v1 = DataBase.Instance.tSRRC_ResourceBiaoJiRel_BiaoJiKeyword.Get_EntityCollection(null, string.Format("ResourceBiaoJiRelId in ({0})", string.Join(",", v.Select(i => i.Id))));
+                if (v1 != null && v1.Count > 0)
                 {
-                    if (item.Count() == list.Count)
+                    foreach (var item in v1.GroupBy(i => i.BiaoJiKeywordId))
                     {
-                        BiaoJiKeywordIdList.Add(item.Key);
+                        if (item.Count() == list.Count)
+                        {
+                            BiaoJiKeywordIdList.Add(item.Key);
+                        }
                     }
                 }
             }
+            
 
             foreach (var item in this.Controls)
             {
