@@ -318,24 +318,24 @@ namespace SirdRoom.ManageSystem.ClientApplication
             SROperation2.Instance.Center1DefaultImageList.Count();
             //SROperation2.Instance.Center2ImageDict = new SortedDictionary<string, Image>();
             //Center2图片，默认加载20张
-            List<SRRC_ResourceEntity> temp =  DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, " Id in(" + SROperation.Instance.CenterLanZhi + ") ");
-            if (temp == null) return;
-            foreach (var item in temp.Take(20))
-            {
-                //using (new IdentityScope(Param.ServerIP.Description,
-                //                Param.ServerIP.Remark,
-                //                Param.ServerIP.Title))
-                //{
-                //    Image image = Image.FromFile(item.Serverip.Replace(Param.IP, Param.ServerCacheIP.Trim('\\')) + item.Path);
-                //    MemoryStream ms = new MemoryStream();
-                //    image.Save(ms, image.RawFormat);
-                //    if (ms == null) return;
-                //    image = Image.FromStream(ms);
-                //    GC.Collect();
-                //    SROperation2.Instance.Center2ImageDict.Add(item.Id.ToString(), image);
-                //}
-                SROperation2.Instance.Center2ImageBlockingCollection.Add(new KeyValuePair<string, string>(item.Id.ToString(), item.Serverip.Replace(Param.IP, Param.ServerCacheIP.Trim('\\')) + item.Path));
-            }
+            //List<SRRC_ResourceEntity> temp =  DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, " Id in(" + SROperation.Instance.CenterLanZhi + ") ");
+            //if (temp == null) return;
+            //foreach (var item in temp.Take(20))
+            //{
+            //    //using (new IdentityScope(Param.ServerIP.Description,
+            //    //                Param.ServerIP.Remark,
+            //    //                Param.ServerIP.Title))
+            //    //{
+            //    //    Image image = Image.FromFile(item.Serverip.Replace(Param.IP, Param.ServerCacheIP.Trim('\\')) + item.Path);
+            //    //    MemoryStream ms = new MemoryStream();
+            //    //    image.Save(ms, image.RawFormat);
+            //    //    if (ms == null) return;
+            //    //    image = Image.FromStream(ms);
+            //    //    GC.Collect();
+            //    //    SROperation2.Instance.Center2ImageDict.Add(item.Id.ToString(), image);
+            //    //}
+            //    SROperation2.Instance.Center2ImageBlockingCollection.Add(new KeyValuePair<string, string>(item.Id.ToString(), item.Serverip.Replace(Param.IP, Param.ServerCacheIP.Trim('\\')) + item.Path));
+            //}
         }
 
         //加载CheckBoxImageList图标

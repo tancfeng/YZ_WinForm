@@ -406,7 +406,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                     break;
                 case 1:
                     {
-                        SROperation2.Instance.CenterLanZhiTemp = this.center21.isTemp ? SROperation.Instance.CenterLanZhiTemp : SROperation.Instance.CenterLanZhi;
+                        //SROperation2.Instance.CenterLanZhiTemp = this.center21.isTemp ? SROperation.Instance.CenterLanZhiTemp : SROperation.Instance.CenterLanZhi;
                         FrmFrame frm = new FrmFrame()
                         {
                             WindowState = FormWindowState.Maximized,
@@ -1409,7 +1409,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
 
             }else if(source == "Center2")
             {
-               lvi = this.center21.listView1.Items[index];
+                lvi = this.center21.listView1.Items[index];
             }
             if(lvi != null)
             {
@@ -1810,7 +1810,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                             image = Image.FromStream(ms);
                             GC.Collect();
                             SROperation2.Instance.Center2ImageDict.Add(kv.Key, image);
-                            this.center21.Invoke(new Center2.SetImageListDelegate(center21.SetImageList), kv.Key, image);
+                            this.center21.Invoke(new Center2New.SetImageListDelegate(center21.SetImageList), kv.Key, image);
                         }
                     }
                 }

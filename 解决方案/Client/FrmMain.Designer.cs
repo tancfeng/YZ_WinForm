@@ -40,7 +40,7 @@
             this.keyword_UC31 = new SirdRoom.ManageSystem.ClientApplication.Control.Keyword_UC3();
             this.keyword_UC61 = new SirdRoom.ManageSystem.ClientApplication.Control.Keyword_UC6();
             this.tool1 = new ControlLibrary.Control.Tool();
-            this.center21 = new ControlLibrary.Control.Center2();
+            this.center21 = new ControlLibrary.Control.Center2New();
             this.right1 = new ControlLibrary.Control.Right();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -783,7 +783,7 @@
         private System.Windows.Forms.ToolStripMenuItem 小平铺6464ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 缩略图128128ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 缩略图3240180ToolStripMenuItem;
-        private ControlLibrary.Control.Center2 center21;
+        private ControlLibrary.Control.Center2New center21;
         private ControlLibrary.Control.Center1 center11;
         private Control.Keyword_UC3 keyword_UC31;
         private Control.Keyword_UC6 keyword_UC61;

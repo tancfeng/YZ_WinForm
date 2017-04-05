@@ -37,7 +37,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.treeView2 = new System.Windows.Forms.TreeView();
-            this.center21 = new ControlLibrary.Control.Center2();
+            this.center21 = new ControlLibrary.Control.Center2New();
             this.right1 = new ControlLibrary.Control.Right();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -115,7 +115,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TreeView treeView2;
-        private ControlLibrary.Control.Center2 center21;
+        private ControlLibrary.Control.Center2New center21;
         private ControlLibrary.Control.Right right1;
 
     }
