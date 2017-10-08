@@ -33,7 +33,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             menuStrip1.ForeColor = Color.White;
             menuStrip1.BackColor = Color.FromArgb(57, 57, 57);
 
-            
+
 
             //worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
             this.left1.OnPageAftered += left1_OnPageAftered;
@@ -59,16 +59,17 @@ namespace SirdRoom.ManageSystem.ClientApplication
             SROperation2.Instance.PicSelected = null;
             this.keyword_UC31.Visible = false;
             this.keyword_UC61.Visible = false;
-            switch(SROperation.Instance.LeftDtype)
+            switch (SROperation.Instance.LeftDtype)
             {
                 case "Resources":
                     {
                         SROperation2.Instance.ResourceSelectedId = SROperation.Instance.LeftSelectedId;
-                    }break;
+                    }
+                    break;
                 case "Study":
                     {
                         SROperation2.Instance.StudySelectedId = SROperation.Instance.LeftSelectedId;
-                        if(Param.GroupId  == 1)
+                        if (Param.GroupId == 1)
                         {
                             this.keyword_UC31.Visible = true;
                             this.keyword_UC31.BindData();
@@ -81,13 +82,14 @@ namespace SirdRoom.ManageSystem.ClientApplication
                             this.keyword_UC61.BindData();
                             this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
                         }
-                        
+
                     }
                     break;
                 case "Favorites":
                     {
                         SROperation2.Instance.FavoritesSelectedId = SROperation.Instance.LeftSelectedId;
-                    }break;
+                    }
+                    break;
             }
             SROperation.Instance.OperationList_Add(SROperation.Instance.LeftSelectedId);
             CurrentUrl = new SROperation.UrlEntity() { Index = 0, UrlId = SROperation.Instance.LeftSelectedId };
@@ -260,7 +262,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                     }
                     break;
                 case 14://Center1KeywordFilter
-                    {                        
+                    {
                         SROperation.Instance.OnlyShow = !SROperation.Instance.OnlyShow;
                         //ToolStripMenuItem ls = new ToolStripMenuItem();
                         //ls.Text = "刷新";
@@ -270,7 +272,8 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         this.Refresh();
                         this.center11.SetData();
                         this.right1.RefreshKeyword();
-                    }break;
+                    }
+                    break;
                 case 15:
                     {
                         this.center11.BindData();
@@ -293,11 +296,11 @@ namespace SirdRoom.ManageSystem.ClientApplication
                     {
                         this.buttom1.BindData();
                         this.right1.SetBiaoJiSatus(SROperation2.Instance.PicSelected);
-                        if(this.keyword_UC31.Visible)
+                        if (this.keyword_UC31.Visible)
                         {
                             this.keyword_UC31.SetBiaoJiKeywordStatus(SROperation2.Instance.PicSelected);
                         }
-                        if(this.keyword_UC61.Visible)
+                        if (this.keyword_UC61.Visible)
                         {
                             //this.keyword_UC61.SetBiaoJiKeywordStatus(SROperation2.Instance.PicSelected);
                         }
@@ -340,9 +343,9 @@ namespace SirdRoom.ManageSystem.ClientApplication
                             FormBorderStyle = FormBorderStyle.Sizable
                         };
                         SRRC_ResourceEntity i = SROperation2.Instance.PicSelected[0];
-                        Param.DPageParameter = i.Serverip + i.Path + "|" + this.center11.listView1.Items.Find(i.Id.ToString(),true)[0].Index + "|" + i.Id;
+                        Param.DPageParameter = i.Serverip + i.Path + "|" + this.center11.listView1.Items.Find(i.Id.ToString(), true)[0].Index + "|" + i.Id;
                         //frm.SetUserControl(new Browser(this.center11.listView1.Items));
-                        frm.SetUserControl(new Browser1(this.center11.entList,"Center1"));
+                        frm.SetUserControl(new Browser1(this.center11.entList, "Center1"));
                         frm.Owner = this;
                         SROperation2.Instance.Center2_1ImageDict = SROperation2.Instance.Center1ImageDict;
                         //frm.Show();
@@ -386,6 +389,12 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         this.center21.ClearListViewSelectedItems();
                     }
                     break;
+                case 8:
+                    {
+                        //搭配图像篮子
+                        this.center21.Set搭配图像篮子();
+                    }
+                    break;
                 default:
                     break;
             }
@@ -420,7 +429,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         SROperation2.Instance.Center2_1ImageDict = SROperation2.Instance.Center2ImageDict;
                         frm.Owner = this;
                         frm.Show();
-                        foreach(ListViewItem lvi in this.center21.listView1.SelectedItems)
+                        foreach (ListViewItem lvi in this.center21.listView1.SelectedItems)
                         {
                             lvi.Selected = false;
                         }
@@ -483,14 +492,14 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 Int32 ibiaojiId = (e.Node.Tag as SRRC_BiaojiEntity).Id;
                 int userId = (e.Node.Tag as SRRC_BiaojiEntity).User_id;
                 String strPicSelected = "";
-                if (SROperation2.Instance.PicSelected != null)
+                if (SROperation2.Instance.PicSelected != null && SROperation2.Instance.PicSelected.Count > 0)
                 {//center1
                     foreach (var item in SROperation2.Instance.PicSelected)
                     {
                         strPicSelected += item.Id + ",";
                     }
                 }
-                else if(SROperation2.Instance.Center2PicSelected != null)
+                else if (SROperation2.Instance.Center2PicSelected != null && SROperation2.Instance.Center2PicSelected.Count > 0)
                 {
                     //center2
                     foreach (var item in SROperation2.Instance.Center2PicSelected)
@@ -519,9 +528,12 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         }
                         DataBase.Instance.tSRRC_Resourcebiaojirel.Add(resourcebiaojirelEntList.ToArray());
                         DataBaseHelper.Instance.Helper.ExecuteNonQuery(System.Data.CommandType.Text, " update SRRC_Resource set bjtime=Getdate() where id in(" + strPicSelected + ")  ");
-                        this.Keyword_UC3Refresh(ibiaojiId);
+                        if (SROperation2.Instance.PicSelected != null && SROperation2.Instance.PicSelected.Count > 0)
+                        {
+                            this.Keyword_UC3Refresh(ibiaojiId);
+                        }
                     }
-                    
+
                 }
             }
         }
@@ -534,7 +546,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             this.aaToolStripMenuItem.Available = false;
             if (Param.LoginState == false || Param.UserId <= 0)
             {//显示登陆
-                
+
                 FrmLogin login = new FrmLogin();
                 if (login.ShowDialog() == DialogResult.OK)
                 {
@@ -565,7 +577,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                     this.Init();
                     this.Binddata();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     SRLogHelper.Instance.AddLog("异常", "FrmMain", "FrmMain_Load", ex.Message);
                 }
@@ -587,7 +599,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 Application.Exit(); return;
             }
 
-           
+
         }
 
         void Init()
@@ -722,7 +734,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             this.center21.BindData();
             this.Refresh();
             this.center11.SetData();
-            if(SROperation.Instance.LeftDtype== "Study")
+            if (SROperation.Instance.LeftDtype == "Study")
             {
                 SROperation2.Instance.StudySelectedId = SROperation.Instance.LeftSelectedId;
                 if (Param.GroupId == 1)
@@ -739,7 +751,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                     this.keyword_UC61.Height = this.keyword_UC61.AdjustHeight();
                 }
             }
-           
+
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -916,6 +928,9 @@ namespace SirdRoom.ManageSystem.ClientApplication
                                 ent.Extend3 = ls.Checked ? DateTime.Now.ToString("yyyyMMddHHmmssffff") : "";//视图优先排列
                                 DataBase.Instance.tSRRC_Resource.Update(ent);
                             }
+
+                            this.center11.BindData();
+                            this.center11.SetData();
                         }
                     }
                     break;
@@ -992,7 +1007,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                             SROperation2.Instance.entListReadyCount = 0;
                             Thread t = new Thread(new ThreadStart(SetWaitPic));
                             t.Start();
-                            
+
                             foreach (var path in pathList.Distinct())
                             {
                                 //先复制文件
@@ -1015,7 +1030,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                                     //文件
                                     File.Copy(path, userEnt.Companyname.TrimEnd('\\') + "\\" + new FileInfo(path).Name, true);
                                     ++SROperation2.Instance.entListReadyCount;
-                                }                                
+                                }
                             }
                             SROperation2.Instance.isLoading = false;
                             MessageBox.Show("复制完成！");
@@ -1057,7 +1072,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 case "跳转到原始微缩图":
                     {
                         SRRC_ResourceEntity ent = SROperation2.Instance.PicSelected.FirstOrDefault();
-                        if(ent != null)
+                        if (ent != null)
                         {
                             string path = "";
                             path = ent.Serverip.Replace(Param.IP, Param.ServerCacheIP.Trim('\\')) + ent.Path;
@@ -1077,12 +1092,12 @@ namespace SirdRoom.ManageSystem.ClientApplication
                             System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo("Explorer.exe");
                             psi.Arguments = "/e,/select," + path;
                             System.Diagnostics.Process.Start(psi);
-                        } 
+                        }
                     }
                     break;
                 case "新建文件夹":
                     {
-                        if(Param.GroupId > 2)
+                        if (Param.GroupId > 2)
                         {
                             MessageBox.Show("您不具备该权限！请联系管理员。");
                             return;
@@ -1102,7 +1117,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                                 if (resEnt != null)
                                 {
                                     Directory.CreateDirectory(resEnt.Serverip + resEnt.Path.TrimEnd('\\') + "\\" + Param.DPageParameter);
-                                    Directory.CreateDirectory(resEnt.Serverip.Replace(Param.IP,Param.ServerCacheIP) + resEnt.Path.TrimEnd('\\') + "\\" + Param.DPageParameter);
+                                    Directory.CreateDirectory(resEnt.Serverip.Replace(Param.IP, Param.ServerCacheIP) + resEnt.Path.TrimEnd('\\') + "\\" + Param.DPageParameter);
                                     DataBase.Instance.tSRRC_Resource.Add(new SRRC_ResourceEntity()
                                     {
                                         Name = Param.DPageParameter,
@@ -1128,13 +1143,13 @@ namespace SirdRoom.ManageSystem.ClientApplication
                                         Extend2 = "1.png"
                                     });
                                     Directory.CreateDirectory(Param.ServerIP.Title + "\\" + Param.DPageParameter);
-                                    Directory.CreateDirectory(Param.ServerIP.Title.Replace(Param.IP, Param.ServerCacheIP)+ Param.DPageParameter);
+                                    Directory.CreateDirectory(Param.ServerIP.Title.Replace(Param.IP, Param.ServerCacheIP) + Param.DPageParameter);
                                 }
                                 //if (Directory.Exists(strFolrder) == false)
                                 //{
                                 //    Directory.CreateDirectory(strFolrder);
                                 //}
-                                    
+
                             }
                         }
                         this.Binddata();
@@ -1245,7 +1260,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         //    this.center11.SetData();
                         //}
                     }
-                   // break;
+                // break;
                 case "重命名":
                     {
                         if (Param.GroupId > 2)
@@ -1399,19 +1414,20 @@ namespace SirdRoom.ManageSystem.ClientApplication
         {
             ToolStripMenuItem_Click(sender, e);
         }
-        public void BrowserCross(string source,int index)
+        public void BrowserCross(string source, int index)
         {
             //source : Center1,Center2
             ListViewItem lvi = null;
-            if(source == "Center1")
+            if (source == "Center1")
             {
-             lvi =   this.center11.listView1.Items[index];
+                lvi = this.center11.listView1.Items[index];
 
-            }else if(source == "Center2")
+            }
+            else if (source == "Center2")
             {
                 lvi = this.center21.listView1.Items[index];
             }
-            if(lvi != null)
+            if (lvi != null)
             {
                 lvi.EnsureVisible();
                 lvi.Selected = true;
@@ -1478,7 +1494,8 @@ namespace SirdRoom.ManageSystem.ClientApplication
                 default:
                     {
                         inewMode = Convert.ToInt32(ls.Text);
-                    }break;
+                    }
+                    break;
             }
             if (inewMode != SROperation.Instance.DisplayMode)
             {
@@ -1543,7 +1560,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
 
         private void FrmMain_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
             //需要进行特殊处理的控件KeyPress事件处理
             //左边栏
             if (this.left1.ContainsFocus)
@@ -1732,7 +1749,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             {
                 wp.SetReadCount();
                 ff.Refresh();
-            }            
+            }
         }
         private void SetWaitPic2()
         {
@@ -1741,7 +1758,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             ff.SetUserControl(wp2);
             ff.Show();
             while (SROperation2.Instance.isLoading)
-            {                
+            {
                 ff.Refresh();
             }
         }
@@ -1751,7 +1768,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
         public void BlockingCollectionInit()
         {
             int count = Convert.ToInt32(SRConfig.Instance.GetAppString("BlockingCollectionTakeThreadNum"));
-            
+
             Thread[] threads = new Thread[count];
             while (true)
             {
@@ -1772,7 +1789,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
         }
         public void BlockingCollectinoTake()
         {
-            KeyValuePair<string,string> kv;
+            KeyValuePair<string, string> kv;
             try
             {
                 while (SROperation2.Instance.Center1ImageBlockingCollection.Count != 0
@@ -1814,7 +1831,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
                         }
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1824,9 +1841,9 @@ namespace SirdRoom.ManageSystem.ClientApplication
 
         private void menuStrip1_VisibleChanged(object sender, EventArgs e)
         {
-            if(this.menuStrip1.Visible)
+            if (this.menuStrip1.Visible)
             {
-                if(Param.GroupId > 2)
+                if (Param.GroupId > 2)
                 {
                     this.新建文件夹ToolStripMenuItem.Available = false;
                     this.重命名ToolStripMenuItem.Available = false;
@@ -1839,14 +1856,14 @@ namespace SirdRoom.ManageSystem.ClientApplication
         private void splitContainer3_Panel1_Resize(object sender, EventArgs e)
         {
             reCalcKeywordPanelHeight();
-        }    
+        }
         /// <summary>
         /// 常驻关键字修改不需要刷新UC6面板
         /// </summary>
         /// <param name="isRefreshAll"></param>
-        public void Keyword_UC6Refresh(bool isRefreshAll=true)
+        public void Keyword_UC6Refresh(bool isRefreshAll = true)
         {
-           
+
             //Center1刷新
             this.center11.BindData();
             this.tool1.BindData();
@@ -1887,7 +1904,7 @@ namespace SirdRoom.ManageSystem.ClientApplication
             reCalcKeywordPanelHeight();
         }
 
-       public void SetLoadStatus()
+        public void SetLoadStatus()
         {
             this.tool1.SetAddress();
         }

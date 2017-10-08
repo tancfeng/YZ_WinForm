@@ -42,6 +42,9 @@ namespace ControlLibrary.Control
             this.复制到指定目录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加到ImageBasketTtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.跳转到资源目录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.图片放大ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.图片缩小ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.faTabStrip1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -94,9 +97,12 @@ namespace ControlLibrary.Control
             this.toolStripSeparator2,
             this.复制到指定目录ToolStripMenuItem,
             this.添加到ImageBasketTtoolStripMenuItem,
-            this.跳转到资源目录ToolStripMenuItem});
+            this.跳转到资源目录ToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.图片放大ToolStripMenuItem,
+            this.图片缩小ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(247, 200);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(247, 258);
             this.contextMenuStrip1.VisibleChanged += new System.EventHandler(this.contextMenuStrip1_VisibleChanged);
             // 
             // 选择全部ToolStripMenuItem
@@ -163,6 +169,27 @@ namespace ControlLibrary.Control
             this.跳转到资源目录ToolStripMenuItem.Text = "跳转到资源目录";
             this.跳转到资源目录ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
+            // 图片放大ToolStripMenuItem
+            // 
+            this.图片放大ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.图片放大ToolStripMenuItem.Name = "图片放大ToolStripMenuItem";
+            this.图片放大ToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.图片放大ToolStripMenuItem.Text = "图片放大";
+            this.图片放大ToolStripMenuItem.Click += new System.EventHandler(this.图片放大ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(243, 6);
+            // 
+            // 图片缩小ToolStripMenuItem
+            // 
+            this.图片缩小ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.图片缩小ToolStripMenuItem.Name = "图片缩小ToolStripMenuItem";
+            this.图片缩小ToolStripMenuItem.Size = new System.Drawing.Size(246, 26);
+            this.图片缩小ToolStripMenuItem.Text = "图片缩小";
+            this.图片缩小ToolStripMenuItem.Click += new System.EventHandler(this.图片缩小ToolStripMenuItem_Click);
+            // 
             // Center2New
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -193,5 +220,8 @@ namespace ControlLibrary.Control
         private System.Windows.Forms.ToolStripMenuItem 复制到指定目录ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 跳转到资源目录ToolStripMenuItem;
         private ToolStripMenuItem 添加到ImageBasketTtoolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem 图片放大ToolStripMenuItem;
+        private ToolStripMenuItem 图片缩小ToolStripMenuItem;
     }
 }

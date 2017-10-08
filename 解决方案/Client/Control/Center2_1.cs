@@ -174,7 +174,65 @@ namespace ControlLibrary.Control
 
         private void listView1_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            this.listView1.DoDragDrop(this.listView1.SelectedItems, DragDropEffects.Move);
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                List<string> list = new List<string>();
+                foreach (ListViewItem lvi in this.listView1.SelectedItems)
+                {
+                    SRRC_ResourceEntity ent = lvi.Tag as SRRC_ResourceEntity;
+                    string path = "";
+                    if (ent.Iscomposite) //复合文件
+                    {
+                        var item = DataBase.Instance.tSRRC_Resource.Get_Entity(ent.Pid);
+                        if (item == null) continue;
+                        item.Usecount++;
+                        DataBase.Instance.tSRRC_Resource.Update(item);
+
+                        List<SRRC_ResourceEntity> maxEntList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(null, "pid in (select Id from SRRC_Resource where pid=[$pid$] and Dtype=0) and lower(Extend1)=[$extend1$]", new DataParameter("pid", item.Id), new DataParameter("extend1", "max"));
+                        if (maxEntList == null || maxEntList.Count == 0)
+                        {
+                            MessageBox.Show(string.Format("{0}复合文件无MAX文件，请修改！", item.Name.Substring(0, item.Name.LastIndexOf('.'))));
+                            return;
+                        }
+                        else if (maxEntList.Count > 1)
+                        {
+                            MessageBox.Show(string.Format("{0}复合文件有{1}个MAX文件，请修改！", item.Name.Substring(0, item.Name.LastIndexOf('.')), maxEntList.Count));
+                            return;
+                        }
+                        else
+                        {
+                            var maxEnt = maxEntList.First();
+                            path = maxEnt.Serverip + maxEnt.Path;
+                        }
+                    }
+                    else
+                    {
+                        path = ent.Serverip + ent.Path;
+                    }
+                    ent.Usecount++;
+                    DataBase.Instance.tSRRC_Resource.Update(ent);
+                    if (path != "" && !list.Contains(path))
+                    {
+                        list.Add(path);
+                    }
+                }
+
+                if (list.Count > 0)
+                {
+                    (this.TopLevelControl as FrmFrame).WindowState = FormWindowState.Minimized;
+                    //Thread t = new Thread(new ThreadStart(ProcessHelper.AddAndDelNetUse));
+                    //t.Start();
+                    IDataObject poj = new DataObject(DataFormats.FileDrop, list.ToArray());
+                    poj.SetData(poj);
+                    this.listView1.DoDragDrop(poj, DragDropEffects.Copy);
+
+                }
+
+            }
+            else
+            {
+                this.listView1.DoDragDrop(this.listView1.SelectedItems, DragDropEffects.Move);
+            }
         }
 
         private void listView1_DragEnter(object sender, DragEventArgs e)

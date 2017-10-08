@@ -24,6 +24,15 @@ namespace ControlLibrary.Control
 
 
         List<string> waitLoadImageId = new List<string>();
+        Size[] imageSize = new Size[]
+        {
+            new Size(96,96),
+            new Size(128,128),
+            new Size(160,160),
+            new Size(192,192),
+            new Size(224,224),
+            new Size(256,256)
+        };
 
         MouseButtons _mouseDown;
         System.Windows.Forms.Timer selectedIndexChangedTimer = new System.Windows.Forms.Timer();
@@ -32,7 +41,7 @@ namespace ControlLibrary.Control
             InitializeComponent();
             this.listView1.View = View.LargeIcon;
             this.listView1.LargeImageList = new ImageList();
-            this.listView1.LargeImageList.ImageSize = new Size(96, 96);
+            this.listView1.LargeImageList.ImageSize = imageSize[0];
             this.listView1.ForeColor = Color.White;
 
             contextMenuStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -578,6 +587,7 @@ namespace ControlLibrary.Control
         }
         internal void BindData()
         {
+            if (faTabStrip1.Items.Count > 0) return;
             var lst = DataBase.Instance.tSRRC_UserImageBasket.Get_EntityCollection(
                  new OrderCollection<SRRC_UserImageBasketEntity.FiledType>() { new Order<SRRC_UserImageBasketEntity.FiledType>(SRRC_UserImageBasketEntity.FiledType.Id, OrderType.Desc) },
                  "[UserId]=[$userId$]", new DataParameter[] { new DataParameter("userId", Param.UserId) });
@@ -629,6 +639,7 @@ namespace ControlLibrary.Control
             }
             else
             {
+                e.Cancel = true;
                 return;
             }
         }
@@ -654,6 +665,24 @@ namespace ControlLibrary.Control
                 添加到ImageBasketTtoolStripMenuItem.Enabled = false;
                 添加到ImageBasketTtoolStripMenuItem.Available = false;
             }
+            if (this.listView1.LargeImageList.ImageSize == imageSize.First())
+            {
+                图片缩小ToolStripMenuItem.Enabled = false;
+                图片缩小ToolStripMenuItem.Available = false;
+            }
+            else if (this.listView1.LargeImageList.ImageSize == imageSize.Last())
+            {
+                图片放大ToolStripMenuItem.Enabled = false;
+                图片放大ToolStripMenuItem.Available = false;
+            }
+            else
+            {
+                图片缩小ToolStripMenuItem.Enabled = true;
+                图片缩小ToolStripMenuItem.Available = true;
+                图片放大ToolStripMenuItem.Enabled = true;
+                图片放大ToolStripMenuItem.Available = true;
+            }
+
         }
 
         private void 添加到ImageBasketTtoolStripMenuItem_EnabledChanged(object sender, EventArgs e)
@@ -666,6 +695,63 @@ namespace ControlLibrary.Control
             {
                 添加到ImageBasketTtoolStripMenuItem.Visible = false;
             }
+        }
+        public void Set搭配图像篮子()
+        {
+            foreach (FATabStripItem item in faTabStrip1.Items)
+            {
+                if (item.Title == "搭配")
+                {
+                    var lst = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL(
+                        String.Format(@"SELECT *
+                                        FROM [dbo].[SRRC_Resource]
+                                        WHERE id IN
+                                        (
+                                            SELECT Resource_id
+                                            FROM [dbo].[SRRC_Resourcebiaojirel]
+                                            WHERE Biaoji_id IN
+                                            (
+                                                SELECT id
+                                                FROM [dbo].[SRRC_Biaoji]
+                                                WHERE id IN
+                                                (
+                                                    SELECT Biaoji_id
+                                                    FROM [dbo].[SRRC_Resourcebiaojirel]
+                                                    WHERE Resource_id = {1}
+                                                )
+                                                      AND [isTongKuangGuanJianZi] = 1
+                                            )
+                                            INTERSECT
+                                            SELECT Resource_id
+                                            FROM [dbo].[SRRC_Resourcebiaojirel]
+                                            WHERE Biaoji_id = {0}
+                                        ) AND id <> {1};",
+                                          SROperation.Instance.LeftSelectedId, SROperation2.Instance.PicSelected.FirstOrDefault().Id));
+                    item.Tag = lst;
+                    if (faTabStrip1.SelectedItem == item)
+                    {
+                        faTabStrip1_TabStripItemSelectionChanged(new TabStripItemChangedEventArgs(
+                            item, FATabStripItemChangeTypes.Changed
+                        ));
+                    }
+                    else {
+                        faTabStrip1.SelectedItem = item;
+                    }
+
+                    Refresh();
+                    break;
+                }
+            }
+        }
+
+        private void 图片缩小ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.listView1.LargeImageList.ImageSize = imageSize[this.imageSize.ToList().IndexOf(this.listView1.LargeImageList.ImageSize) - 1];
+        }
+
+        private void 图片放大ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.listView1.LargeImageList.ImageSize = imageSize[this.imageSize.ToList().IndexOf(this.listView1.LargeImageList.ImageSize) + 1];
         }
     }
 }

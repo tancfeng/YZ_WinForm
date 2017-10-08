@@ -15,7 +15,7 @@ using SirdRoom.ManageSystem.Library.Data;
 namespace ControlLibrary.Control
 {
     public partial class Right : UserControl
-    {   
+    {
         //定义委托
         public delegate void PageClickHandle(object sender, MyEventArgs e);
         //定义事件
@@ -105,7 +105,7 @@ namespace ControlLibrary.Control
                         this.treeView1.Visible = true;
                         this.keyword1.Visible = false;
                         this.comboBox1.Visible = false;
-                        if(this.label1.Text == "" || this.label1.Text != SROperation.Instance.RightDtype)
+                        if (this.label1.Text == "" || this.label1.Text != SROperation.Instance.RightDtype)
                         { //
                             this.label1.Text = SROperation.Instance.RightDtype;
                             this.treeView1.Nodes.Clear();
@@ -120,7 +120,7 @@ namespace ControlLibrary.Control
                                     AddNodeData2(newNode, entList, item.Id);
                                 }
                             }
-                        }                        
+                        }
                     }
                     break;
                 case "Favorites":
@@ -170,8 +170,8 @@ namespace ControlLibrary.Control
             //清除已设置标记状态
             SetTreeNodeCheckStatus(this.treeView1.Nodes, false);
             if (dt == null || dt.Rows.Count == 0) return;
-            
-            foreach(DataRow dr in dt.Rows)
+
+            foreach (DataRow dr in dt.Rows)
             {
                 TreeNode[] tns = this.treeView1.Nodes.Find(dr["Id"].ToString(), true);
                 if (tns != null && tns.Length > 0)
@@ -206,22 +206,22 @@ namespace ControlLibrary.Control
                 {
                     TreeNode[] tns = this.treeView1.Nodes.Find(dr["Id"].ToString(), true);
                     if (tns != null && tns.Length > 0)
-                    {                       
+                    {
                         tns[0].Checked = true;
                     }
                 }
             }
         }
-        private void SetTreeNodeCheckStatus(TreeNodeCollection tnCollection,bool status)
+        private void SetTreeNodeCheckStatus(TreeNodeCollection tnCollection, bool status)
         {
-            foreach(TreeNode tn in tnCollection)
+            foreach (TreeNode tn in tnCollection)
             {
                 tn.Checked = status;
                 if (tn.Nodes != null)
                 {
                     SetTreeNodeCheckStatus(tn.Nodes, status);
                 }
-            }            
+            }
         }
         public void SetBiaoJiSatus(List<SRRC_ResourceEntity> entList)
         {
@@ -230,8 +230,8 @@ namespace ControlLibrary.Control
                 this.SetTreeview();
                 return;
             }
-            string str = "";            
-            foreach(SRRC_ResourceEntity ent in entList)
+            string str = "";
+            foreach (SRRC_ResourceEntity ent in entList)
             {
                 str += ent.Id + ",";
             }
@@ -253,7 +253,7 @@ namespace ControlLibrary.Control
 
         private void Left_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         //定义委托
@@ -262,7 +262,7 @@ namespace ControlLibrary.Control
         public event PageAfterHandle OnPageAftered;
 
         private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
-        {            
+        {
             if (OnPageAftered != null && e.Action != TreeViewAction.Unknown)
             {
                 OnPageAftered(sender, e);
@@ -288,7 +288,7 @@ namespace ControlLibrary.Control
         }
         private void 新建ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int  itreeid = this.GetLeftTreeviewSelectedId();
+            int itreeid = this.GetLeftTreeviewSelectedId();
             FrmFrame frm = new FrmFrame() { StartPosition = FormStartPosition.CenterScreen, Text = "添加", Width = 319, Height = 174 };
             Param.DPageParameter = "";
             frm.SetUserControl(new SirdRoom.ManageSystem.ClientApplication.Pages.Wordbook.Add() { Name = "Add" });
@@ -305,14 +305,14 @@ namespace ControlLibrary.Control
                     }
 
                     SRRC_BiaojiEntity ent1 = DataBase.Instance.tSRRC_Biaoji.Get_Entity(
-                        new KeyValueCollection<SRRC_BiaojiEntity.FiledType>() { new KeyValue<SRRC_BiaojiEntity.FiledType>(SRRC_BiaojiEntity.FiledType.Pid,itreeid)},
-                        new OrderCollection<SRRC_BiaojiEntity.FiledType>() { new Order<SRRC_BiaojiEntity.FiledType>(SRRC_BiaojiEntity.FiledType.OrderNum,OrderType.Desc)}
+                        new KeyValueCollection<SRRC_BiaojiEntity.FiledType>() { new KeyValue<SRRC_BiaojiEntity.FiledType>(SRRC_BiaojiEntity.FiledType.Pid, itreeid) },
+                        new OrderCollection<SRRC_BiaojiEntity.FiledType>() { new Order<SRRC_BiaojiEntity.FiledType>(SRRC_BiaojiEntity.FiledType.OrderNum, OrderType.Desc) }
                         );
                     ent.OrderNum = ent1 == null ? 0 : ent1.OrderNum + 1;
                     DataBase.Instance.tSRRC_Biaoji.Add(ent);
                     ent = DataBase.Instance.tSRRC_Biaoji.Get_Entity(guid);
-                    
-                    if (itreeid ==0)
+
+                    if (itreeid == 0)
                         this.treeView1.Nodes.Add(new TreeNode() { Tag = ent, Text = arrls[0], Name = ent.Id.ToString(), ImageKey = arrls[1], SelectedImageKey = arrls[1] });
                     else
                         this.treeView1.SelectedNode.Nodes.Add(new TreeNode() { Tag = ent, Text = arrls[0], Name = ent.Id.ToString(), ImageKey = arrls[1], SelectedImageKey = arrls[1] });
@@ -328,7 +328,7 @@ namespace ControlLibrary.Control
                 new SRFMessageBox("请选择要修改的节点！", "提示", MessageBoxButtons.OK).ShowDialog(); return;
             }
             FrmFrame frm = new FrmFrame() { StartPosition = FormStartPosition.CenterScreen, Text = "修改", Width = 319, Height = 174 };
-           SRRC_BiaojiEntity ent = DataBase.Instance.tSRRC_Biaoji.Get_Entity(itreeid);
+            SRRC_BiaojiEntity ent = DataBase.Instance.tSRRC_Biaoji.Get_Entity(itreeid);
             Param.DPageParameter =
                 String.Format("{0}|{1}", ent.Name, ent.Img);
             frm.SetUserControl(new SirdRoom.ManageSystem.ClientApplication.Pages.Wordbook.Add() { Name = "Add" });
@@ -340,7 +340,7 @@ namespace ControlLibrary.Control
                     DataBase.Instance.tSRRC_Biaoji.Update(
                         new KeyValueCollection<SRRC_BiaojiEntity.FiledType>() {
                         new KeyValue<SRRC_BiaojiEntity.FiledType>(SRRC_BiaojiEntity.FiledType.Name, arrls[0]) ,
-                        new KeyValue<SRRC_BiaojiEntity.FiledType>(SRRC_BiaojiEntity.FiledType.Img, arrls[1]) 
+                        new KeyValue<SRRC_BiaojiEntity.FiledType>(SRRC_BiaojiEntity.FiledType.Img, arrls[1])
                         },
                         " Id=[$Id$] ", new DataParameter("Id", itreeid));
                     this.treeView1.SelectedNode.Text = arrls[0];
@@ -353,7 +353,7 @@ namespace ControlLibrary.Control
         {
             int itreeid = 0;
             itreeid = this.GetLeftTreeviewSelectedId();
-            if (itreeid<=0)
+            if (itreeid <= 0)
             {
                 new SRFMessageBox("请选择要删除的子区！", "提示", MessageBoxButtons.OK).ShowDialog(); return;
             }
@@ -378,22 +378,22 @@ namespace ControlLibrary.Control
         }
 
         public void BindData()
-        {            
+        {
             if (Param.GroupId > 2) //员工及客户
             {
                 this.Study.Visible = false;
-                if(SROperation.Instance.RightDtype == "Study")
+                if (SROperation.Instance.RightDtype == "Study")
                 {
                     SROperation.Instance.RightDtype = "Favorites";
                 }
-                if(Param.GroupId == 4) //客户
+                if (Param.GroupId == 4) //客户
                 {
                     this.Favorites.Visible = false;
                     SROperation.Instance.RightDtype = "Keyword";
                 }
             }
 
-            foreach (KeyValuePair<string,Image> item in SROperation.Instance.IconList)
+            foreach (KeyValuePair<string, Image> item in SROperation.Instance.IconList)
             {
                 this.imageList1.Images.Add(item.Key, item.Value);
             }
@@ -418,7 +418,7 @@ namespace ControlLibrary.Control
         }
         public void RefreshKeyword()
         {
-            if(SROperation.Instance.RightDtype == "Keyword")
+            if (SROperation.Instance.RightDtype == "Keyword")
             {
                 this.keyword1.BindData();
             }
@@ -477,13 +477,13 @@ namespace ControlLibrary.Control
                             if (this.treeView1.SelectedNode.Parent == null)
                             {
                                 this.treeView1.Nodes.Remove(this.treeView1.SelectedNode);
-                                this.treeView1.Nodes.Insert(index, Node);  
+                                this.treeView1.Nodes.Insert(index, Node);
                             }
                             else
                             {
                                 this.treeView1.SelectedNode.Parent.Nodes.Remove(this.treeView1.SelectedNode);
-                                this.treeView1.SelectedNode.Parent.Nodes.Insert(index, Node);  
-                            }                          
+                                this.treeView1.SelectedNode.Parent.Nodes.Insert(index, Node);
+                            }
                         }
                     }
                     break;
@@ -506,12 +506,12 @@ namespace ControlLibrary.Control
                             if (this.treeView1.SelectedNode.Parent == null)
                             {
                                 this.treeView1.Nodes.Remove(this.treeView1.SelectedNode);
-                                this.treeView1.Nodes.Insert(index, Node);  
+                                this.treeView1.Nodes.Insert(index, Node);
                             }
                             else
                             {
                                 this.treeView1.SelectedNode.Parent.Nodes.Remove(this.treeView1.SelectedNode);
-                                this.treeView1.SelectedNode.Parent.Nodes.Insert(index, Node);  
+                                this.treeView1.SelectedNode.Parent.Nodes.Insert(index, Node);
                             }
                         }
                     }
@@ -549,14 +549,26 @@ namespace ControlLibrary.Control
                         }
                     }
                     break;
+                case "设为同款关键字":
+                    {
+                        if (this.treeView1.Visible == true && this.treeView1.SelectedNode != null)
+                        {
+                            var node = this.treeView1.SelectedNode;
+                            var ent = node.Tag as SRRC_BiaojiEntity;
+
+                            ent.isTongKuangGuanJianZi = !ent.isTongKuangGuanJianZi;
+                            DataBase.Instance.tSRRC_Biaoji.Update(ent);              
+                        }
+                    }
+                    break;
                 default:
                     break;
-            }            
+            }
         }
 
         private void keyword1_KeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.KeyData)
+            switch (e.KeyData)
             {
                 case Keys.F:
                     {
@@ -580,34 +592,36 @@ namespace ControlLibrary.Control
 
         private void contextMenuStrip1_VisibleChanged(object sender, EventArgs e)
         {
-            if(contextMenuStrip1.Visible)
+            if (contextMenuStrip1.Visible)
             {
                 if (this.treeView1.Visible == false)
                 {
-                    this.toolStripSeparator1.Visible = false;
-                    this.修改ToolStripMenuItem.Visible = false;
-                    this.新建ToolStripMenuItem.Visible = false;
-                    this.删除ToolStripMenuItem.Visible = false;
+                    this.toolStripSeparator1.Enabled = false;
+                    this.修改ToolStripMenuItem.Enabled = false;
+                    this.新建ToolStripMenuItem.Enabled = false;
+                    this.删除ToolStripMenuItem.Enabled = false;
 
-                    this.toolStripSeparator2.Visible = false;
-                    this.向上排列ToolStripMenuItem.Visible = false;
-                    this.向下排列ToolStripMenuItem.Visible = false;
+                    this.toolStripSeparator2.Enabled = false;
+                    this.向上排列ToolStripMenuItem.Enabled = false;
+                    this.向下排列ToolStripMenuItem.Enabled = false;
 
-                    this.toolStripSeparator3.Visible = false;
-                    this.智能关键字不显示ToolStripMenuItem.Visible = false;
-                    this.用户面板不显示ToolStripMenuItem.Visible = false;
-                    this.面板不显示ToolStripMenuItem.Visible = false;
+                    this.toolStripSeparator3.Enabled = false;
+                    this.智能关键字不显示ToolStripMenuItem.Enabled = false;
+                    this.用户面板不显示ToolStripMenuItem.Enabled = false;
+                    this.面板不显示ToolStripMenuItem.Enabled = false;
+                    this.设为同款关键字ToolStripMenuItem.Enabled = false;
                 }
                 else if (this.treeView1.SelectedNode == null) //未选择结点
                 {
-                    this.toolStripSeparator2.Visible = false;
-                    this.向上排列ToolStripMenuItem.Visible = false;
-                    this.向下排列ToolStripMenuItem.Visible = false;
+                    this.toolStripSeparator2.Enabled = false;
+                    this.向上排列ToolStripMenuItem.Enabled = false;
+                    this.向下排列ToolStripMenuItem.Enabled = false;
 
-                    this.toolStripSeparator3.Visible = false;
-                    this.智能关键字不显示ToolStripMenuItem.Visible = false;
-                    this.用户面板不显示ToolStripMenuItem.Visible = false;
-                    this.面板不显示ToolStripMenuItem.Visible = false;
+                    this.toolStripSeparator3.Enabled = false;
+                    this.智能关键字不显示ToolStripMenuItem.Enabled = false;
+                    this.用户面板不显示ToolStripMenuItem.Enabled = false;
+                    this.面板不显示ToolStripMenuItem.Enabled = false;
+                    this.设为同款关键字ToolStripMenuItem.Enabled = false;
                 }
                 else//选择了结点
                 {
@@ -615,6 +629,31 @@ namespace ControlLibrary.Control
                     this.智能关键字不显示ToolStripMenuItem.Checked = !ent.isShowKeyword;
                     this.面板不显示ToolStripMenuItem.Checked = !ent.isShowPanel;
                     this.用户面板不显示ToolStripMenuItem.Checked = !ent.isShowUserPanel;
+
+                    this.toolStripSeparator2.Enabled = true;
+                    this.向上排列ToolStripMenuItem.Enabled = true;
+                    this.向下排列ToolStripMenuItem.Enabled = true;
+
+                    this.toolStripSeparator3.Enabled = true;
+                    this.智能关键字不显示ToolStripMenuItem.Enabled = true;
+                    this.用户面板不显示ToolStripMenuItem.Enabled = true;
+                    this.面板不显示ToolStripMenuItem.Enabled = true;
+                    if (SROperation.Instance.LeftDtype == "Study" && Param.GroupId == 1)
+                    {
+                        this.设为同款关键字ToolStripMenuItem.Enabled = true;
+                    }
+                    else
+                    {
+                        this.设为同款关键字ToolStripMenuItem.Enabled = false;
+                    }
+                    if (ent.isTongKuangGuanJianZi)
+                    {
+                        this.设为同款关键字ToolStripMenuItem.Checked = true;
+                    }
+                    else
+                    {
+                        this.设为同款关键字ToolStripMenuItem.Checked = false;
+                    }
                 }
             }
         }
@@ -640,9 +679,9 @@ namespace ControlLibrary.Control
 
         private void treeView1_DrawNode(object sender, DrawTreeNodeEventArgs e)
         {
-            if(e.Node.StateImageIndex == 2)
+            if (e.Node.StateImageIndex == 2)
             {
-                e.Graphics.DrawLine(new Pen(SystemBrushes.WindowFrame), 19, e.Bounds.Y, 19, e.Bounds.Y+16);
+                e.Graphics.DrawLine(new Pen(SystemBrushes.WindowFrame), 19, e.Bounds.Y, 19, e.Bounds.Y + 16);
             }
             else
             {
@@ -650,9 +689,9 @@ namespace ControlLibrary.Control
             }
         }
 
-       private void treeView1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        private void treeView1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            if(e.Action == TreeViewAction.Unknown)
+            if (e.Action == TreeViewAction.Unknown)
             {
                 e.Cancel = true;
             }
@@ -661,10 +700,12 @@ namespace ControlLibrary.Control
         private void treeView1_MouseUp(object sender, MouseEventArgs e)
         {
             var node = this.treeView1.GetNodeAt(e.Location);
-            if(node == null)
+            if (node == null)
             {
                 this.treeView1.SelectedNode = null;
             }
         }
+
+       
     }
 }

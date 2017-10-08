@@ -30,7 +30,7 @@ namespace ControlLibrary.Control
         List<SRRC_ResourceEntity> staticEntList = null;//保存左边栏焦点原始查询结果，以便右边栏使用
         //图片列表
         List<Image> imageCollection = new List<Image>();
-       // private Image image1;
+        // private Image image1;
         BackgroundWorker BgWorker;
         //Clipboard存放的用于粘贴的文件列表
         String[] CopyFiles;
@@ -116,7 +116,7 @@ namespace ControlLibrary.Control
                 if (!isMouseWheelDoing)
                 {
                     SROperation2.Instance.isLoading = true;
-                    listViewLoadData.CancelAsync();                 
+                    listViewLoadData.CancelAsync();
                     SROperation2.Instance.Center1ImageDict.Clear();
                     listView1.Items.Clear();
                     if (entList == null)
@@ -160,11 +160,11 @@ namespace ControlLibrary.Control
                 }
                 else
                 {
-                    
+
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 SRLogHelper.Instance.AddLog("异常", "Center1", "SetData", ex.Message);
             }
@@ -173,8 +173,8 @@ namespace ControlLibrary.Control
                 SROperation2.Instance.isLoading = false;
                 //this.listView1.Refresh();
                 //this.listView1.Visible = true;
-                            
-            }            
+
+            }
         }
 
 
@@ -183,7 +183,7 @@ namespace ControlLibrary.Control
 #if debug
             SRLogHelper.Instance.AddLog("日志", DateTime.Now.ToString("mm:ss.ffff"));
 #endif
-#region 设置排序
+            #region 设置排序
             OrderCollection<SRRC_ResourceEntity.FiledType> orderBy = new OrderCollection<SRRC_ResourceEntity.FiledType>();
             //orderBy.Add(new Order<SRRC_ResourceEntity.FiledType>(SRRC_ResourceEntity.FiledType.Extend3, OrderType.Desc));//视图优先排序
             switch (SROperation.Instance.Orderby)
@@ -221,8 +221,8 @@ namespace ControlLibrary.Control
                 default:
                     break;
             }
-#endregion
-#region 左侧菜单操作、中间区域（center1,center2）
+            #endregion
+            #region 左侧菜单操作、中间区域（center1,center2）
             if (SROperation2.Instance.FocusPanel != "Right")
             {
                 Int32 id = SROperation.Instance.LeftSelectedId;
@@ -245,8 +245,8 @@ namespace ControlLibrary.Control
                                                 union all select SRRC_Resource.* from ta,SRRC_Resource where ta.Id=SRRC_Resource.Pid)
                                                 select * from ta where (Name + '.' + Extend1) like  '%" + SROperation.Instance.Keyword + "%' ";
 
-                                }                                    
-                                    staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriorityBySQL(sql, orderBy);
+                                }
+                                staticEntList = SROperation2.Instance.Center1EntList = entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionForViewPriorityBySQL(sql, orderBy);
                             }
                             else
                             {
@@ -330,9 +330,9 @@ namespace ControlLibrary.Control
 
                 // List<SRRC_ResourceEntity> entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollection(orderBy, strWhere, new DataParameter("Pid", id));
             }
-#endregion
+            #endregion
 
-#region Keyword面板操作
+            #region Keyword面板操作
             if (SROperation2.Instance.FocusPanel == "Right")
             {
                 if (SROperation2.Instance.KeywordFilter == null || SROperation2.Instance.KeywordFilter.Length == 0)//无关键字
@@ -352,7 +352,7 @@ namespace ControlLibrary.Control
                     {
                         entList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL("select * from SRRC_Resource where id in (SELECT Resource_id  FROM SRRC_Resourcebiaojirel  WHERE Biaoji_id IN (" + SROperation2.Instance.KeywordFilter + ")  GROUP BY Resource_id)");
                     }
-                    if(entList == null)
+                    if (entList == null)
                     {
                         SROperation2.Instance.Center1EntList = entList;
                     }
@@ -367,10 +367,12 @@ namespace ControlLibrary.Control
                         {
                             SROperation2.Instance.Center1EntList = entList = temp.ToList();
                         }
-                    }                                      
+                    }
                 }
             }
             #endregion
+
+
 
             SROperation2.Instance.entListCount = entList == null ? 0 : entList.Count;
             ImageLoadingTip = new bool[SROperation2.Instance.entListCount];
@@ -387,7 +389,7 @@ namespace ControlLibrary.Control
             #region 左侧菜单操作、中间区域（center1,center2）
             if (SROperation2.Instance.FocusPanel != "Right")
             {
-                Int32 id = SROperation.Instance.LeftSelectedId;                
+                Int32 id = SROperation.Instance.LeftSelectedId;
                 switch (SROperation.Instance.LeftDtype)
                 {
                     case "Resources":
@@ -567,7 +569,7 @@ namespace ControlLibrary.Control
                                 List<string> intersectSqls = new List<string>();
                                 foreach (var item in group)
                                 {
-                                    intersectSqls.Add(string.Format(@" select ResourceBiaoJiRelId from [dbo].[SRRC_ResourceBiaoJiRel_BiaoJiKeyword]  where BiaoJiKeywordId in ({0}) ",string.Join(",", item.Select(l => l.Id))));
+                                    intersectSqls.Add(string.Format(@" select ResourceBiaoJiRelId from [dbo].[SRRC_ResourceBiaoJiRel_BiaoJiKeyword]  where BiaoJiKeywordId in ({0}) ", string.Join(",", item.Select(l => l.Id))));
                                 }
                                 strWhere += String.Format(" and Id in( select Resource_id from dbo.SRRC_Resourcebiaojirel where id in ({0}))", string.Join("intersect", intersectSqls));
                             }
@@ -646,11 +648,11 @@ namespace ControlLibrary.Control
                         tempList = DataBase.Instance.tSRRC_Resource.Get_EntityCollectionBySQL("select * from SRRC_Resource where id in (SELECT Resource_id  FROM SRRC_Resourcebiaojirel  WHERE Biaoji_id IN (" + SROperation2.Instance.KeywordFilter + ")  GROUP BY Resource_id)");
                     }
                     if (tempList != null)
-                    {                    
+                    {
                         var temp = staticEntList.Intersect(tempList, new SRRC_ResourceEntity_EntityComparer());
                         if (temp == null)
                         {
-                           tempList = null;
+                            tempList = null;
                         }
                         else
                         {
@@ -766,7 +768,24 @@ namespace ControlLibrary.Control
                         break;
                 }
             }
-            
+            #region 同款关键字
+            if (SROperation.Instance.LeftDtype == "Study")
+            {
+                var lst = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_EntityCollection(null, "Biaoji_id=[$id$] and [TongKuanKeXian]=1",
+                     new DataParameter("id", SROperation.Instance.LeftSelectedId));
+                if (lst != null && lst.Count > 0)
+                {
+                    foreach (var item in lst)
+                    {
+                        var i = tempList.Find(r => r.Id == item.Resource_id);
+                        if (i != null)
+                        {
+                            i.HasMatch = true;
+                        }
+                    }
+                }
+            }
+            #endregion
             #endregion
             SROperation2.Instance.Center1EntList = entList = tempList;
             SROperation2.Instance.entListCount = entList == null ? 0 : entList.Count;
@@ -785,7 +804,7 @@ namespace ControlLibrary.Control
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //每次selectedItems 选项 发生变化时 都会 触发 ，特别是多选时，会触发多次
-            if(!selectedIndexChangedTimer.Enabled)
+            if (!selectedIndexChangedTimer.Enabled)
             {
                 selectedIndexChangedTimer.Start();
             }
@@ -814,6 +833,15 @@ namespace ControlLibrary.Control
                 }
                 if (SROperation2.Instance.PicSelected != null && SROperation2.Instance.PicSelected.Count > 0)
                     OnPageClicked(sender, new MyEventArgs() { Action = 3 });//把按钮自身作为参数传递
+
+                if(SROperation2.Instance.PicSelected != null && SROperation2.Instance.PicSelected.Count == 1)
+                {
+                    var ent = SROperation2.Instance.PicSelected.First();
+                    if (ent.HasMatch)
+                    {
+                        OnPageClicked(sender, new MyEventArgs() { Action = 8 });//显示搭配图像篮子
+                    }
+                }
             }
         }
         private void listView1_ItemDrag(object sender, ItemDragEventArgs e)
@@ -844,7 +872,7 @@ namespace ControlLibrary.Control
                             return;
                         }
                         else
-                        {                            
+                        {
                             var maxEnt = maxEntList.First();
                             path = maxEnt.Serverip + maxEnt.Path;
                         }
@@ -869,13 +897,13 @@ namespace ControlLibrary.Control
                     IDataObject poj = new DataObject(DataFormats.FileDrop, list.ToArray());
                     poj.SetData(poj);
                     this.listView1.DoDragDrop(poj, DragDropEffects.Copy);
-                   
+
                 }
 
             }
             else
             {
-                this.listView1.DoDragDrop(this.listView1.SelectedItems, DragDropEffects.Move);  
+                this.listView1.DoDragDrop(this.listView1.SelectedItems, DragDropEffects.Move);
             }
         }
 
@@ -894,7 +922,7 @@ namespace ControlLibrary.Control
 
                 }
                 else if (ent.Dtype == 1) //图片
-                {                    
+                {
                     OnPageClicked(lv.FocusedItem, new MyEventArgs() { Action = 1 });//把按钮自身作为参数传递
                 }
                 else
@@ -943,7 +971,7 @@ namespace ControlLibrary.Control
             foreach (SRRC_ResourceEntity ent in SROperation2.Instance.PicSelected)
             {
                 string path;
-                if(ent.Iscomposite) //复合文件
+                if (ent.Iscomposite) //复合文件
                 {
                     var item = DataBase.Instance.tSRRC_Resource.Get_Entity(ent.Pid);
                     if (item == null) continue;
@@ -957,10 +985,10 @@ namespace ControlLibrary.Control
                 }
                 ent.Usecount++;
                 DataBase.Instance.tSRRC_Resource.Update(ent);
-                if(!sc.Contains(path))
+                if (!sc.Contains(path))
                 {
                     sc.Add(path);
-                }                
+                }
             }
 
             if (sc.Count > 0)
@@ -969,7 +997,7 @@ namespace ControlLibrary.Control
                 //t.Start();
                 Clipboard.SetFileDropList(sc);
 
-            }             
+            }
 
         }
 
@@ -1015,8 +1043,8 @@ namespace ControlLibrary.Control
             Point pt = this.listView1.PointToClient(MousePosition);
             bool isMouseIn = this.listView1.Bounds.Contains(pt);
 
-            if(this.isTarget && isMouseIn)//是拖放的目标
-            {                
+            if (this.isTarget && isMouseIn)//是拖放的目标
+            {
                 if (CopyFiles != null && CopyFiles.Length > 0)
                 {
                     if (CopyFiles.Any(o => o.StartsWith("\\\\"))) return;
@@ -1027,7 +1055,8 @@ namespace ControlLibrary.Control
                     }
                     BgWorkerInit();
                 }
-            }else if(!this.isTarget && !isMouseIn)
+            }
+            else if (!this.isTarget && !isMouseIn)
             {
                 List<string> list = new List<string>();
                 foreach (ListViewItem lvi in this.listView1.SelectedItems)
@@ -1039,7 +1068,7 @@ namespace ControlLibrary.Control
                         var item = DataBase.Instance.tSRRC_Resource.Get_Entity(ent.Pid);
                         if (item == null) continue;
                         item.Usecount++;
-                        DataBase.Instance.tSRRC_Resource.Update(item);                        
+                        DataBase.Instance.tSRRC_Resource.Update(item);
                         path = item.Serverip + item.Path;
                     }
                     else
@@ -1066,7 +1095,7 @@ namespace ControlLibrary.Control
         }
         private void listView1_DragDrop(object sender, DragEventArgs e)
         {
-            
+
             if (!e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 return;
@@ -1084,10 +1113,10 @@ namespace ControlLibrary.Control
             }
         }
 
-#region 复制文件后台操作
+        #region 复制文件后台操作
         private void BgWorkerInit()
         {
-            
+
             ThumbWidth = Convert.ToInt32(SRConfig.Instance.GetAppString("ThumbWidth"));
             ThumbHeight = Convert.ToInt32(SRConfig.Instance.GetAppString("ThumbHeight"));
 
@@ -1109,9 +1138,9 @@ namespace ControlLibrary.Control
             frm.SetUserControl(bar);
             frm.StartPosition = FormStartPosition.CenterScreen;
 
-            BgWorker.RunWorkerAsync();            
+            BgWorker.RunWorkerAsync();
             frm.ShowDialog(this);
-            
+
         }
 
         private void BgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1141,16 +1170,16 @@ namespace ControlLibrary.Control
                     countSum += Directory.GetFiles(file, "*.*", SearchOption.AllDirectories).Length;
                 }
             }
-            
+
             int count = 0;
             Copy(baseEnt, CopyFiles, ref count);
         }
 
-       
+
 
         private void Copy(SRRC_ResourceEntity parentEnt, string[] files, ref int count)
         {
-       
+
             foreach (string file in files)
             {
                 if (File.Exists(file)) //判断是否是文件
@@ -1209,9 +1238,9 @@ namespace ControlLibrary.Control
         /// <param name="parentEnt">目录</param>
         /// <param name="file">要复制的文件名</param>
         /// <param name="count">当前已复制的个数</param>
-        private void CopyFile(SRRC_ResourceEntity parentEnt,string file,ref int count)
+        private void CopyFile(SRRC_ResourceEntity parentEnt, string file, ref int count)
         {
-            
+
             SRRC_ResourceEntity ent;
             FileInfo fi = new FileInfo(file);
             string name = fi.Name;
@@ -1222,28 +1251,28 @@ namespace ControlLibrary.Control
             int height = 0;
             //复制
             File.Copy(file, parentEnt.Serverip + path, true);
-            
+
             //图片生成缩略图，删除本地缓存
-            if(SRConfig.Instance.GetAppString("ImageExt").Contains(fi.Extension.Trim('.').ToLower()))
+            if (SRConfig.Instance.GetAppString("ImageExt").Contains(fi.Extension.Trim('.').ToLower()))
             {
                 type = 1;
-                using (new IdentityScope(Param.ServerIP.Description,Param.ServerIP.Remark,Param.ServerIP.Title))
+                using (new IdentityScope(Param.ServerIP.Description, Param.ServerIP.Remark, Param.ServerIP.Title))
                 {
                     SirdRoom.ManageSystem.Library.Common.Image.ImageOperation.CreateThumb(
                           parentEnt.Serverip + path
                           , parentEnt.Serverip.Replace(Param.IP, Param.ServerCacheIP.Trim('\\')) + path
                           , ThumbWidth, ThumbHeight);
                 }
-                    
+
                 Image im = Bitmap.FromFile(file);
                 width = im.Width;
                 height = im.Height;
             }
-            
+
             ent = DataBase.Instance.tSRRC_Resource.Get_Entity("ServerIP=[$ip$] and Path=[$path$]"
                 , new DataParameter("ip", parentEnt.Serverip)
                 , new DataParameter("path", path));
-            if(ent == null)
+            if (ent == null)
             {
                 //新增
                 ent = new SRRC_ResourceEntity()
@@ -1251,11 +1280,11 @@ namespace ControlLibrary.Control
                     Addtime = DateTime.Now,
                     Pid = parentEnt.Id,
                     Name = fi.Name,
-                    Dtype=type,
+                    Dtype = type,
                     Serverip = parentEnt.Serverip,
-                    Path=path,
+                    Path = path,
                     Extend1 = fi.Extension.Trim('.'),
-                    Extend2 = type == 1? width + "*" + height:"",
+                    Extend2 = type == 1 ? width + "*" + height : "",
                     Filesize = fi.Length
                 };
                 DataBase.Instance.tSRRC_Resource.Add(ent);
@@ -1275,7 +1304,7 @@ namespace ControlLibrary.Control
             this.BgWorker.CancelAsync();
             this.BgWorker.Dispose();
         }
-#endregion
+        #endregion
 
         private void listView1_DragEnter(object sender, DragEventArgs e)
         {
@@ -1286,14 +1315,14 @@ namespace ControlLibrary.Control
             }
             else
             {
-                CopyFiles = (string[])e.Data.GetData(DataFormats.FileDrop);    
+                CopyFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
             }
         }
 
         private void listView1_MouseDown(object sender, MouseEventArgs e)
         {
             this._mouseDown = e.Button;
-            if(listView1.HitTest(e.Location).Item == null)
+            if (listView1.HitTest(e.Location).Item == null)
             {
                 OnPageClicked(sender, new MyEventArgs() { Action = 2 });
             }            
@@ -1309,11 +1338,11 @@ namespace ControlLibrary.Control
             using (new IdentityScope(Param.ServerIP.Description,
                                 Param.ServerIP.Remark,
                                 Param.ServerIP.Title))
-            {                
+            {
                 Image image = Image.FromFile(path);
                 //MemoryStream ms = SirdRoom.ManageSystem.Library.Common.Image.ImageOperation.CreateThumb(path, 256, 256);
                 MemoryStream ms = new MemoryStream();
-                image.Save(ms,image.RawFormat);
+                image.Save(ms, image.RawFormat);
                 if (ms == null) return;
                 image = Image.FromStream(ms);
                 //image.Save(@"C:\Users\tanche\Desktop\New folder (3)\" + key + ".jpg");
@@ -1321,19 +1350,19 @@ namespace ControlLibrary.Control
                 listView1.Invoke(new SetImageListDelegate(SetImageList), key, image);
             }
         }
-       public void SetImageList(string key,Image image)
+        public void SetImageList(string key, Image image)
         {
             //if(listView1.Items.ContainsKey(key) && !SROperation2.Instance.Center1ImageDict.ContainsKey(key))
             //{               
-                //SROperation2.Instance.Center1ImageDict.Add(key, image);
-                ListViewItem lvi = listView1.Items.Find(key, true)[0];
-                listView1.RedrawItems(lvi.Index, lvi.Index, true);               
+            //SROperation2.Instance.Center1ImageDict.Add(key, image);
+            ListViewItem lvi = listView1.Items.Find(key, true)[0];
+            listView1.RedrawItems(lvi.Index, lvi.Index, true);
             //}      
         }
         private void listView1_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
             //
-            if(ImageLoadingTip.Length != (sender as ListView).Items.Count)
+            if (ImageLoadingTip.Length != (sender as ListView).Items.Count)
             {
                 return;
             }
@@ -1355,7 +1384,7 @@ namespace ControlLibrary.Control
             //SRLogHelper.Instance.AddLog("日志", "DrawItem," + e.Item.Name + "," + DateTime.Now.ToString("ss.ffff"));
 
             //大图标，图片，未加载，图像字典中不包含。使用未加载是因为图像已提交加载，但未加载完成时，预防再次提交而使用。
-            if (listView1.View == View.LargeIcon && e.Item.ImageKey == "image" && !ImageLoadingTip[e.ItemIndex] 
+            if (listView1.View == View.LargeIcon && e.Item.ImageKey == "image" && !ImageLoadingTip[e.ItemIndex]
                 && !SROperation2.Instance.Center1ImageDict.ContainsKey(ent.Id.ToString())) //图片类型，未加载图片
             {
                 ImageLoadingTip[e.ItemIndex] = true;
@@ -1364,12 +1393,12 @@ namespace ControlLibrary.Control
                 SROperation2.Instance.Center1ImageBlockingCollection.Add(new KeyValuePair<string, string>(ent.Id.ToString(), ent.Serverip.Replace(Param.IP, Param.ServerCacheIP.Trim('\\')) + ent.Path));
                 e.DrawDefault = true;
             }
-            else 
+            else
             {
                 try
                 {
                     Image image1;
-                    if(SROperation2.Instance.Center1ImageDict.ContainsKey(ent.Id.ToString()))
+                    if (SROperation2.Instance.Center1ImageDict.ContainsKey(ent.Id.ToString()))
                     {
                         image1 = SROperation2.Instance.Center1ImageDict[ent.Id.ToString()];
                     }
@@ -1384,61 +1413,94 @@ namespace ControlLibrary.Control
                     if ((e.State & ListViewItemStates.Selected) != 0 && e.Item.Selected)
                     {
                         e.Graphics.FillRectangle(new SolidBrush(Color.Gray), e.Bounds);
-                        
-                            Rectangle re = new Rectangle(e.Bounds.X + (e.Bounds.Width - size.Width) / 2, e.Bounds.Y + 2, size.Width, size.Height);
-                            e.Graphics.DrawImage(image1, re);
 
-                            //绘制次数
-                            re = new Rectangle(re.X, re.Y + (re.Height - listView1.Font.Height + 2), re.Width, listView1.Font.Height + 2);
-                            //e.Graphics.FillRectangle(new SolidBrush(Color.Silver), re);
-                            e.Graphics.DrawString((e.Item.Tag as SRRC_ResourceEntity).Usecount.ToString(), listView1.Font, new SolidBrush(Color.Red), re, new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
-                        if(ent.Iscomposite)
+                        Rectangle re = new Rectangle(e.Bounds.X + (e.Bounds.Width - size.Width) / 2, e.Bounds.Y + 2, size.Width, size.Height);
+                        e.Graphics.DrawImage(image1, re);
+
+                        //绘制次数
+                        var re1 = new Rectangle(re.X, re.Y + (re.Height - listView1.Font.Height + 2), re.Width, listView1.Font.Height + 2);
+                        //e.Graphics.FillRectangle(new SolidBrush(Color.Silver), re);
+                        e.Graphics.DrawString((e.Item.Tag as SRRC_ResourceEntity).Usecount.ToString(), listView1.Font, new SolidBrush(Color.Red), re1, new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
+                        if (ent.Iscomposite)
                         {
-                            e.Graphics.DrawString("*", listView1.Font, new SolidBrush(Color.Red), re, new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
+                            e.Graphics.DrawString("*", listView1.Font, new SolidBrush(Color.Red), re1, new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
+                        }
+                        if (ent.HasMatch)
+                        {
+                            re1 = new Rectangle(e.Bounds.X, e.Bounds.Y + 2, e.Bounds.Width, listView1.Font.Height + 2);
+                            e.Graphics.DrawString("找搭配", listView1.Font, new SolidBrush(Color.Red), re1, new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
                         }
                     }
                     else
                     {
-                            Rectangle re = new Rectangle(e.Bounds.X + (e.Bounds.Width - size.Width) / 2, e.Bounds.Y + 2, size.Width, size.Height);
-                            e.Graphics.DrawImage(image1, re);
-                            //绘制次数
-                            re = new Rectangle(re.X, re.Y + (re.Height - listView1.Font.Height + 2), re.Width, listView1.Font.Height + 2);
-                            //e.Graphics.FillRectangle(new SolidBrush(Color.Silver), re);
-                            e.Graphics.DrawString((e.Item.Tag as SRRC_ResourceEntity).Usecount.ToString(), listView1.Font, new SolidBrush(Color.Red), re, new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
+                        Rectangle re = new Rectangle(e.Bounds.X + (e.Bounds.Width - size.Width) / 2, e.Bounds.Y + 2, size.Width, size.Height);
+                        e.Graphics.DrawImage(image1, re);
+                        //绘制次数
+                        var re1 = new Rectangle(re.X, re.Y + (re.Height - listView1.Font.Height + 2), re.Width, listView1.Font.Height + 2);
+                        //e.Graphics.FillRectangle(new SolidBrush(Color.Silver), re);
+                        e.Graphics.DrawString((e.Item.Tag as SRRC_ResourceEntity).Usecount.ToString(), listView1.Font, new SolidBrush(Color.Red), re1, new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
                         if (ent.Iscomposite)
                         {
-                            e.Graphics.DrawString("*", listView1.Font, new SolidBrush(Color.Red), re, new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
+                            e.Graphics.DrawString("*", listView1.Font, new SolidBrush(Color.Red), re1, new StringFormat() { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center });
+                        }
+                        if (ent.HasMatch)
+                        {
+                            re1 = new Rectangle(e.Bounds.X, e.Bounds.Y + 2, e.Bounds.Width, listView1.Font.Height + 2);
+                            e.Graphics.DrawString("找搭配", listView1.Font, new SolidBrush(Color.Red), re1, new StringFormat() { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Center });
                         }
                     }
-                    e.DrawText(TextFormatFlags.Bottom | TextFormatFlags.HorizontalCenter);                   
+                    e.DrawText(TextFormatFlags.Bottom | TextFormatFlags.HorizontalCenter);
                 }
                 catch (Exception ex)
                 {
-                    SRLogHelper.Instance.AddLog("异常","Center1","DrawItem", ex.Message);
+                    SRLogHelper.Instance.AddLog("异常", "Center1", "DrawItem", ex.Message);
                 }
             }
-                       
+
         }
         #endregion
         private void contextMenuStrip1_VisibleChanged(object sender, EventArgs e)
         {
-            if(contextMenuStrip1.Visible)
+            if (contextMenuStrip1.Visible)
             {
                 if ((SROperation2.Instance.PicSelected != null) && (SROperation2.Instance.PicSelected.Count > 0))
                 {
-                   foreach(SRRC_ResourceEntity ent in SROperation2.Instance.PicSelected)
+                    foreach (SRRC_ResourceEntity ent in SROperation2.Instance.PicSelected)
                     {
                         if (String.IsNullOrEmpty(ent.Extend3)) //视图优先排列标记
                         {
                             this.视图优先排列ToolStripMenuItem.Checked = false;
-                            return;
+                            //return;
                         }
-                          
-                    }
-                    this.视图优先排列ToolStripMenuItem.Checked = true;
+                        if (ent.HasMatch)
+                        {
+                            this.设为同款可显示ToolStripMenuItem.Checked = true;
+                            //return;
+                        }
+                        else
+                        {
+                            this.设为同款可显示ToolStripMenuItem.Checked = false;
+                            //return;
+                        }
+                    }                   
                 }
-
-                if(Param.GroupId > 2)
+                else
+                {
+                     this.视图优先排列ToolStripMenuItem.Checked = true;
+                }
+                if (SROperation.Instance.LeftDtype != "Study" || SROperation2.Instance.PicSelected == null || SROperation2.Instance.PicSelected.Count == 0)
+                {
+                    this.设为同款可显示ToolStripMenuItem.Available = false;
+                    this.设为同款可显示ToolStripMenuItem.Visible = false;
+                    this.设为同款可显示ToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    this.设为同款可显示ToolStripMenuItem.Available = true;
+                    this.设为同款可显示ToolStripMenuItem.Visible = true;
+                    this.设为同款可显示ToolStripMenuItem.Enabled = true;
+                }
+                if (Param.GroupId > 2)
                 {
                     this.复制toolStripMenuItem.Available = false;
                     this.粘贴toolStripMenuItem.Available = false;
@@ -1447,6 +1509,7 @@ namespace ControlLibrary.Control
                     this.使用次数ToolStripMenuItem.Available = false;
                     this.跳转到原始微缩图ToolStripMenuItem.Available = false;
                     this.跳转到原始目录ToolStripMenuItem.Available = false;
+                    this.设为同款可显示ToolStripMenuItem.Available = false;
 
                     this.复制toolStripMenuItem.Visible = false;
                     this.粘贴toolStripMenuItem.Visible = false;
@@ -1455,6 +1518,7 @@ namespace ControlLibrary.Control
                     this.使用次数ToolStripMenuItem.Visible = false;
                     this.跳转到原始微缩图ToolStripMenuItem.Visible = false;
                     this.跳转到原始目录ToolStripMenuItem.Visible = false;
+                    this.设为同款可显示ToolStripMenuItem.Visible = false;
 
                     this.复制toolStripMenuItem.Enabled = false;
                     this.粘贴toolStripMenuItem.Enabled = false;
@@ -1463,8 +1527,10 @@ namespace ControlLibrary.Control
                     this.使用次数ToolStripMenuItem.Enabled = false;
                     this.跳转到原始微缩图ToolStripMenuItem.Enabled = false;
                     this.跳转到原始目录ToolStripMenuItem.Enabled = false;
+                    this.设为同款可显示ToolStripMenuItem.Enabled = false;
 
                 }
+
             }
         }
 
@@ -1532,7 +1598,7 @@ namespace ControlLibrary.Control
                     litem.Text = item.Name;
                     litem.Tag = item;
                     arr[i].Add(litem);
-                    if(arr[i].Count == _listViewLoadDataOnceCount)
+                    if (arr[i].Count == _listViewLoadDataOnceCount)
                     {
                         bw.ReportProgress(i, arr[i]);
                         i++;
@@ -1540,7 +1606,7 @@ namespace ControlLibrary.Control
                     }
                 }
             }
-            if(arr[i].Count > 0)
+            if (arr[i].Count > 0)
             {
                 bw.ReportProgress(i, arr[i]);
             }
@@ -1580,6 +1646,29 @@ namespace ControlLibrary.Control
             }
             #endregion
             (this.ParentForm as FrmMain).SetLoadStatus();
+        }
+
+        private void 设为同款可显示ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = SROperation2.Instance.PicSelected.First();
+            item.HasMatch = !item.HasMatch;
+            var ent = DataBase.Instance.tSRRC_Resourcebiaojirel.Get_Entity(new KeyValueCollection<SRRC_ResourcebiaojirelEntity.FiledType>()
+            {
+                new KeyValue<SRRC_ResourcebiaojirelEntity.FiledType>(SRRC_ResourcebiaojirelEntity.FiledType.Biaoji_id,SROperation.Instance.LeftSelectedId),
+                new KeyValue<SRRC_ResourcebiaojirelEntity.FiledType>(SRRC_ResourcebiaojirelEntity.FiledType.Resource_id,item.Id)
+            });
+            ent.TongKuanKeXian = !ent.TongKuanKeXian;
+            DataBase.Instance.tSRRC_Resourcebiaojirel.Update(ent);
+            var lst = this.listView1.Items.Find(item.Id.ToString(), false);
+            if(lst != null && lst.Length > 0)
+            {
+                Invalidate(lst.First().Bounds);
+                Refresh();
+            }
+            if (item.HasMatch)
+            {
+                OnPageClicked(sender, new MyEventArgs() { Action = 8 });//显示搭配图像篮子
+            }
         }
     }
 }

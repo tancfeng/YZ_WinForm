@@ -35,6 +35,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.设为同款关键字ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.展开下列所有节目ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关闭下列所有节目ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关闭所有ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,6 +112,7 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.设为同款关键字ToolStripMenuItem,
             this.展开下列所有节目ToolStripMenuItem,
             this.关闭下列所有节目ToolStripMenuItem,
             this.关闭所有ToolStripMenuItem,
@@ -126,8 +128,16 @@
             this.面板不显示ToolStripMenuItem,
             this.智能关键字不显示ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(225, 308);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(225, 362);
             this.contextMenuStrip1.VisibleChanged += new System.EventHandler(this.contextMenuStrip1_VisibleChanged);
+            // 
+            // 设为同款关键字ToolStripMenuItem
+            // 
+            this.设为同款关键字ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.设为同款关键字ToolStripMenuItem.Name = "设为同款关键字ToolStripMenuItem";
+            this.设为同款关键字ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.设为同款关键字ToolStripMenuItem.Text = "设为同款关键字";
+            this.设为同款关键字ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // 展开下列所有节目ToolStripMenuItem
             // 
@@ -414,5 +424,6 @@
         private System.Windows.Forms.ToolStripMenuItem 智能关键字不显示ToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ToolStripMenuItem 设为同款关键字ToolStripMenuItem;
     }
 }
